@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var camera_3d: Camera3D = $Head/Eyes/Camera3D
 @onready var standing_collision_shape: CollisionShape3D = $StandingCollisionShape
 @onready var crouching_collision_shape: CollisionShape3D = $CrouchingCollisionShape
+@onready var interaction_controller: Node = $InteractionController
 @onready var standup_check: RayCast3D = $StandupCheck
 
 # Movement Variables
@@ -61,8 +62,8 @@ func _input(event: InputEvent) -> void:
 	if get_tree().paused:
 		return
 	if event is InputEventMouseMotion:
-		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivty))
-		head.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivty))
+		rotation.y -= deg_to_rad(event.relative.x * mouse_sensitivty)
+		head.rotation.x -= deg_to_rad(event.relative.y * mouse_sensitivty)
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 
 

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dujs1mw3g2s5q"]
+
+[ext_resource type="Script" uid="uid://1sk2mwtg8ep3" path="res://interaction/interaction_component.gd" id="1_wutrw"]
+
+[node name="InteractionComponent" type="Node"]
+script = ExtResource("1_wutrw")
