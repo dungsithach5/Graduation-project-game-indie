@@ -1,23 +1,46 @@
 extends Node
 
 enum InteractionType {
-	DEFAULT
+	DEFAULT,
+	DOOR,
+	SWITCH,
+	WHEEL
 }
 
 @export var object_ref: Node3D
 @export var interaction_type: InteractionType = InteractionType.DEFAULT
+@export var maximum_rotation: float = 90
+@export var pivot_point: Node3D
 
 var can_interact: bool = true
 var is_interacting: bool = false
+var lock_camera: bool = false
+var starting_rotation: float
+var is_front: bool
 
 var player_hand: Marker3D
+var camera: Camera3D
 
+func _ready():
+	match interaction_type:
+		InteractionType.DOOR:
+			starting_rotation = pivot_point.rotation.x
+			maximum_rotation = deg_to_rad(rad_to_deg(starting_rotation) + maximum_rotation)
+		InteractionType.SWITCH:
+			starting_rotation = object_ref.rotation.z
+			maximum_rotation = deg_to_rad(rad_to_deg(starting_rotation) + maximum_rotation)
+		InteractionType.WHEEL:
+			starting_rotation = object_ref.rotation.z
+			maximum_rotation = deg_to_rad(rad_to_deg(starting_rotation) + maximum_rotation)
+			camera = get_tree().get_current_scene().find_child("Camera3D", true, false)
 # run once, when the player FISRT clicks on an object is interact with
 func preInteract(hand: Marker3D) -> void:
 	is_interacting = true
 	match interaction_type:
 		InteractionType.DEFAULT:
 			player_hand = hand
+		InteractionType.DOOR:
+			lock_camera = true
 
 # run every frame, perform some logic on this object
 func interact() -> void:
@@ -35,11 +58,20 @@ func auxInteract() -> void:
 
 # runs once, when the player LAST interacts with an object 
 func postInteract() -> void:
-	# is_interacting = false
-	return
+	is_interacting = false
+	lock_camera = false
 
 func _input(event: InputEvent) -> void:
-	pass
+	if is_interacting:
+		match interaction_type:
+			InteractionType.DOOR:
+				if event is InputEventMouseMotion:
+					if is_front:
+						pivot_point.rotate_y(-event.relative.y * .001)
+					else:
+						pivot_point.rotate_y(event.relative.y * .001)
+
+				pivot_point.rotation.y = clamp(pivot_point.rotation.y, starting_rotation, maximum_rotation)
 
 func _default_interact() -> void:
 	var object_current_position: Vector3 = object_ref.global_transform.origin
@@ -68,3 +100,9 @@ func _default_throw() -> void:
 		can_interact = false
 		await get_tree().create_timer(2.0).timeout
 		can_interact = true
+
+func set_direction(_normal: Vector3) -> void:
+	if _normal.z == 0:
+		is_front = true
+	else:
+		is_front = false

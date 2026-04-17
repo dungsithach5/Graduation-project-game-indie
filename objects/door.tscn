@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://l7y4ljp02b1a"]
+
+[ext_resource type="PackedScene" uid="uid://dujs1mw3g2s5q" path="res://interaction/interaction_component.tscn" id="1_j7xx1"]
+[ext_resource type="Texture2D" uid="uid://b77xjb66ff4l" path="res://kenney_prototype-textures/PNG/Purple/texture_01.png" id="2_khffo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4hvcy"]
+albedo_texture = ExtResource("2_khffo")
+
+[sub_resource type="BoxMesh" id="BoxMesh_87mug"]
+size = Vector3(1.6, 2.6, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_encw8"]
+albedo_texture = ExtResource("2_khffo")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fv6im"]
+size = Vector3(1.6, 2.6, 0.1)
+
+[node name="Door" type="Node3D"]
+
+[node name="PivotPoint" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Door" type="StaticBody3D" parent="PivotPoint"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PivotPoint/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.3, 0)
+material_override = SubResource("StandardMaterial3D_4hvcy")
+mesh = SubResource("BoxMesh_87mug")
+surface_material_override/0 = SubResource("StandardMaterial3D_encw8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PivotPoint/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.3, 0)
+shape = SubResource("BoxShape3D_fv6im")
+
+[node name="InteractionComponent" parent="PivotPoint/Door" node_paths=PackedStringArray("object_ref", "pivot_point") instance=ExtResource("1_j7xx1")]
+object_ref = NodePath("..")
+interaction_type = 1
+maximum_rotation = 136.0
+pivot_point = NodePath("../..")
+
+[node name="Label" type="Label3D" parent="PivotPoint/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.80847216, 2.27878, 0.06681067)
+text = "FRONT"
+
+[node name="Label2" type="Label3D" parent="PivotPoint/Door"]
+transform = Transform3D(-0.99994296, 0, -0.0106811, 0, 1, 0, 0.0106811, 0, -0.99994296, 0.80847216, 2.27878, -0.089574695)
+text = "BACK"

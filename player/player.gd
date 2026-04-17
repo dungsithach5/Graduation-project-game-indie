@@ -62,9 +62,10 @@ func _input(event: InputEvent) -> void:
 	if get_tree().paused:
 		return
 	if event is InputEventMouseMotion:
-		rotation.y -= deg_to_rad(event.relative.x * mouse_sensitivty)
-		head.rotation.x -= deg_to_rad(event.relative.y * mouse_sensitivty)
-		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-85), deg_to_rad(85))
+		if not interaction_controller.isCameraLocked():
+			rotation.y -= deg_to_rad(event.relative.x * mouse_sensitivty)
+			head.rotation.x -= deg_to_rad(event.relative.y * mouse_sensitivty)
+			head.rotation.x = clamp(head.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 
 
 func _physics_process(delta: float) -> void:
