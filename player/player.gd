@@ -1,4 +1,7 @@
 extends CharacterBody3D
+
+class_name Player
+
 @onready var head: Node3D = $Head
 @onready var eyes: Node3D = $Head/Eyes
 @onready var camera_3d: Camera3D = $Head/Eyes/Camera3D

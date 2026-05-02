@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://oxy2i3qk8vhc"]
+[gd_scene load_steps=5 format=3 uid="uid://oxy2i3qk8vhc"]
 
 [ext_resource type="PackedScene" uid="uid://cuc25o7cw8f8o" path="res://NPCS/character_male_greenjacket_rigged.glb" id="1_r57si"]
+[ext_resource type="Script" uid="uid://bhsqic57fwlwd" path="res://NPCS/sketchfab_scene.gd" id="2_gtk6r"]
+[ext_resource type="PackedScene" uid="uid://dujs1mw3g2s5q" path="res://interaction/interaction_component.tscn" id="3_rbp7e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gtk6r"]
+size = Vector3(1, 3.868988, 1)
 
 [node name="Sketchfab_Scene" instance=ExtResource("1_r57si")]
+script = ExtResource("2_gtk6r")
 
 [node name="Skeleton3D" parent="Sketchfab_model/f09a712ca05e4255af743803652e579a_fbx/Object_2/RootNode/Object_4" index="0"]
 bones/1/position = Vector3(0.07711692, 101.66946, 0.09577966)
@@ -29,3 +35,12 @@ bones/24/rotation = Quaternion(0.32426363, -0.014740113, 0.0050533824, 0.9458384
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "mixamo_com"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9211183, 0)
+shape = SubResource("BoxShape3D_gtk6r")
+
+[node name="InteractionComponent" parent="StaticBody3D" index="1" instance=ExtResource("3_rbp7e")]
+interaction_type = 4

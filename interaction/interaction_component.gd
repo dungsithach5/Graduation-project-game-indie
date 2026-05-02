@@ -4,7 +4,8 @@ enum InteractionType {
 	DEFAULT,
 	DOOR,
 	SWITCH,
-	WHEEL
+	WHEEL,
+	NPC
 }
 
 @export var object_ref: Node3D
@@ -41,6 +42,8 @@ func preInteract(hand: Marker3D) -> void:
 			player_hand = hand
 		InteractionType.DOOR:
 			lock_camera = true
+		InteractionType.NPC:
+			Dialogic.start("timeline")
 
 # run every frame, perform some logic on this object
 func interact() -> void:
