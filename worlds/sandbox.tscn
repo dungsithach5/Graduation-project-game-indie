@@ -1,6 +1,6 @@
 [gd_scene load_steps=34 format=3 uid="uid://co8uqf1a5mvh8"]
 
-[ext_resource type="Script" uid="uid://d2rvejf23trn2" path="res://world/sandbox.gd" id="1_7he1i"]
+[ext_resource type="Script" uid="uid://d2rvejf23trn2" path="res://worlds/sandbox.gd" id="1_7he1i"]
 [ext_resource type="PackedScene" uid="uid://550ipykvxg0" path="res://player/player.tscn" id="2_whpuv"]
 [ext_resource type="PackedScene" uid="uid://y4ikeieteq7g" path="res://menu/pause_menu.tscn" id="3_85hcc"]
 [ext_resource type="PackedScene" uid="uid://b7qq714ywsosk" path="res://models/objects/cube_1_kg.tscn" id="5_0glgv"]
@@ -107,10 +107,10 @@ transform = Transform3D(0.17737676, 0, 0.98414296, 0, 1, 0, -0.98414296, 0, 0.17
 [node name="CanvasLayer" parent="." instance=ExtResource("3_85hcc")]
 
 [node name="cube_1kg" parent="." instance=ExtResource("5_0glgv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.227261, -0.08680928, 2.8918366)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.227261, -0.08680928, 0.89183664)
 
 [node name="Door" parent="." instance=ExtResource("6_gck8l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5351, -0.6257124, 3.9847856)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5351, -0.6257124, 0.98478556)
 
 [node name="NPC1" parent="." instance=ExtResource("8_tv6ri")]
 transform = Transform3D(-3.059797e-08, 0, 0.7, 0, 0.7, 0, -0.7, 0, -3.059797e-08, -12, 0.123950005, -11)
