@@ -37,7 +37,7 @@ target_position = Vector3(0, 0, -2)
 
 [node name="Hand" type="Marker3D" parent="Head/Eyes/Camera3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09747261, 0, -1.3349172)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7390295, -0.41545808, -0.9582612)
 
 [node name="StandupCheck" type="RayCast3D" parent="."]
 target_position = Vector3(0, 2, 0)

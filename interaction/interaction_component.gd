@@ -18,6 +18,8 @@ var is_interacting: bool = false
 var lock_camera: bool = false
 var starting_rotation: float
 var is_front: bool
+var is_open: bool = false
+var door_tween: Tween
 
 var player_hand: Marker3D
 var camera: Camera3D
@@ -25,8 +27,7 @@ var camera: Camera3D
 func _ready():
 	match interaction_type:
 		InteractionType.DOOR:
-			starting_rotation = pivot_point.rotation.x
-			maximum_rotation = deg_to_rad(rad_to_deg(starting_rotation) + maximum_rotation)
+			starting_rotation = pivot_point.rotation.y
 		InteractionType.SWITCH:
 			starting_rotation = object_ref.rotation.z
 			maximum_rotation = deg_to_rad(rad_to_deg(starting_rotation) + maximum_rotation)
@@ -40,8 +41,25 @@ func preInteract(hand: Marker3D) -> void:
 	match interaction_type:
 		InteractionType.DEFAULT:
 			player_hand = hand
+			var rigid_body_3d: RigidBody3D = object_ref as RigidBody3D
+			if rigid_body_3d:
+				rigid_body_3d.freeze = true
 		InteractionType.DOOR:
-			lock_camera = true
+			is_open = !is_open
+			if door_tween and door_tween.is_running():
+				door_tween.kill()
+			door_tween = create_tween()
+			
+			var target_rotation = starting_rotation
+			if is_open:
+				if is_front:
+					target_rotation = starting_rotation - deg_to_rad(maximum_rotation)
+				else:
+					target_rotation = starting_rotation + deg_to_rad(maximum_rotation)
+			
+			door_tween.set_ease(Tween.EASE_OUT)
+			door_tween.set_trans(Tween.TRANS_SINE)
+			door_tween.tween_property(pivot_point, "rotation:y", target_rotation, 0.5)
 		InteractionType.NPC:
 			Dialogic.start("timeline")
 
@@ -63,37 +81,25 @@ func auxInteract() -> void:
 func postInteract() -> void:
 	is_interacting = false
 	lock_camera = false
+	match interaction_type:
+		InteractionType.DEFAULT:
+			var rigid_body_3d: RigidBody3D = object_ref as RigidBody3D
+			if rigid_body_3d:
+				rigid_body_3d.freeze = false
 
 func _input(event: InputEvent) -> void:
-	if is_interacting:
-		match interaction_type:
-			InteractionType.DOOR:
-				if event is InputEventMouseMotion:
-					if is_front:
-						pivot_point.rotate_y(-event.relative.y * .001)
-					else:
-						pivot_point.rotate_y(event.relative.y * .001)
-
-				pivot_point.rotation.y = clamp(pivot_point.rotation.y, starting_rotation, maximum_rotation)
+	pass
 
 func _default_interact() -> void:
-	var object_current_position: Vector3 = object_ref.global_transform.origin
-	var player_hand_position: Vector3 = player_hand.global_transform.origin
-	var object_distance: Vector3 = player_hand_position - object_current_position
-
 	var rigid_body_3d: RigidBody3D = object_ref as RigidBody3D
 	if rigid_body_3d:
-		rigid_body_3d.set_linear_velocity((object_distance) * (5 / rigid_body_3d.mass))
+		rigid_body_3d.global_transform = rigid_body_3d.global_transform.interpolate_with(player_hand.global_transform, 0.2)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
 func _default_throw() -> void:
-	var object_current_position: Vector3 = object_ref.global_transform.origin
-	var player_hand_position: Vector3 = player_hand.global_transform.origin
-	var object_distance: Vector3 = player_hand_position - object_current_position
-	
 	var rigid_body_3d: RigidBody3D = object_ref as RigidBody3D
 	if rigid_body_3d:
 		var throw_direction: Vector3 = - player_hand.global_transform.basis.z.normalized()

@@ -15,15 +15,28 @@ func _process(delta: float) -> void:
 	if current_object:
 		if Input.is_action_just_pressed("secondry"):
 			if interaction_component:
+				interaction_component.postInteract()
 				interaction_component.auxInteract()
 				current_object = null
-		if Input.is_action_pressed("pickup"):
-			if interaction_component:
-				interaction_component.interact()
 		else:
+			var drop_object = false
 			if interaction_component:
-				interaction_component.postInteract()
+				if interaction_component.interaction_type == interaction_component.InteractionType.DEFAULT:
+					if Input.is_action_just_pressed("interact"):
+						drop_object = true
+				elif interaction_component.interaction_type == interaction_component.InteractionType.DOOR:
+					drop_object = true
+				else:
+					if not Input.is_action_pressed("interact"):
+						drop_object = true
+			
+			if drop_object:
+				if interaction_component:
+					interaction_component.postInteract()
 				current_object = null
+			else:
+				if interaction_component:
+					interaction_component.interact()
 	else: # we were interacting with something, lets see if we can
 		var potential_object: Object = interaction_raycast.get_collider()
 		
@@ -35,12 +48,21 @@ func _process(delta: float) -> void:
 				
 				last_potential_object = current_object
 
-				if Input.is_action_pressed("pickup"):
+				var pick_up = false
+				if interaction_component.interaction_type == interaction_component.InteractionType.DEFAULT or interaction_component.interaction_type == interaction_component.InteractionType.DOOR:
+					if Input.is_action_just_pressed("interact"):
+						pick_up = true
+				else:
+					if Input.is_action_pressed("interact"):
+						pick_up = true
+
+				if pick_up:
 					current_object = potential_object
-					interaction_component.preInteract(hand)
 
 					if interaction_component.interaction_type == interaction_component.InteractionType.DOOR:
 						interaction_component.set_direction(current_object.to_local(interaction_raycast.get_collision_point()))
+
+					interaction_component.preInteract(hand)
 
 func isCameraLocked() -> bool:
 	if interaction_component:
