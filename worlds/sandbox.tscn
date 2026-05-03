@@ -1,13 +1,15 @@
-[gd_scene load_steps=34 format=3 uid="uid://co8uqf1a5mvh8"]
+[gd_scene load_steps=36 format=3 uid="uid://co8uqf1a5mvh8"]
 
 [ext_resource type="Script" uid="uid://d2rvejf23trn2" path="res://worlds/sandbox.gd" id="1_7he1i"]
 [ext_resource type="PackedScene" uid="uid://550ipykvxg0" path="res://player/player.tscn" id="2_whpuv"]
 [ext_resource type="PackedScene" uid="uid://y4ikeieteq7g" path="res://menu/pause_menu.tscn" id="3_85hcc"]
-[ext_resource type="PackedScene" uid="uid://b7qq714ywsosk" path="res://models/objects/cube_1_kg.tscn" id="5_0glgv"]
+[ext_resource type="PackedScene" uid="uid://b7qq714ywsosk" path="res://models/objects/stock.tscn" id="5_0glgv"]
 [ext_resource type="PackedScene" uid="uid://l7y4ljp02b1a" path="res://models/objects/door.tscn" id="6_gck8l"]
 [ext_resource type="PackedScene" uid="uid://q7dq13004gmq" path="res://player/crosshair.tscn" id="8_jpsdj"]
 [ext_resource type="PackedScene" uid="uid://oxy2i3qk8vhc" path="res://models/NPCS/sketchfab_scene.tscn" id="8_tv6ri"]
 [ext_resource type="PackedScene" uid="uid://neyi2bck1jfu" path="res://models/world/6twelve.glb" id="9_1jcil"]
+[ext_resource type="PackedScene" uid="uid://b5uywuf1k2l2t" path="res://models/objects/Shelf.tscn" id="9_erigt"]
+[ext_resource type="PackedScene" uid="uid://bjylxaqdyb784" path="res://UI/progress_ui.tscn" id="10_nyb0e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_whpuv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -99,14 +101,14 @@ environment = SubResource("Environment_7he1i")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, -1, 42.365623, -0.100951195)
 shadow_enabled = true
 
+[node name="CanvasLayer" parent="." instance=ExtResource("3_85hcc")]
+
 [node name="Player" parent="." instance=ExtResource("2_whpuv")]
 transform = Transform3D(0.17737676, 0, 0.98414296, 0, 1, 0, -0.98414296, 0, 0.17737676, -0.66810215, -0.3469224, -2.6873856)
 
 [node name="Crosshair" parent="Player" instance=ExtResource("8_jpsdj")]
 
-[node name="CanvasLayer" parent="." instance=ExtResource("3_85hcc")]
-
-[node name="cube_1kg" parent="." instance=ExtResource("5_0glgv")]
+[node name="stock" parent="." instance=ExtResource("5_0glgv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.227261, -0.08680928, 0.89183664)
 
 [node name="Door" parent="." instance=ExtResource("6_gck8l")]
@@ -182,10 +184,28 @@ shape = SubResource("ConcavePolygonShape3D_wrxhp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode/6twelve/6twelve_Metal_04_0/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_2dpab")
 
+[node name="Shelf_02" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="13"]
+visible = false
+
+[node name="Shelf_03" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="14"]
+visible = false
+
+[node name="Shelf_01" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="15"]
+visible = false
+
 [node name="StaticBody3D" type="StaticBody3D" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode/Background/Background_Trees_Background_0" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode/Background/Background_Trees_Background_0/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_1jcil")
+
+[node name="Food_01" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="105"]
+visible = false
+
+[node name="Food_02" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="106"]
+visible = false
+
+[node name="Food" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="108"]
+visible = false
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode/Rug_002/Rug_002_Fabric_0" index="0"]
 
@@ -229,5 +249,18 @@ shape = SubResource("ConcavePolygonShape3D_lllsl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode/Parking_lot/Parking_lot_Parking_lot_0/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_cgeqx")
+
+[node name="Stock_shelf" type="Node3D" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="156"]
+transform = Transform3D(-119.14506, 1.7203905e-07, 3.9357948, 1.0266765e-14, 119.21004, -5.210837e-06, -3.9357948, -5.2079963e-06, -119.14506, -770.2753, 19.039333, -1150.899)
+
+[node name="shelf" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode/Stock_shelf" instance=ExtResource("9_erigt")]
+transform = Transform3D(-0.999835, 0, -0.018167876, 7.941433e-10, 1.0000001, -4.3704176e-08, 0.018167876, -4.37114e-08, -0.999835, 0.013986111, 2.9802322e-08, 0.42340088)
+item_id = 2
+
+[node name="shelf2" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode/Stock_shelf" instance=ExtResource("9_erigt")]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
+is_full = true
+
+[node name="ProgressUI" parent="." instance=ExtResource("10_nyb0e")]
 
 [editable path="Map_Scene"]

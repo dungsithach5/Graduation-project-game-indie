@@ -8,7 +8,7 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i3pqv"]
 height = 1.0
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(0.9806659, 0, -0.19568941, 0, 1, 0, 0.19568941, 0, 0.9806659, 0, 0, 0)
 script = ExtResource("1_oul6g")
 

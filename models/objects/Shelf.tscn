@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5uywuf1k2l2t"]
+
+[ext_resource type="Script" uid="uid://cwtro80umwhxh" path="res://models/objects/Shelf.gd" id="1_75r0s"]
+[ext_resource type="PackedScene" uid="uid://dp0laqe5liigk" path="res://models/objects/shelf.glb" id="1_r3p4i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_75r0s"]
+size = Vector3(2.616211, 7.970581, 11.980835)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u0qog"]
+size = Vector3(1.5715203, 2.13562, 1.4584961)
+
+[node name="Shelf" type="StaticBody3D"]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, -0.2137475)
+script = ExtResource("1_75r0s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+
+[node name="shelf" parent="." instance=ExtResource("1_r3p4i")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="shelf"]
+transform = Transform3D(-2.0954758e-08, 0, -0.1999993, 0, 0.2, 0, 0.1999993, 0, -2.0954758e-08, 0.022252806, 0.8548706, -0.10858195)
+shape = SubResource("BoxShape3D_75r0s")
+
+[node name="Label3D" type="Label3D" parent="shelf"]
+transform = Transform3D(-9.4247516e-05, 0, 0.20000006, 0, 0.2, 0, -0.20000006, 0, -9.4247516e-05, 0, 1.9015689, 0)
+billboard = 1
+text = "Empty"
+font_size = 160
+
+[node name="ItemSpawn" type="Node3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0021645876, 0.56781006, -0.5561271)
+shape = SubResource("BoxShape3D_u0qog")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
