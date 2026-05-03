@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=3 uid="uid://co8uqf1a5mvh8"]
 
 [ext_resource type="Script" uid="uid://d2rvejf23trn2" path="res://world/sandbox.gd" id="1_7he1i"]
-[ext_resource type="Texture2D" uid="uid://chjnmslqs6ytf" path="res://kenney_prototype-textures/PNG/Dark/texture_13.png" id="1_wfhpi"]
 [ext_resource type="PackedScene" uid="uid://550ipykvxg0" path="res://player/player.tscn" id="2_whpuv"]
 [ext_resource type="PackedScene" uid="uid://y4ikeieteq7g" path="res://menu/pause_menu.tscn" id="3_85hcc"]
 [ext_resource type="PackedScene" uid="uid://b7qq714ywsosk" path="res://models/objects/cube_1_kg.tscn" id="5_0glgv"]
 [ext_resource type="PackedScene" uid="uid://l7y4ljp02b1a" path="res://models/objects/door.tscn" id="6_gck8l"]
 [ext_resource type="PackedScene" uid="uid://q7dq13004gmq" path="res://player/crosshair.tscn" id="8_jpsdj"]
 [ext_resource type="PackedScene" uid="uid://oxy2i3qk8vhc" path="res://models/NPCS/sketchfab_scene.tscn" id="8_tv6ri"]
+[ext_resource type="PackedScene" uid="uid://neyi2bck1jfu" path="res://models/world/6twelve.glb" id="9_1jcil"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_whpuv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -18,13 +18,13 @@ sky_material = SubResource("ProceduralSkyMaterial_whpuv")
 
 [sub_resource type="Environment" id="Environment_7he1i"]
 background_mode = 2
+background_color = Color(0.103743516, 0.10374353, 0.103743516, 1)
 sky = SubResource("Sky_85hcc")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_noarx"]
-albedo_texture = ExtResource("1_wfhpi")
-uv1_triplanar = true
+[sub_resource type="BoxShape3D" id="BoxShape3D_qj5n1"]
+size = Vector3(101.285706, 1, 119.50806)
 
 [node name="sandbox" type="Node3D"]
 script = ExtResource("1_7he1i")
@@ -33,27 +33,33 @@ script = ExtResource("1_7he1i")
 environment = SubResource("Environment_7he1i")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 9.365622, -0.100951195)
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, -1, 42.365623, -0.100951195)
 shadow_enabled = true
 
-[node name="Floor" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.090088, -0.12571287, 3.7000732)
-use_collision = true
-size = Vector3(36.180176, 1, 37.400146)
-material = SubResource("StandardMaterial3D_noarx")
-
 [node name="Player" parent="." instance=ExtResource("2_whpuv")]
-transform = Transform3D(0.17737676, 0, 0.98414296, 0, 1, 0, -0.98414296, 0, 0.17737676, 8.271659, 0.39750075, -0.21473813)
+transform = Transform3D(0.17737676, 0, 0.98414296, 0, 1, 0, -0.98414296, 0, 0.17737676, -0.66810215, -0.3469224, -2.6873856)
+
+[node name="Crosshair" parent="Player" instance=ExtResource("8_jpsdj")]
 
 [node name="CanvasLayer" parent="." instance=ExtResource("3_85hcc")]
 
 [node name="cube_1kg" parent="." instance=ExtResource("5_0glgv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.227261, 0.9131907, -1.1081634)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22726107, 0.9131907, -1.1081634)
+collision_layer = 2
+collision_mask = 2
 
 [node name="Door" parent="." instance=ExtResource("6_gck8l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5350997, 0.3742876, 3.9847856)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5351, -0.6257124, 3.9847856)
 
 [node name="NPC1" parent="." instance=ExtResource("8_tv6ri")]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 5, 0.42390537, 0)
+transform = Transform3D(-3.059797e-08, 0, 0.7, 0, 0.7, 0, -0.7, 0, -3.059797e-08, -12, 0.123950005, -11)
 
-[node name="Crosshair" parent="." instance=ExtResource("8_jpsdj")]
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("9_1jcil")]
+
+[node name="Floor" type="MeshInstance3D" parent="Sketchfab_Scene"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Sketchfab_Scene/Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sketchfab_Scene/Floor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.876129, 0, 2.356079)
+shape = SubResource("BoxShape3D_qj5n1")
