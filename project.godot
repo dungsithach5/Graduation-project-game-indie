@@ -66,6 +66,10 @@ audio/channel_defaults={
 }
 }
 
+[display]
+
+window/subwindows/embed_subwindows=false
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
@@ -132,6 +136,14 @@ dialogic_default_action={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://languages/text_translation.en.translation", "res://languages/text_translation.ja.translation", "res://languages/text_translation.vi.translation")
+
 [layer_names]
 
 3d_physics/layer_2="interactions"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

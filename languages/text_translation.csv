@@ -1,0 +1,14 @@
+﻿KEYS,en,vi,ja
+KEY_HELLO,Hello!,Xin chào!,こんにちは
+KEY_WELCOME,Welcome to the game,Chào mừng bạn đến với trò chơi,ゲームへようこそ
+KEY_START,Start Game,Bắt đầu,スタート
+KEY_SETTINGS,Settings,Cài đặt,設定
+KEY_QUIT,Quit,Thoát,終了
+KEY_SAVE,Save,Lưu,保存
+KEY_LOAD,Load,Tải dữ liệu,ロード
+KEY_BACK,Back,Quay lại,戻る
+KEY_CONFIRM,Confirm,Xác nhận,確認
+KEY_CANCEL,Cancel,Hủy bỏ,キャンセル
+KEY_LOADING,Loading...,Đang tải...,読み込み中...
+KEY_ERROR,An error occurred,Đã xảy ra lỗi,エラーが発生しました
+KEY_LANGUAGE,Language,Ngôn ngữ,言語
