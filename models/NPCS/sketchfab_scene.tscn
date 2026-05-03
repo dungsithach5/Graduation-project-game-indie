@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://oxy2i3qk8vhc"]
 
-[ext_resource type="PackedScene" uid="uid://cuc25o7cw8f8o" path="res://NPCS/character_male_greenjacket_rigged.glb" id="1_r57si"]
-[ext_resource type="Script" uid="uid://bhsqic57fwlwd" path="res://NPCS/sketchfab_scene.gd" id="2_gtk6r"]
+[ext_resource type="PackedScene" uid="uid://cuc25o7cw8f8o" path="res://models/NPCS/character_male_greenjacket_rigged.glb" id="1_r57si"]
+[ext_resource type="Script" uid="uid://bhsqic57fwlwd" path="res://models/NPCS/sketchfab_scene.gd" id="2_gtk6r"]
 [ext_resource type="PackedScene" uid="uid://dujs1mw3g2s5q" path="res://interaction/interaction_component.tscn" id="3_rbp7e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gtk6r"]

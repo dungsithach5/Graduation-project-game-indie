@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cvucwtsvprdvm"
-path="res://.godot/imported/Walking.fbx-487301e0fea66a0f2ea44dc4edb2d194.scn"
+path="res://.godot/imported/Walking.fbx-b88feab6083164e317a3d85ea54a2710.scn"
 
 [deps]
 
-source_file="res://NPCS/Walking.fbx"
-dest_files=["res://.godot/imported/Walking.fbx-487301e0fea66a0f2ea44dc4edb2d194.scn"]
+source_file="res://models/NPCS/Walking.fbx"
+dest_files=["res://.godot/imported/Walking.fbx-b88feab6083164e317a3d85ea54a2710.scn"]
 
 [params]
 

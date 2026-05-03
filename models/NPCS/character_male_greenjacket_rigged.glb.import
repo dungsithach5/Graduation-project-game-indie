@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cuc25o7cw8f8o"
-path="res://.godot/imported/character_male_greenjacket_rigged.glb-03ccf3f965c51c773f2fd74ee5703d69.scn"
+path="res://.godot/imported/character_male_greenjacket_rigged.glb-d1201e8e2faa6f4cfa0a8fa83bb84c70.scn"
 
 [deps]
 
-source_file="res://NPCS/character_male_greenjacket_rigged.glb"
-dest_files=["res://.godot/imported/character_male_greenjacket_rigged.glb-03ccf3f965c51c773f2fd74ee5703d69.scn"]
+source_file="res://models/NPCS/character_male_greenjacket_rigged.glb"
+dest_files=["res://.godot/imported/character_male_greenjacket_rigged.glb-d1201e8e2faa6f4cfa0a8fa83bb84c70.scn"]
 
 [params]
 

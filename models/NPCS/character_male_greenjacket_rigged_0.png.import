@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://clnsi4jolrpo6"
-path.s3tc="res://.godot/imported/character_male_greenjacket_rigged_0.png-6cc5181ba273c6e65a0310a2700d5bcf.s3tc.ctex"
+path.s3tc="res://.godot/imported/character_male_greenjacket_rigged_0.png-b43787b5ab365b7fdc0a3140c7007eef.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://NPCS/character_male_greenjacket_rigged_0.png"
-dest_files=["res://.godot/imported/character_male_greenjacket_rigged_0.png-6cc5181ba273c6e65a0310a2700d5bcf.s3tc.ctex"]
+source_file="res://models/NPCS/character_male_greenjacket_rigged_0.png"
+dest_files=["res://.godot/imported/character_male_greenjacket_rigged_0.png-b43787b5ab365b7fdc0a3140c7007eef.s3tc.ctex"]
 
 [params]
 
