@@ -104,7 +104,7 @@ shadow_enabled = true
 [node name="CanvasLayer" parent="." instance=ExtResource("3_85hcc")]
 
 [node name="Player" parent="." instance=ExtResource("2_whpuv")]
-transform = Transform3D(0.17737676, 0, 0.98414296, 0, 1, 0, -0.98414296, 0, 0.17737676, -0.66810215, -0.3469224, -2.6873856)
+transform = Transform3D(-0.4260477, 0, -0.90470064, 0, 1, 0, 0.90470064, 0, -0.4260477, 7.218136, -0.3469224, 4.301361)
 
 [node name="Crosshair" parent="Player" instance=ExtResource("8_jpsdj")]
 
@@ -250,17 +250,17 @@ shape = SubResource("ConcavePolygonShape3D_lllsl")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode/Parking_lot/Parking_lot_Parking_lot_0/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_cgeqx")
 
-[node name="Stock_shelf" type="Node3D" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="156"]
-transform = Transform3D(-119.14506, 1.7203905e-07, 3.9357948, 1.0266765e-14, 119.21004, -5.210837e-06, -3.9357948, -5.2079963e-06, -119.14506, -770.2753, 19.039333, -1150.899)
+[node name="ProgressUI" parent="." instance=ExtResource("10_nyb0e")]
 
-[node name="shelf" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode/Stock_shelf" instance=ExtResource("9_erigt")]
+[node name="ShelfContainer" type="Node3D" parent="."]
+transform = Transform3D(-0.9994546, 1.4431587e-09, 0.033015624, 9.3454244e-17, 0.9999997, -4.371138e-08, -0.033015624, -4.3687553e-08, -0.9994546, -6.4614954, 0.15971245, -9.654377)
+
+[node name="shelf" parent="ShelfContainer" instance=ExtResource("9_erigt")]
 transform = Transform3D(-0.999835, 0, -0.018167876, 7.941433e-10, 1.0000001, -4.3704176e-08, 0.018167876, -4.37114e-08, -0.999835, 0.013986111, 2.9802322e-08, 0.42340088)
 item_id = 2
 
-[node name="shelf2" parent="Map_Scene/Sketchfab_model/6twelve_fbx/RootNode/Stock_shelf" instance=ExtResource("9_erigt")]
+[node name="shelf2" parent="ShelfContainer" instance=ExtResource("9_erigt")]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
 is_full = true
-
-[node name="ProgressUI" parent="." instance=ExtResource("10_nyb0e")]
 
 [editable path="Map_Scene"]

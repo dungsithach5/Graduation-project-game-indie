@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+Director="*res://autoload/director.tscn"
+TaskManager="*res://autoload/TaskManager.gd"
 
 [dialogic]
 

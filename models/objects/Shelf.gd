@@ -80,7 +80,7 @@ func _finish_restock() -> void:
 		player_ref.interaction_controller.current_object = null
 		restock()
 		_reset_restock()
-		# TaskManager.complete_task("restock_shelves")
+		TaskManager.update_task()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):

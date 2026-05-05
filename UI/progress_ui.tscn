@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bjylxaqdyb784"]
+[gd_scene load_steps=2 format=3 uid="uid://bjylxaqdyb784"]
+
+[ext_resource type="Script" uid="uid://cx00jl52qadgl" path="res://UI/task_panel.gd" id="1_xj51o"]
 
 [node name="ProgressUI" type="CanvasLayer"]
 
@@ -15,3 +17,31 @@ offset_bottom = -52.0
 grow_horizontal = 2
 grow_vertical = 0
 show_percentage = false
+
+[node name="TaskPanel" type="Panel" parent="."]
+offset_right = 503.0
+offset_bottom = 149.0
+script = ExtResource("1_xj51o")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TaskPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ObjectiveHeader" type="RichTextLabel" parent="TaskPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+text = "Objective"
+
+[node name="ObjectiveBody" type="RichTextLabel" parent="TaskPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+text = "Description"
+
+[node name="ObjectiveCounter" type="RichTextLabel" parent="TaskPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+text = "0/2"

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b8ti3joucvcuf"]
+
+[sub_resource type="GDScript" id="GDScript_6jwqt"]
+script/source = "extends Resource
+#class_name shiftEvent
+
+enum EventType {
+	RESTOCK_SHELVES,
+	CUSTOMER_SHOPPING,
+	MONSTER_INTERACTION
+}
+@export var type: EventType = EventType.RESTOCK_SHELVES
+@export var delay: float = 0.0
+@export var task_count_required: int = 1
+@export var description: String = \"\"
+"
+
+[resource]
+script = SubResource("GDScript_6jwqt")
+description = "Restock shelves"
