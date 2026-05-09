@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://c1cjhhxauq5y0"]
+
+[ext_resource type="Script" uid="uid://dc35h1472h383" path="res://models/animations/path_scene.gd" id="1_2ot74"]
+[ext_resource type="PackedScene" uid="uid://byvfdes1u4ovo" path="res://models/animations/Walking.tscn" id="2_2ot74"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2ot74"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_1sfdp"]
+sky_material = SubResource("ProceduralSkyMaterial_2ot74")
+
+[sub_resource type="Environment" id="Environment_nf65j"]
+background_mode = 2
+sky = SubResource("Sky_1sfdp")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_m0sm7"]
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ot74"]
+
+[sub_resource type="Curve3D" id="Curve3D_nf65j"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -3.1772864, 0, -2.0106633, 0, 0, 0, 0, 0, 0, 3.0519779, 0, -2.0642097, 0, 0, 0, 0, 0, 0, 3.0519779, 0, 2.8263872, 0, 0, 0, 0, 0, 0, -3.3022292, 0, 2.9691787),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[node name="path_scene" type="Node3D"]
+script = ExtResource("1_2ot74")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nf65j")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, -0.43756986, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021384923, -0.14285715, 0.057093147)
+mesh = SubResource("BoxMesh_m0sm7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_2ot74")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_nf65j")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+unique_name_in_owner = true
+transform = Transform3D(0.008595647, 0, -0.99995995, 0, 1, 0, 0.99995995, 0, 0.008595647, -3.1772864, 0, -2.0106633)
+
+[node name="Walking" parent="Path3D/PathFollow3D" instance=ExtResource("2_2ot74")]
+transform = Transform3D(-1, 0, -8.940697e-08, 0, 1, 0, 8.940697e-08, 0, -1, 0, -1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.06975099, 0.44049928, -0.89503926, 0, 0.8972245, 0.44157475, 0.99756444, -0.030800276, 0.06258229, -6.6934886, 1.8904384, 1.9644299)

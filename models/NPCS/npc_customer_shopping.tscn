@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc28i64em6c3j"]
+
+[ext_resource type="PackedScene" uid="uid://byvfdes1u4ovo" path="res://models/animations/Walking.tscn" id="1_f75ud"]
+[ext_resource type="Script" uid="uid://b16ot3fn41u14" path="res://models/NPCS/npc_customer_shopping.gd" id="1_qme3b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qme3b"]
+size = Vector3(0.7471924, 1.6845703, 0.77679443)
+
+[node name="npc_customer_shopping" type="CharacterBody3D"]
+script = ExtResource("1_qme3b")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.013122559, 0.8803711, 0.047027588)
+shape = SubResource("BoxShape3D_qme3b")
+
+[node name="Walking" parent="." instance=ExtResource("1_f75ud")]
+
+[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
