@@ -5,7 +5,8 @@ enum InteractionType {
 	DOOR,
 	SWITCH,
 	WHEEL,
-	NPC
+	NPC,
+	BROOM
 }
 
 @export var object_ref: Node3D
@@ -25,6 +26,9 @@ var player_hand: Marker3D
 var camera: Camera3D
 
 func _ready():
+	if object_ref == null:
+		object_ref = get_parent()
+		
 	match interaction_type:
 		InteractionType.DOOR:
 			starting_rotation = pivot_point.rotation.y

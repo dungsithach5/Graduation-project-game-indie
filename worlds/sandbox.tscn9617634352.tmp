@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://co8uqf1a5mvh8"]
+[gd_scene load_steps=40 format=3 uid="uid://co8uqf1a5mvh8"]
 
 [ext_resource type="Script" uid="uid://d2rvejf23trn2" path="res://worlds/sandbox.gd" id="1_7he1i"]
 [ext_resource type="PackedScene" uid="uid://550ipykvxg0" path="res://player/player.tscn" id="2_whpuv"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://bjylxaqdyb784" path="res://UI/progress_ui.tscn" id="10_nyb0e"]
 [ext_resource type="PackedScene" uid="uid://bc28i64em6c3j" path="res://models/NPCS/npc_customer_shopping.tscn" id="12_4f8x3"]
 [ext_resource type="PackedScene" uid="uid://bt4dui6pdcj7f" path="res://models/objects/broom.tscn" id="13_edaas"]
-[ext_resource type="Script" uid="uid://dwgy253cn1b0r" path="res://models/objects/stain.gd" id="13_eqw3r"]
 [ext_resource type="Texture2D" uid="uid://bhkbjb4smve8q" path="res://assets/Stains/Horror_Stain_04-128x128.png" id="13_nd4wk"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_4f8x3"]
@@ -100,9 +99,6 @@ background_color = Color(0.103743516, 0.10374353, 0.103743516, 1)
 sky = SubResource("Sky_85hcc")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_nd4wk"]
-size = Vector3(1, 4.3058777, 1)
 
 [node name="sandbox" type="Node3D"]
 script = ExtResource("1_7he1i")
@@ -297,23 +293,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.270996, 0, -12.371159)
 [node name="point3" type="Marker3D" parent="NPC_movement/pointContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -25.648994)
 
-[node name="stain" type="Decal" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7277265, -0.3740124, 1.0368781)
-size = Vector3(2, 0.2, 2)
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1932635, -0.3740124, 1.0368781)
+size = Vector3(2, 0.18751171, 2)
 texture_albedo = ExtResource("13_nd4wk")
 modulate = Color(1.0184411, 1.0184411, 1.0184411, 1)
-script = ExtResource("13_eqw3r")
-
-[node name="Area3D" type="Area3D" parent="stain"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="stain/Area3D"]
-transform = Transform3D(2, 0, 0, 0, 0.2, 0, 0, 0, 2, 0, 0.33058777, 0)
-shape = SubResource("BoxShape3D_nd4wk")
 
 [node name="broom" parent="." instance=ExtResource("13_edaas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.261007, -0.23973346, 0)
-
-[connection signal="body_entered" from="stain/Area3D" to="stain" method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="stain/Area3D" to="stain" method="_on_area_3d_body_exited"]
 
 [editable path="NavigationRegion3D/Map_Scene"]
