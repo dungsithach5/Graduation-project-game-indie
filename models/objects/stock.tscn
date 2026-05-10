@@ -1,24 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7qq714ywsosk"]
+[gd_scene load_steps=4 format=3 uid="uid://b7qq714ywsosk"]
 
 [ext_resource type="PackedScene" uid="uid://dujs1mw3g2s5q" path="res://interaction/interaction_component.tscn" id="1_jtlcp"]
-[ext_resource type="Texture2D" uid="uid://c32bjncnmumrg" path="res://kenney_prototype-textures/PNG/Green/texture_01.png" id="1_tfl4h"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wcp7k"]
-albedo_texture = ExtResource("1_tfl4h")
-
-[sub_resource type="BoxMesh" id="BoxMesh_8162r"]
-size = Vector3(0.5, 0.5, 0.5)
+[ext_resource type="PackedScene" uid="uid://c4y71xc8x3gq" path="res://models/objects/psx_cardboard_box.glb" id="1_wui7l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jtlcp"]
+size = Vector3(0.86224365, 0.90478516, 0.89660645)
 
 [node name="stock" type="RigidBody3D" groups=["interact_label"]]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_wcp7k")
-mesh = SubResource("BoxMesh_8162r")
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_wui7l")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -0.23042816, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.00077819824, 0.023803711, -0.0007019043)
 shape = SubResource("BoxShape3D_jtlcp")
 
 [node name="InteractionComponent" parent="." node_paths=PackedStringArray("object_ref") instance=ExtResource("1_jtlcp")]

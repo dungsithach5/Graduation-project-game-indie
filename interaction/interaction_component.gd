@@ -48,6 +48,9 @@ func preInteract(hand: Marker3D) -> void:
 			var rigid_body_3d: RigidBody3D = object_ref as RigidBody3D
 			if rigid_body_3d:
 				rigid_body_3d.freeze = true
+				for child in rigid_body_3d.get_children():
+					if child is CollisionShape3D:
+						child.disabled = true
 		InteractionType.DOOR:
 			is_open = !is_open
 			if door_tween and door_tween.is_running():
@@ -90,6 +93,9 @@ func postInteract() -> void:
 			var rigid_body_3d: RigidBody3D = object_ref as RigidBody3D
 			if rigid_body_3d:
 				rigid_body_3d.freeze = false
+				for child in rigid_body_3d.get_children():
+					if child is CollisionShape3D:
+						child.disabled = false
 
 func _input(event: InputEvent) -> void:
 	pass
@@ -97,7 +103,7 @@ func _input(event: InputEvent) -> void:
 func _default_interact() -> void:
 	var rigid_body_3d: RigidBody3D = object_ref as RigidBody3D
 	if rigid_body_3d:
-		rigid_body_3d.global_transform = rigid_body_3d.global_transform.interpolate_with(player_hand.global_transform, 0.2)
+		rigid_body_3d.global_transform = player_hand.global_transform
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
