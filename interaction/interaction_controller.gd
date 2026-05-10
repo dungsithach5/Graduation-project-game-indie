@@ -8,9 +8,17 @@ extends Node
 var current_object: Object
 var last_potential_object: Object
 var interaction_component: Node
+var interact_label: Label = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if interact_label == null:
+		interact_label = get_tree().get_first_node_in_group("interact_label")
+		if interact_label:
+			interact_label.hide()
+			
+	var show_label = false
+
 	#If on the previous frame, we were interacting with and object, lets keep interacting with it
 	if current_object:
 		if Input.is_action_just_pressed("secondry"):
@@ -44,8 +52,12 @@ func _process(delta: float) -> void:
 			interaction_component = potential_object.get_node_or_null("InteractionComponent")
 			if interaction_component:
 				if interaction_component.can_interact == false:
+					if interact_label:
+						interact_label.visible = false
 					return
 				
+				show_label = true
+
 				last_potential_object = current_object
 
 				var pick_up = false
@@ -63,6 +75,9 @@ func _process(delta: float) -> void:
 						interaction_component.set_direction(current_object.to_local(interaction_raycast.get_collision_point()))
 
 					interaction_component.preInteract(hand)
+
+	if interact_label:
+		interact_label.visible = show_label
 
 func isCameraLocked() -> bool:
 	if interaction_component:

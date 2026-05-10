@@ -7,7 +7,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_gtk6r"]
 size = Vector3(1, 3.868988, 1)
 
-[node name="Sketchfab_Scene" instance=ExtResource("1_r57si")]
+[node name="Sketchfab_Scene" groups=["interact_label"] instance=ExtResource("1_r57si")]
 script = ExtResource("2_gtk6r")
 
 [node name="Skeleton3D" parent="Sketchfab_model/f09a712ca05e4255af743803652e579a_fbx/Object_2/RootNode/Object_4" index="0"]
