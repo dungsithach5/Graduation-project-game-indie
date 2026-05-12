@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdy47ovncn7v1"]
+
+[ext_resource type="Script" uid="uid://ducrniehmuhyf" path="res://models/objects/item.gd" id="1_0focn"]
+[ext_resource type="PackedScene" uid="uid://dtkpvvphssfpa" path="res://models/objects/low-poly_hao_hao_noodle.glb" id="1_nla0d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0focn"]
+size = Vector3(1.3540039, 0.8581543, 1.8781471)
+
+[node name="item" type="Node3D"]
+script = ExtResource("1_0focn")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="Sketchfab_Scene" parent="Area3D" instance=ExtResource("1_nla0d")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.06717169, -0.010091633, 0.14338058)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.014892578, 0.17321777, 0.0123806)
+shape = SubResource("BoxShape3D_0focn")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_body_exited"]
