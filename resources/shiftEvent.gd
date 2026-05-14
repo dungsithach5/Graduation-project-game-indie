@@ -2,8 +2,10 @@ extends Resource
 class_name shiftEvent
 
 enum EventType {
+	TALK_TO_NPC,
 	RESTOCK_SHELVES,
 	CUSTOMER_SHOPPING,
+	CLEAN_FLOOR,
 	MONSTER_INTERACTION
 }
 @export var type: EventType = EventType.RESTOCK_SHELVES

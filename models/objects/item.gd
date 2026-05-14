@@ -20,6 +20,12 @@ func _process(_delta: float) -> void:
 func _scan_item() -> void:
 	is_scanned = true
 	print("Item scanned!")
+	if Director.shift_active:
+		var current_night = Director.nights[Director.current_night_index]
+		if Director.current_event_index < current_night.events.size():
+			var current_event = current_night.events[Director.current_event_index]
+			if current_event != null and current_event.type == 2: # 2 là CUSTOMER_SHOPPING
+				TaskManager.update_task()
 	
 	if owner_npc and owner_npc.has_method("all_items_scanned"):
 		owner_npc.all_items_scanned()

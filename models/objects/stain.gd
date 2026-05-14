@@ -52,6 +52,12 @@ func _reset_clean() -> void:
 
 func _finish_clean() -> void:
 	_reset_clean()
+	if Director.shift_active:
+		var current_night = Director.nights[Director.current_night_index]
+		if Director.current_event_index < current_night.events.size():
+			var current_event = current_night.events[Director.current_event_index]
+			if current_event != null and current_event.type == 3: # 3 là CLEAN_FLOOR
+				TaskManager.update_task()
 	# Xóa luôn vết bẩn (Decal)
 	queue_free()
 

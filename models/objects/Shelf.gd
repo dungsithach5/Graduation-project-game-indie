@@ -80,7 +80,12 @@ func _finish_restock() -> void:
 		player_ref.interaction_controller.current_object = null
 		restock()
 		_reset_restock()
-		TaskManager.update_task()
+		if Director.shift_active:
+			var current_night = Director.nights[Director.current_night_index]
+			if Director.current_event_index < current_night.events.size():
+				var current_event = current_night.events[Director.current_event_index]
+				if current_event != null and current_event.type == 1: # 1 là RESTOCK_SHELVES
+					TaskManager.update_task()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):

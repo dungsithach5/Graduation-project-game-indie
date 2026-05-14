@@ -69,6 +69,14 @@ func preInteract(hand: Marker3D) -> void:
 			door_tween.tween_property(pivot_point, "rotation:y", target_rotation, 0.5)
 		InteractionType.NPC:
 			Dialogic.start("timeline")
+			
+			# Kiểm tra xem Task hiện tại có phải là "Talk To Npc" không (Type = 0)
+			if Director.shift_active:
+				var current_night = Director.nights[Director.current_night_index]
+				if Director.current_event_index < current_night.events.size():
+					var current_event = current_night.events[Director.current_event_index]
+					if current_event.type == 0: # 0 là TALK_TO_NPC
+						TaskManager.update_task()
 
 # run every frame, perform some logic on this object
 func interact() -> void:

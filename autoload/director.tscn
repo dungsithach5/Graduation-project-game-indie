@@ -1,34 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://0ovsfk80h4jk"]
+[gd_scene load_steps=5 format=3 uid="uid://0ovsfk80h4jk"]
 
 [ext_resource type="Script" uid="uid://b4t4g57rvaxao" path="res://autoload/director.gd" id="1_kfubv"]
-[ext_resource type="Resource" uid="uid://b8ti3joucvcuf" path="res://resources/shiftEvent.tres" id="2_u631l"]
-
-[sub_resource type="GDScript" id="GDScript_6jwqt"]
-script/source = "extends Resource
-#class_name shiftEvent
-
-enum EventType {
-	RESTOCK_SHELVES,
-	CUSTOMER_SHOPPING,
-	MONSTER_INTERACTION
-}
-@export var type: EventType = EventType.RESTOCK_SHELVES
-@export var delay: float = 0.0
-@export var task_count_required: int = 1
-@export var description: String = \"\"
-"
-
-[sub_resource type="Resource" id="Resource_u631l"]
-script = SubResource("GDScript_6jwqt")
-delay = 10.0
-task_count_required = 2
-description = "You have a lot of shelves restock"
-
-[sub_resource type="Resource" id="Resource_ugpgb"]
-script = SubResource("GDScript_6jwqt")
-delay = 5.0
-description = "You almost done!"
+[ext_resource type="Script" uid="uid://c6ammxfu1rmc0" path="res://resources/ShiftData.gd" id="2_u631l"]
+[ext_resource type="Resource" uid="uid://opmyst2or27b" path="res://resources/night_1.tres" id="3_ugpgb"]
+[ext_resource type="Resource" uid="uid://cjgig6x51pv0e" path="res://resources/night_2.tres" id="4_2k1hb"]
 
 [node name="Director" type="Node3D"]
 script = ExtResource("1_kfubv")
-shift_events = [ExtResource("2_u631l"), SubResource("Resource_u631l"), SubResource("Resource_ugpgb")]
+nights = Array[ExtResource("2_u631l")]([ExtResource("3_ugpgb"), ExtResource("4_2k1hb")])

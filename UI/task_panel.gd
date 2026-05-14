@@ -11,7 +11,8 @@ func _ready() -> void:
 	Director.task_delay_started.connect(_on_task_delay_started)
 
 func _on_event_triggered(event_type: String) -> void:
-	var event = Director.shift_events[Director.current_event_index]
+	var current_night = Director.nights[Director.current_night_index]
+	var event = current_night.events[Director.current_event_index]
 	objective_body.text = event.description
 
 func _on_task_started(current: int, requirement: int) -> void:
