@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 #CONSTAINS
-const SPEED = 4.0
+const SPEED = 1.0
 
 #STATES
 enum State {
@@ -25,8 +25,14 @@ var current_waypoint_index: int = 0
 var idle_wait_time: float = 1.5 # wait time
 var idle_timer_count: float = 0 # internal countdown  timer
 
-#NODE_REFENCES
+#NODE_REFERENCES
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
+@onready var animation_tree: AnimationTree = $Walking/AnimationTree
+
+
+func _ready() -> void:
+	if animation_tree:
+		animation_tree.active = true
 
 
 func _physics_process(delta: float) -> void:
@@ -47,6 +53,13 @@ func _physics_process(delta: float) -> void:
 			velocity.z = 0
 
 	move_and_slide()
+	_update_animations()
+
+func _update_animations() -> void:
+	if animation_tree:
+		var is_moving = velocity.length() > 0.1 and state == State.MOVE
+		animation_tree.set("parameters/conditions/is_walking", is_moving)
+		animation_tree.set("parameters/conditions/is_idle", not is_moving)
 
 func _on_idle() -> void:
 	velocity.x = 0
@@ -115,11 +128,11 @@ func spawn_item_on_table() -> void:
 		
 		# Try to call setup_item on the item or its children
 		if item.has_method("setup_item"):
-			item.setup_item(self)
+			item.setup_item(self )
 		else:
 			for child in item.get_children():
 				if child.has_method("setup_item"):
-					child.setup_item(self)
+					child.setup_item(self )
 
 func all_items_scanned() -> void:
 	state = State.IDLE
