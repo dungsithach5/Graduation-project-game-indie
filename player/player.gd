@@ -164,3 +164,6 @@ func updateCamera(delta: float) -> void:
 	else:
 		eyes.position.y = lerp(eyes.position.y, 0.0, delta * lerp_speed)
 		eyes.position.x = lerp(eyes.position.x, 0.0, delta * lerp_speed)
+
+func _process(delta) -> void:
+	get_tree().call_group("enemy", "target_position", global_transform.origin)

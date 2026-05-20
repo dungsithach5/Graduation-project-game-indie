@@ -1,0 +1,90 @@
+[gd_scene load_steps=15 format=3 uid="uid://cpoe5uac1b73b"]
+
+[ext_resource type="Script" uid="uid://6efwafckot6" path="res://enemy_ai/enemy.gd" id="1_h4o4t"]
+[ext_resource type="PackedScene" uid="uid://550ipykvxg0" path="res://player/player.tscn" id="2_5g3j6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xdm0p"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_6sqyb"]
+sky_material = SubResource("ProceduralSkyMaterial_xdm0p")
+
+[sub_resource type="Environment" id="Environment_flewt"]
+background_mode = 2
+sky = SubResource("Sky_6sqyb")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_rxii0"]
+vertices = PackedVector3Array(2, 0.5, -2, -2, 0.5, -2, -0.75, 0.5, -1.25, 0.75, 0.5, -1.25, 0.75, 0.5, 1.25, -0.75, 0.5, 1.25, -2, 0.5, 2, 2, 0.5, 2)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(4, 7, 5), PackedInt32Array(5, 7, 6), PackedInt32Array(4, 3, 7), PackedInt32Array(7, 3, 0), PackedInt32Array(5, 6, 2), PackedInt32Array(2, 6, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h4o4t"]
+albedo_color = Color(0.55, 1, 0.76750004, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wvudf"]
+material = SubResource("StandardMaterial3D_h4o4t")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_shpu2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5g3j6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h4o4t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5g3j6"]
+albedo_color = Color(1, 0, 0.016666412, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sai8x"]
+material = SubResource("StandardMaterial3D_5g3j6")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_njvpj"]
+
+[node name="Enemy3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_flewt")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_rxii0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(5, 0, 0, 0, 0.1, 0, 0, 0, 5, 0, 0, 0)
+mesh = SubResource("BoxMesh_wvudf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(5, 0, 0, 0, 0.1, 0, 0, 0, 5, 0, 0, 0)
+shape = SubResource("BoxShape3D_shpu2")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="NavigationRegion3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2"]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("BoxMesh_5g3j6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D2"]
+transform = Transform3D(0.2, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_h4o4t")
+
+[node name="enemy" type="CharacterBody3D" parent="." groups=["enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9734516, 0.30604595, 0.30022824)
+script = ExtResource("1_h4o4t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="enemy"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_sai8x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="enemy"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_njvpj")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="enemy"]
+
+[node name="Player" parent="." instance=ExtResource("2_5g3j6")]
+transform = Transform3D(0.19613318, 0, -0.03913788, 0, 0.2, 0, 0.03913788, 0, 0.19613318, 1.2132542, 0, 0.22623587)
