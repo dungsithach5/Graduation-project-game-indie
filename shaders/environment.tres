@@ -1,0 +1,37 @@
+[gd_resource type="Environment" load_steps=4 format=3 uid="uid://cto6pktytrlih"]
+
+[ext_resource type="Shader" uid="uid://co0gneyu7x7nx" path="res://shaders/sky.gdshader" id="1_8upin"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_avbfq"]
+shader = ExtResource("1_8upin")
+shader_parameter/sky_color = Color(0.05, 0.07, 0.12, 1)
+shader_parameter/cloud_color = Color(0.7422666, 0.794633, 0.8948775, 1)
+shader_parameter/cloud_density = 0.45
+shader_parameter/cloud_speed = 0.005
+
+[sub_resource type="Sky" id="Sky_avbfq"]
+sky_material = SubResource("ShaderMaterial_avbfq")
+
+[resource]
+background_mode = 2
+background_color = Color(0.05700522, 0.074896656, 0.15090567, 1)
+sky = SubResource("Sky_avbfq")
+sky_custom_fov = 75.0
+ambient_light_color = Color(0.03529412, 0.050980393, 0.08627451, 1)
+ambient_light_energy = 0.3
+tonemap_mode = 3
+tonemap_exposure = 1.1
+glow_enabled = true
+glow_levels/7 = 1.0
+glow_intensity = 1.0
+glow_bloom = 0.2
+glow_blend_mode = 0
+fog_enabled = true
+fog_light_color = Color(0.06867164, 0.077167146, 0.15160176, 1)
+fog_density = 0.02
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.03529412, 0.050980393, 0.08627451, 1)
+volumetric_fog_emission_energy = 0.1
+adjustment_enabled = true
+adjustment_contrast = 1.05
+adjustment_saturation = 0.85

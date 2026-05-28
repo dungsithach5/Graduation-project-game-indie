@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dl7yy6lukehkq"]
 
-[ext_resource type="PackedScene" uid="uid://neyi2bck1jfu" path="res://models/world/6twelve.glb" id="1_chmv6"]
 [ext_resource type="Script" uid="uid://bgjrgphejxutx" path="res://menu/main_menu.gd" id="1_f5okj"]
+[ext_resource type="PackedScene" uid="uid://cq3dup78ni0u1" path="res://models/world/weenmart/winmart.glb" id="2_jc45y"]
 [ext_resource type="Script" uid="uid://bmwits0liu6ml" path="res://menu/video.gd" id="3_o5w3e"]
 [ext_resource type="Script" uid="uid://dg015f1o2y3vm" path="res://menu/audio.gd" id="4_1x3cv"]
 [ext_resource type="Script" uid="uid://dow04732ba1yi" path="res://menu/language.gd" id="5_jc45y"]
@@ -14,7 +14,8 @@ ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 sky_material = SubResource("ProceduralSkyMaterial_chmv6")
 
 [sub_resource type="Environment" id="Environment_o5w3e"]
-background_mode = 2
+background_mode = 1
+background_color = Color(0.23753911, 0.23753914, 0.23753911, 1)
 sky = SubResource("Sky_f5okj")
 tonemap_mode = 2
 glow_enabled = true
@@ -37,51 +38,10 @@ environment = SubResource("Environment_o5w3e")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+visible = false
 shadow_enabled = true
 
-[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_chmv6")]
-
-[node name="Grass__Concrete_01_0" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode/Grass_" index="0"]
-visible = false
-
-[node name="Grass__Grass_02_0" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode/Grass_" index="2"]
-visible = false
-
-[node name="Trees" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="19"]
-visible = false
-
-[node name="Trees_Tree_01_0" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode/Trees" index="1"]
-visible = false
-
-[node name="Tree" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="86"]
-visible = false
-
-[node name="Post_light_02" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="97"]
-visible = false
-
-[node name="Background" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="104"]
-visible = false
-
-[node name="Grass_02" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="111"]
-visible = false
-
-[node name="Dry_leaves" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="114"]
-visible = false
-
-[node name="Crosswalk" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="118"]
-visible = false
-
-[node name="Grass_01" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="120"]
-visible = false
-
-[node name="Post_light_03" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="130"]
-visible = false
-
-[node name="Asphalt_01_Asphalt_01_0" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode/Asphalt_01" index="0"]
-visible = false
-
-[node name="Asphalt" parent="Sketchfab_Scene/Sketchfab_model/6twelve_fbx/RootNode" index="133"]
-visible = false
+[node name="winmart" parent="." instance=ExtResource("2_jc45y")]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15
@@ -97,7 +57,7 @@ size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(0.96431696, -0.03502476, -0.2624234, 0, 0.99121064, -0.13229351, 0.2647504, 0.12757288, 0.9558412, -10.378334, 1.2395735, 0.044813156)
+transform = Transform3D(0.9619698, 0.024509212, -0.27205402, 0, 0.9959665, 0.089726135, 0.27315578, -0.08631383, 0.9580897, -9.253484, 3.3845847, 4.782421)
 
 [node name="Menu" type="VBoxContainer" parent="."]
 anchors_preset = 8
@@ -372,5 +332,3 @@ text = "Back
 
 [connection signal="pressed" from="Menu/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Menu/Quit" to="." method="_on_quit_pressed"]
-
-[editable path="Sketchfab_Scene"]

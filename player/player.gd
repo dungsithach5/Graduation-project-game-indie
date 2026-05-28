@@ -60,6 +60,38 @@ var sensitivity_fading_in: bool = false
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# Initialize the retro shader parameters at runtime to match Fear to Fathom style
+	if get_parent():
+		var color_rect = get_parent().get_node_or_null("CanvasLayer/ColorRect")
+		if color_rect and color_rect.material is ShaderMaterial:
+			var mat = color_rect.material as ShaderMaterial
+			mat.set_shader_parameter("grain_intensity", 0.04)
+			mat.set_shader_parameter("min_lum", 0.0)
+			mat.set_shader_parameter("max_lum", 1.0)
+			mat.set_shader_parameter("time_scale", 0.5)
+			mat.set_shader_parameter("vignette_darkness", 0.15)
+			mat.set_shader_parameter("vignette_outer_radius", 0.8)
+			mat.set_shader_parameter("vignette_inner_radius", 0.3)
+			mat.set_shader_parameter("scanline_intensity", 0.05)
+			mat.set_shader_parameter("scanline_count", 480.0)
+			mat.set_shader_parameter("barrel_distortion", 0.02)
+			mat.set_shader_parameter("chromatic_aberration", 0.003)
+			mat.set_shader_parameter("crt_vignette_power", 0.5)
+			mat.set_shader_parameter("enable_pixelation", false)
+			mat.set_shader_parameter("pixel_resolution_x", 640)
+			mat.set_shader_parameter("pixel_resolution_y", 480)
+			mat.set_shader_parameter("enable_color_quantization", false)
+			mat.set_shader_parameter("color_quant_steps", 32.0)
+			mat.set_shader_parameter("warble_amount", 0.0003)
+			mat.set_shader_parameter("warble_speed", 4.0)
+			mat.set_shader_parameter("vhs_jitter_amount", 0.0005)
+			mat.set_shader_parameter("vhs_jitter_speed", 12.0)
+			mat.set_shader_parameter("head_switching_noise", 0.02)
+			mat.set_shader_parameter("composite_blur", 0.0)
+			mat.set_shader_parameter("saturation", 0.92)
+			mat.set_shader_parameter("contrast", 1.01)
+			mat.set_shader_parameter("shadow_lift", 0.02)
 
 func _input(event: InputEvent) -> void:
 	if get_tree().paused:
