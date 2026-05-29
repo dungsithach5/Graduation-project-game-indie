@@ -11,12 +11,12 @@ class_name Player
 @onready var standup_check: RayCast3D = $StandupCheck
 
 # Movement Variables
-const walking_speed: float = 3.0
-const sprinting_speed: float = 5.0
-const crouching_speed: float = 1.0
+const walking_speed: float = 1.8
+const sprinting_speed: float = 3.2
+const crouching_speed: float = 0.8
 const crouching_depth: float = -0.9
 const jump_velocity: float = 4.0
-var current_speed: float = 3.0
+var current_speed: float = 1.8
 const SPEED = 5.0
 var moving: bool = false
 var input_dir: Vector2 = Vector2.ZERO
@@ -37,12 +37,12 @@ enum PlayerState {
 var player_state: PlayerState = PlayerState.IDLE_STAND
 
 # Headbobbing Vars
-const head_bobbing_sprinting_speed: float = 22.0
-const head_bobbing_walking_speed: float = 14.0
-const head_bobbing_crouching_speed: float = 10.0
-const head_bobbing_sprinting_intensity: float = 0.2
-const head_bobbing_walking_intensity: float = 0.1
-const head_bobbing_crouching_intensity: float = 0.05
+const head_bobbing_sprinting_speed: float = 13.0
+const head_bobbing_walking_speed: float = 8.5
+const head_bobbing_crouching_speed: float = 6.0
+const head_bobbing_sprinting_intensity: float = 0.15
+const head_bobbing_walking_intensity: float = 0.08
+const head_bobbing_crouching_intensity: float = 0.04
 var head_bobbing_current_intensity: float = 0.0
 var head_bobbing_vector: Vector2 = Vector2.ZERO
 var head_bobbing_index: float = 0.0
@@ -70,12 +70,12 @@ func _ready() -> void:
 			mat.set_shader_parameter("min_lum", 0.0)
 			mat.set_shader_parameter("max_lum", 1.0)
 			mat.set_shader_parameter("time_scale", 0.5)
-			mat.set_shader_parameter("vignette_darkness", 0.15)
-			mat.set_shader_parameter("vignette_outer_radius", 0.8)
-			mat.set_shader_parameter("vignette_inner_radius", 0.3)
+			mat.set_shader_parameter("vignette_darkness", 0.55)
+			mat.set_shader_parameter("vignette_outer_radius", 1.0)
+			mat.set_shader_parameter("vignette_inner_radius", 0.5)
 			mat.set_shader_parameter("scanline_intensity", 0.05)
 			mat.set_shader_parameter("scanline_count", 480.0)
-			mat.set_shader_parameter("barrel_distortion", 0.02)
+			mat.set_shader_parameter("barrel_distortion", 0.0)
 			mat.set_shader_parameter("chromatic_aberration", 0.003)
 			mat.set_shader_parameter("crt_vignette_power", 0.5)
 			mat.set_shader_parameter("enable_pixelation", false)
@@ -189,10 +189,10 @@ func updateCamera(delta: float) -> void:
 			head_bobbing_index += head_bobbing_sprinting_speed * delta
 	
 	head_bobbing_vector.y = sin(head_bobbing_index)
-	head_bobbing_vector.x = (sin(head_bobbing_index / 2.0))
+	head_bobbing_vector.x = 0.0
 	if moving:
 		eyes.position.y = lerp(eyes.position.y, head_bobbing_vector.y * (head_bobbing_current_intensity / 2.0), delta * lerp_speed)
-		eyes.position.x = lerp(eyes.position.x, head_bobbing_vector.x * (head_bobbing_current_intensity), delta * lerp_speed)
+		eyes.position.x = lerp(eyes.position.x, 0.0, delta * lerp_speed)
 	else:
 		eyes.position.y = lerp(eyes.position.y, 0.0, delta * lerp_speed)
 		eyes.position.x = lerp(eyes.position.x, 0.0, delta * lerp_speed)

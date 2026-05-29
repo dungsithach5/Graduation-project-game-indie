@@ -36,7 +36,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	velocity += get_gravity() * delta
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	else:
+		velocity.y = -0.1 # Small downward force to stay grounded without building up gravity
 
 	match state:
 		State.IDLE:
