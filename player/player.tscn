@@ -29,7 +29,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.747081, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head/Eyes"]
 unique_name_in_owner = true
-transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0.0028666374, 0.1121614, 0.014365691)
+transform = Transform3D(1, 0, -1.4901161e-08, 0, 1, 0, 0, 0, 1, 0.003, -0.111, 0.014)
 current = true
 fov = 90.0
 
