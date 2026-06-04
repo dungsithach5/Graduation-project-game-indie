@@ -39,7 +39,7 @@ func _on_talk_to_npc_requested(limit: int) -> void:
 func _on_customer_shopping_requested(limit: int) -> void:
 	print("Sandbox: Bắt đầu Task 3 - Khách hàng vào quán")
 	# Tìm con khách hàng trong Scene
-	var customer = find_child("npc_customer*", true, false) 
+	var customer = find_child("npc_customer*", true, false)
 	if customer:
 		customer.visible = true
 		customer.process_mode = Node.PROCESS_MODE_INHERIT

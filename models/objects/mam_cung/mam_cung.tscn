@@ -1,8 +1,9 @@
-[gd_scene load_steps=256 format=4 uid="uid://jmfip6bflxwe"]
+[gd_scene load_steps=258 format=4 uid="uid://jmfip6bflxwe"]
 
 [ext_resource type="Texture2D" uid="uid://d30bii2qgjhmv" path="res://models/objects/mam_cung/dirty_plastic_chairs__tables_10.png" id="1_6y2hp"]
 [ext_resource type="Texture2D" uid="uid://c18i2xyigowmp" path="res://models/objects/mam_cung/dirty_plastic_chairs__tables_11.png" id="2_onb0l"]
 [ext_resource type="Texture2D" uid="uid://3g66121yv052" path="res://models/objects/mam_cung/lu-huong_1.png" id="3_6rwn8"]
+[ext_resource type="Script" uid="uid://c5ieohtr83bed" path="res://models/objects/mam_cung/lu_huong.gd" id="3_jtp56"]
 [ext_resource type="Texture2D" uid="uid://dlbykgwcetq53" path="res://models/objects/mam_cung/lu-huong_2.png" id="4_6qhwa"]
 [ext_resource type="Texture2D" uid="uid://do7a8p0yaxrym" path="res://models/objects/mam_cung/lu-huong_0.jpg" id="5_r0uua"]
 [ext_resource type="Texture2D" uid="uid://ffa15ytjpky8" path="res://models/objects/mam_cung/lu-huong_3.png" id="6_m1sre"]
@@ -19,7 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://vf4k2veftmir" path="res://models/objects/mam_cung/flowervase_2.jpg" id="17_jtp56"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gt55w"]
-load_path = "res://.godot/imported/dirty_plastic_chairs__tables_9.png-a7e2a7d95a42089ade56d0955c9c36e0.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ichxx"]
 resource_name = "Meja_Plastik_1"
@@ -225,6 +225,9 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bvt0j")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jtp56"]
+size = Vector3(11.815567, 10, 10.280243)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ks6re"]
 resource_name = "defaultMat"
@@ -3915,6 +3918,7 @@ shape = SubResource("ConcavePolygonShape3D_ag8ik")
 
 [node name="lu_huong" type="Node3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1.3786144, 0.78793883, 1.5093712)
+script = ExtResource("3_jtp56")
 
 [node name="Sketchfab_model" type="Node3D" parent="lu_huong"]
 transform = Transform3D(1, 0, 0, 0, 2.220446e-16, 1, 0, -1, 2.220446e-16, 0, 0, 0)
@@ -3952,6 +3956,13 @@ transform = Transform3D(0.99, 0, 0, 0, 0.99, 0, 0, 0, 0.99, 0, 72.90788, 0)
 transform = Transform3D(1.0000002, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000002, -814.85913, 0, -709.9983)
 mesh = SubResource("ArrayMesh_w2xxr")
 skeleton = NodePath("")
+
+[node name="Area3D" type="Area3D" parent="lu_huong"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.871427, 0, -7.848731)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="lu_huong/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1941719, 0, -0.1794467)
+shape = SubResource("BoxShape3D_jtp56")
 
 [node name="chicken" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.023071289, 0, 0.07791683)
@@ -4742,3 +4753,6 @@ transform = Transform3D(0.32256043, -4.878217e-18, 2.985802e-35, 2.6020852e-18, 
 [node name="pCylinder1_flowerStemMt_03" type="MeshInstance3D" parent="flowerVase/flowers/flower5/pCylinder13"]
 mesh = SubResource("ArrayMesh_00nkr")
 skeleton = NodePath("")
+
+[connection signal="body_entered" from="lu_huong/Area3D" to="lu_huong" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="lu_huong/Area3D" to="lu_huong" method="_on_area_3d_body_exited"]

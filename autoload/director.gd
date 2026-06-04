@@ -9,6 +9,8 @@ signal empty_shelves_requested(count: int)
 signal customer_shopping_requested(count: int)
 signal clean_floor_requested(count: int)
 signal monster_interaction_requested(count: int)
+signal place_offering_tray_requested(count: int)
+signal light_incense_requested(count: int)
 
 signal task_delay_started(delay: float)
 
@@ -71,6 +73,10 @@ func _handle_event(event) -> void:
 			emit_signal("clean_floor_requested", event.task_count_required)
 		4: # MONSTER_INTERACTION
 			emit_signal("monster_interaction_requested", event.task_count_required)
+		5: # PLACE_OFFERING_TRAY
+			emit_signal("place_offering_tray_requested", event.task_count_required)
+		6: # LIGHT_INCENSE
+			emit_signal("light_incense_requested", event.task_count_required)
 
 func _on_task_completed() -> void:
 	print("Director: Task Completed")

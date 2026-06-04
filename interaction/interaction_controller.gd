@@ -9,6 +9,7 @@ var current_object: Object
 var last_potential_object: Object
 var interaction_component: Node
 var interact_label: Label = null
+var forced_label_text: String = ""
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -77,7 +78,12 @@ func _process(delta: float) -> void:
 					interaction_component.preInteract(hand)
 
 	if interact_label:
-		interact_label.visible = show_label
+		if forced_label_text != "":
+			interact_label.text = forced_label_text
+			interact_label.visible = true
+		else:
+			interact_label.text = "[E] interact"
+			interact_label.visible = show_label
 
 func isCameraLocked() -> bool:
 	if interaction_component:

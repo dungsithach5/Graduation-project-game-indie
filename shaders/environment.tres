@@ -15,6 +15,7 @@ sky_material = SubResource("ShaderMaterial_avbfq")
 [resource]
 background_mode = 2
 background_color = Color(0.05700522, 0.074896656, 0.15090567, 1)
+background_energy_multiplier = 0.15
 sky = SubResource("Sky_avbfq")
 sky_custom_fov = 75.0
 ambient_light_color = Color(0.03529412, 0.050980393, 0.08627451, 1)

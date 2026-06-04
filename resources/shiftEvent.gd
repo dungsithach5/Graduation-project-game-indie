@@ -6,7 +6,9 @@ enum EventType {
 	RESTOCK_SHELVES,
 	CUSTOMER_SHOPPING,
 	CLEAN_FLOOR,
-	MONSTER_INTERACTION
+	MONSTER_INTERACTION,
+	PLACE_OFFERING_TRAY,
+	LIGHT_INCENSE
 }
 @export var type: EventType = EventType.RESTOCK_SHELVES
 @export var delay: float = 0.0
