@@ -77,7 +77,7 @@
 [ext_resource type="Texture2D" uid="uid://cjfqf77byheye" path="res://models/world/weenmart/winmart_Metal_07_baseColor.jpg" id="61_cuqsa"]
 [ext_resource type="Texture2D" uid="uid://cy2roq4edwxh1" path="res://models/world/weenmart/winmart_Respirator_baseColor.png" id="62_u7v7f"]
 [ext_resource type="Texture2D" uid="uid://cskomwwk65w30" path="res://models/world/weenmart/winmart_Concrete_baseColor.jpg" id="63_fmvfa"]
-[ext_resource type="Shader" uid="uid://bq5cxfxdlbx6d" path="res://shaders/retro.gdshader" id="77_avbfq"]
+[ext_resource type="Shader" uid="uid://paswxq8c8fil" path="res://shaders/shader.gdshader" id="79_0q2rx"]
 [ext_resource type="PackedScene" uid="uid://jmfip6bflxwe" path="res://models/objects/mam_cung/mam_cung.tscn" id="90_vraki"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_4f8x3"]
@@ -6479,35 +6479,6 @@ shadow_mesh = SubResource("ArrayMesh_ctj02")
 [sub_resource type="BoxShape3D" id="BoxShape3D_nd4wk"]
 size = Vector3(1, 4.3058777, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjx5a"]
-shader = ExtResource("77_avbfq")
-shader_parameter/grain_intensity = 0.08
-shader_parameter/min_lum = 0.0
-shader_parameter/max_lum = 1.0
-shader_parameter/time_scale = 0.5
-shader_parameter/vignette_darkness = 0.4
-shader_parameter/vignette_outer_radius = 0.8
-shader_parameter/vignette_inner_radius = 0.3
-shader_parameter/scanline_intensity = 0.12
-shader_parameter/scanline_count = 480.0
-shader_parameter/barrel_distortion = 0.08
-shader_parameter/chromatic_aberration = 0.008
-shader_parameter/crt_vignette_power = 2.5
-shader_parameter/enable_pixelation = false
-shader_parameter/pixel_resolution_x = 640
-shader_parameter/pixel_resolution_y = 480
-shader_parameter/enable_color_quantization = false
-shader_parameter/color_quant_steps = 32.0
-shader_parameter/warble_amount = 0.001
-shader_parameter/warble_speed = 4.0
-shader_parameter/vhs_jitter_amount = 0.002
-shader_parameter/vhs_jitter_speed = 12.0
-shader_parameter/head_switching_noise = 0.08
-shader_parameter/composite_blur = 0.6
-shader_parameter/saturation = 0.82
-shader_parameter/contrast = 1.08
-shader_parameter/shadow_lift = 0.04
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rkvui"]
 albedo_color = Color(0.9147052, 0.12297719, 1.92523e-07, 1)
 
@@ -6515,6 +6486,17 @@ albedo_color = Color(0.9147052, 0.12297719, 1.92523e-07, 1)
 material = SubResource("StandardMaterial3D_rkvui")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1m1un"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjx5a"]
+shader = ExtResource("79_0q2rx")
+shader_parameter/aberration_strength = 3.0
+shader_parameter/blur_strength = 2.0
+shader_parameter/noise_strength = 0.048
+shader_parameter/vignette_strength = 0.78
+shader_parameter/scanline_strength = 0.016
+shader_parameter/distortion_strength = 0.1
+shader_parameter/ghost_strength = 0.12
+shader_parameter/flicker_strength = 0.005
 
 [node name="sandbox" type="Node3D"]
 script = ExtResource("1_7he1i")
@@ -9124,17 +9106,6 @@ spot_angle = 90.0
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, 1, -1, 4.371139e-08, -4.371139e-08, -12.078577, 3.2799, -11.028616)
 spot_angle = 90.0
 
-[node name="Shader" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="Shader"]
-material = SubResource("ShaderMaterial_yjx5a")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="mam_cung" parent="." instance=ExtResource("90_vraki")]
 transform = Transform3D(-0.99957883, 0, 0.029020816, 0, 1, 0, -0.029020816, 0, -0.99957883, -11.18106, -1.1920929e-07, -3.4972076)
 
@@ -9148,6 +9119,16 @@ mesh = SubResource("CapsuleMesh_vraki")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D"]
 visible = false
 shape = SubResource("CapsuleShape3D_1m1un")
+
+[node name="Shader" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Shader"]
+material = SubResource("ShaderMaterial_yjx5a")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="body_entered" from="stain/Area3D" to="stain" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="stain/Area3D" to="stain" method="_on_area_3d_body_exited"]
