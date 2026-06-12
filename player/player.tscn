@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://550ipykvxg0"]
+[gd_scene load_steps=6 format=3 uid="uid://550ipykvxg0"]
 
 [ext_resource type="Script" uid="uid://bhtihoguoq8hf" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="PackedScene" uid="uid://c6san5ivrwr3w" path="res://interaction/interaction_controller.tscn" id="2_rkbax"]
@@ -9,6 +9,8 @@ radius = 0.45
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i3pqv"]
 radius = 0.45
 height = 1.0
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_rkbax"]
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(0.9806659, 0, -0.19568941, 0, 1, 0, 0.19568941, 0, 0.9806659, 0, 0, 0)
@@ -46,3 +48,7 @@ target_position = Vector3(0, 2, 0)
 
 [node name="InteractionController" parent="." instance=ExtResource("2_rkbax")]
 unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.9640301, 0.1953286, -0.18025717, -0.19532858, 0.06070011, -0.97885764, -0.18025722, 0.97885764, 0.09666999, -0.15631399, 1.069642, -0.7833423)
+shape = SubResource("SeparationRayShape3D_rkbax")

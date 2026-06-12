@@ -9121,6 +9121,7 @@ visible = false
 shape = SubResource("CapsuleShape3D_1m1un")
 
 [node name="Shader" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Shader"]
 material = SubResource("ShaderMaterial_yjx5a")
