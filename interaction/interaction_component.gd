@@ -6,7 +6,8 @@ enum InteractionType {
 	SWITCH,
 	WHEEL,
 	NPC,
-	BROOM
+	BROOM,
+	GO_HOME
 }
 
 @export var object_ref: Node3D
@@ -76,6 +77,13 @@ func preInteract(hand: Marker3D) -> void:
 				if Director.current_event_index < current_night.events.size():
 					var current_event = current_night.events[Director.current_event_index]
 					if current_event.type == 0: # 0 là TALK_TO_NPC
+						TaskManager.update_task()
+		InteractionType.GO_HOME:
+			if Director.shift_active:
+				var current_night = Director.nights[Director.current_night_index]
+				if Director.current_event_index < current_night.events.size():
+					var current_event = current_night.events[Director.current_event_index]
+					if current_event.type == 5: # 5 là GO_HOME
 						TaskManager.update_task()
 
 # run every frame, perform some logic on this object

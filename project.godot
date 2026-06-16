@@ -75,7 +75,11 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray()
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 
@@ -150,7 +154,10 @@ locale/translations=PackedStringArray("res://languages/text_translation.en.trans
 
 [layer_names]
 
+3d_physics/layer_1="world"
 3d_physics/layer_2="interactions"
+3d_physics/layer_3="player"
+3d_physics/layer_5="invisible_wall"
 
 [rendering]
 

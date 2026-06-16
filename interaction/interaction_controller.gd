@@ -57,12 +57,25 @@ func _process(delta: float) -> void:
 						interact_label.visible = false
 					return
 				
+				if interaction_component.interaction_type == 6: # 6 là GO_HOME
+					var is_go_home_task = false
+					if Director.shift_active:
+						var current_night = Director.nights[Director.current_night_index]
+						if Director.current_event_index < current_night.events.size():
+							var current_event = current_night.events[Director.current_event_index]
+							if current_event != null and current_event.type == 5: # 5 là GO_HOME
+								is_go_home_task = true
+					if not is_go_home_task:
+						if interact_label:
+							interact_label.visible = false
+						return
+				
 				show_label = true
 
 				last_potential_object = current_object
 
 				var pick_up = false
-				if interaction_component.interaction_type == interaction_component.InteractionType.DEFAULT or interaction_component.interaction_type == interaction_component.InteractionType.DOOR:
+				if interaction_component.interaction_type == interaction_component.InteractionType.DEFAULT or interaction_component.interaction_type == interaction_component.InteractionType.DOOR or interaction_component.interaction_type == 6:
 					if Input.is_action_just_pressed("interact"):
 						pick_up = true
 				else:
@@ -82,7 +95,10 @@ func _process(delta: float) -> void:
 			interact_label.text = forced_label_text
 			interact_label.visible = true
 		else:
-			interact_label.text = "[E] interact"
+			if interaction_component and interaction_component.interaction_type == 6: # 6 là GO_HOME
+				interact_label.text = "[E] Go Home"
+			else:
+				interact_label.text = "[E] interact"
 			interact_label.visible = show_label
 
 func isCameraLocked() -> bool:

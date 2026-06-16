@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://bc28i64em6c3j"]
+[gd_scene load_steps=17 format=4 uid="uid://bc28i64em6c3j"]
 
 [ext_resource type="Script" uid="uid://b16ot3fn41u14" path="res://models/NPCS/npc_customer_shopping.gd" id="1_qme3b"]
 [ext_resource type="Texture2D" uid="uid://b5j5keiaccsvr" path="res://assets/Characters_psx/Textures/Character_01.png" id="2_qme3b"]
@@ -152,6 +152,9 @@ states/Idle/position = Vector2(350, 161)
 states/Walking/node = SubResource("AnimationNodeAnimation_dki6s")
 states/Walking/position = Vector2(350, 52)
 transitions = ["Start", "Walking", SubResource("AnimationNodeStateMachineTransition_l4p87"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_d18bj"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_kruso"), "Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_ajjcf")]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_72kt5"]
+length = 0.21511509
 
 [node name="npc_customer_shopping" type="CharacterBody3D"]
 script = ExtResource("1_qme3b")
@@ -415,5 +418,9 @@ tree_root = SubResource("AnimationNodeStateMachine_sfl1g")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_idle = false
 parameters/conditions/is_walking = false
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.9640301, 0.1953286, -0.18025716, -0.19532858, 0.06070011, -0.97885764, -0.18025722, 0.97885764, 0.09666999, -0.1258977, 0.22015458, 0.41006857)
+shape = SubResource("SeparationRayShape3D_72kt5")
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
