@@ -4,6 +4,9 @@ extends Node3D
 
 @onready var shelf_container = $ShelfContainer
 
+var customers: Array[Node] = []
+var current_customer_index: int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	TaskManager.task_completed.connect(_on_all_tasks_completed)
@@ -20,12 +23,13 @@ func _ready() -> void:
 	Director.start_shift()
 
 
-	var customer = find_child("npc_customer*", true, false)
-	if customer:
-		customer.visible = false
-		customer.process_mode = Node.PROCESS_MODE_DISABLED
-	else:
-		print("Sandbox: Cảnh báo - Không tìm thấy NPC khách hàng lúc khởi động.")
+	customers = find_children("npc_customer*", "", true, false)
+	customers.sort_custom(func(a, b): return a.name < b.name)
+	for c in customers:
+		c.visible = false
+		c.process_mode = Node.PROCESS_MODE_DISABLED
+	if customers.size() == 0:
+		print("Sandbox: Cảnh báo - Không tìm thấy NPC khách hàng nào lúc khởi động.")
 	
 	pause_menu.visible = false
 
@@ -37,17 +41,33 @@ func _on_talk_to_npc_requested(limit: int) -> void:
 	# Task 1 đang chờ người chơi bấm E vào NPC Quản lý để hoàn thành.
 
 func _on_customer_shopping_requested(limit: int) -> void:
-	print("Sandbox: Bắt đầu Task 3 - Khách hàng vào quán")
-	# Tìm con khách hàng trong Scene
-	var customer = find_child("npc_customer*", true, false)
-	if customer:
-		customer.visible = true
-		customer.process_mode = Node.PROCESS_MODE_INHERIT
-		print("Sandbox: Đã bật NPC khách hàng!")
-		# Gọi hàm bắt đầu đi vào của khách (nếu có)
-		# Ví dụ: customer.start_shopping()
+	print("Sandbox: Bắt đầu Task 3 - Khách hàng vào quán. Số lượng yêu cầu: ", limit)
+	current_customer_index = 0
+	_activate_next_customer()
+
+func _activate_next_customer() -> void:
+	if current_customer_index < customers.size():
+		var next_customer = customers[current_customer_index]
+		if is_instance_valid(next_customer):
+			next_customer.visible = true
+			next_customer.process_mode = Node.PROCESS_MODE_INHERIT
+			if not next_customer.tree_exited.is_connected(_on_customer_exited):
+				next_customer.tree_exited.connect(_on_customer_exited)
+			print("Sandbox: Đã kích hoạt NPC khách hàng: ", next_customer.name)
+		else:
+			current_customer_index += 1
+			_activate_next_customer()
 	else:
-		print("Sandbox: Lỗi - Không tìm thấy NPC Khách hàng!")
+		print("Sandbox: Không còn khách hàng nào trong danh sách để kích hoạt.")
+
+func _on_customer_exited() -> void:
+	if Director.shift_active:
+		var current_night = Director.nights[Director.current_night_index]
+		if Director.current_event_index < current_night.events.size():
+			var current_event = current_night.events[Director.current_event_index]
+			if current_event != null and current_event.type == 2: # CUSTOMER_SHOPPING
+				current_customer_index += 1
+				call_deferred("_activate_next_customer")
 
 func _on_clean_floor_requested(limit: int) -> void:
 	print("Sandbox: Bắt đầu Task 4 - Lau dọn")

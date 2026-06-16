@@ -54,6 +54,7 @@ func _physics_process(delta: float) -> void:
 		State.FINISHED:
 			velocity.x = 0
 			velocity.z = 0
+			queue_free()
 
 	move_and_slide()
 	_update_animations()

@@ -8712,9 +8712,57 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.848242, 0.27305388, -21.9
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.957418, 0.4294566, -19.251406)
 
 [node name="point3" type="Marker3D" parent="NPC_movement/pointContainer"]
-transform = Transform3D(-0.4466351, 0.8947162, 0, -0.8947162, -0.4466351, 0, 0, 0, 1, -19.517994, 0.48572588, -17.639542)
+transform = Transform3D(-0.4466351, 0.8947162, 0, -0.8947162, -0.4466351, 0, 0, 0, 1, -19.245132, 0.48572588, -16.901428)
 
 [node name="point4" type="Marker3D" parent="NPC_movement/pointContainer"]
+transform = Transform3D(-0.4466351, 0.8947162, 0, -0.8947162, -0.4466351, 0, 0, 0, 1, -19.306274, 0.092173815, -4.794943)
+
+[node name="NPC_movement2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6345415, -0.27305388, 21.276527)
+
+[node name="npc_customer_shopping" parent="NPC_movement2" node_paths=PackedStringArray("waypoints", "table_spawn_point") instance=ExtResource("12_4f8x3")]
+transform = Transform3D(-0.9971154, 0, -0.07590118, 0, 1, 0, 0.07590118, 0, -0.9971154, -19.549013, 0.39330423, -19.044111)
+waypoints = [NodePath("../pointContainer/point1"), NodePath("../pointContainer/point2"), NodePath("../pointContainer/point3"), NodePath("../pointContainer/point4")]
+item_to_spawn = ExtResource("12_okxhe")
+table_spawn_point = NodePath("../../Marker3D")
+
+[node name="pointContainer" type="Node3D" parent="NPC_movement2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8146973e-06, -12.248539)
+
+[node name="point1" type="Marker3D" parent="NPC_movement2/pointContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.848242, 0.27305388, -21.935017)
+
+[node name="point2" type="Marker3D" parent="NPC_movement2/pointContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.957418, 0.4294566, -19.251406)
+
+[node name="point3" type="Marker3D" parent="NPC_movement2/pointContainer"]
+transform = Transform3D(-0.4466351, 0.8947162, 0, -0.8947162, -0.4466351, 0, 0, 0, 1, -19.245132, 0.48572588, -16.901428)
+
+[node name="point4" type="Marker3D" parent="NPC_movement2/pointContainer"]
+transform = Transform3D(-0.4466351, 0.8947162, 0, -0.8947162, -0.4466351, 0, 0, 0, 1, -19.306274, 0.092173815, -4.794943)
+
+[node name="NPC_movement3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6345415, -0.27305388, 21.276527)
+
+[node name="npc_customer_shopping" parent="NPC_movement3" node_paths=PackedStringArray("waypoints", "table_spawn_point") instance=ExtResource("12_4f8x3")]
+transform = Transform3D(-0.9971154, 0, -0.07590118, 0, 1, 0, 0.07590118, 0, -0.9971154, -19.549013, 0.39330423, -18.124691)
+waypoints = [NodePath("../pointContainer/point1"), NodePath("../pointContainer/point2"), NodePath("../pointContainer/point3"), NodePath("../pointContainer/point4")]
+item_to_spawn = ExtResource("12_okxhe")
+table_spawn_point = NodePath("../../Marker3D")
+
+[node name="pointContainer" type="Node3D" parent="NPC_movement3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8146973e-06, -12.248539)
+
+[node name="point1" type="Marker3D" parent="NPC_movement3/pointContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.848242, 0.27305388, -21.935017)
+
+[node name="point2" type="Marker3D" parent="NPC_movement3/pointContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.957418, 0.4294566, -19.251406)
+
+[node name="point3" type="Marker3D" parent="NPC_movement3/pointContainer"]
+transform = Transform3D(-0.4466351, 0.8947162, 0, -0.8947162, -0.4466351, 0, 0, 0, 1, -19.245132, 0.48572588, -16.901428)
+
+[node name="point4" type="Marker3D" parent="NPC_movement3/pointContainer"]
 transform = Transform3D(-0.4466351, 0.8947162, 0, -0.8947162, -0.4466351, 0, 0, 0, 1, -19.306274, 0.092173815, -4.794943)
 
 [node name="stain" type="Decal" parent="."]
