@@ -9,6 +9,12 @@ var triggered: bool = false
 var waiting_for_turn_around: bool = false
 
 func _ready() -> void:
+	if Director.current_night_index != 0:
+		if npc2:
+			npc2.queue_free()
+		queue_free()
+		return
+		
 	# Connect body_entered signal
 	body_entered.connect(_on_body_entered)
 	

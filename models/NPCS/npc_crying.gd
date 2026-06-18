@@ -2,8 +2,10 @@ extends Node3D
 
 var is_triggered: bool = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if Director.current_night_index != 0:
+		queue_free()
+		return
 	set_npc_active(false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
