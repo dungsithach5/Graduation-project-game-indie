@@ -124,6 +124,19 @@ func _proceed_to_next_event() -> void:
 		print("Director: No delay, sending next event")
 		_send_current_event()
 
+func get_current_event_type() -> int:
+	if not shift_active:
+		return -1
+	if current_night_index >= nights.size():
+		return -1
+	var current_night = nights[current_night_index]
+	if current_event_index >= current_night.events.size():
+		return -1
+	var event = current_night.events[current_event_index]
+	if event == null:
+		return -1
+	return event.type
+
 func get_random_number() -> int:
 	return randi_range(1, 2)
 

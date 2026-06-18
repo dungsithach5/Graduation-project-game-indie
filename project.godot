@@ -31,6 +31,7 @@ directories/dch_directory={
 directories/dtl_directory={
 "dialogic_after_restock": "res://dialogic_stuff/dialogic_after_restock.dtl",
 "dialogic_customer_1": "res://dialogic_stuff/dialogic_customer_1.dtl",
+"dialogic_jumpscare": "res://dialogic_stuff/dialogic_jumpscare.dtl",
 "dialogic_off_work": "res://dialogic_stuff/dialogic_off_work.dtl",
 "timeline": "res://dialogic_stuff/timeline.dtl"
 }

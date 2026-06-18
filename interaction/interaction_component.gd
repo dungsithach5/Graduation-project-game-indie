@@ -78,6 +78,15 @@ func preInteract(hand: Marker3D) -> void:
 					var current_event = current_night.events[Director.current_event_index]
 					if current_event.type == 0: # 0 là TALK_TO_NPC
 						TaskManager.update_task()
+						var on_timeline_ended = func():
+							var target = object_ref
+							if is_instance_valid(target):
+								if target.owner:
+									target = target.owner
+								elif target.get_parent() and target.get_parent() != get_tree().current_scene:
+									target = target.get_parent()
+								target.queue_free()
+						Dialogic.timeline_ended.connect(on_timeline_ended, CONNECT_ONE_SHOT)
 		InteractionType.GO_HOME:
 			if Director.shift_active:
 				var current_night = Director.nights[Director.current_night_index]

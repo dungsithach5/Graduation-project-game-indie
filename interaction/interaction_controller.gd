@@ -57,15 +57,26 @@ func _process(delta: float) -> void:
 						interact_label.visible = false
 					return
 				
+				var obj_name = potential_object.name.to_lower()
+				var parent_name = ""
+				if potential_object.get_parent():
+					parent_name = potential_object.get_parent().name.to_lower()
+				
+				var is_stock = "stock" in obj_name or "stock" in parent_name
+				var is_broom = "broom" in obj_name or "broom" in parent_name
+				
+				if is_stock and Director.get_current_event_type() != 1: # 1 là RESTOCK_SHELVES
+					if interact_label:
+						interact_label.visible = false
+					return
+					
+				if is_broom and Director.get_current_event_type() != 3: # 3 là CLEAN_FLOOR
+					if interact_label:
+						interact_label.visible = false
+					return
+
 				if interaction_component.interaction_type == 6: # 6 là GO_HOME
-					var is_go_home_task = false
-					if Director.shift_active:
-						var current_night = Director.nights[Director.current_night_index]
-						if Director.current_event_index < current_night.events.size():
-							var current_event = current_night.events[Director.current_event_index]
-							if current_event != null and current_event.type == 5: # 5 là GO_HOME
-								is_go_home_task = true
-					if not is_go_home_task:
+					if Director.get_current_event_type() != 5: # 5 là GO_HOME
 						if interact_label:
 							interact_label.visible = false
 						return

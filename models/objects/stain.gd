@@ -10,7 +10,32 @@ var is_cleaning: bool = false
 @onready var restock_ui := get_tree().get_root().find_child("ProgressUI", true, false)
 @onready var progress_bar := restock_ui.get_node("ProgressBar") if restock_ui else null
 
+func _ready() -> void:
+	# Hide and disable the stain initially unless clean floor is already active
+	var clean_active = false
+	if Director.get_current_event_type() == 3: # 3 là CLEAN_FLOOR
+		clean_active = true
+	set_stain_active(clean_active)
+	
+	# Connect to the signal to show ourselves when the task starts
+	if not Director.clean_floor_requested.is_connected(_on_clean_floor_requested):
+		Director.clean_floor_requested.connect(_on_clean_floor_requested)
+
+func set_stain_active(active: bool) -> void:
+	visible = active
+	var area = get_node_or_null("Area3D")
+	if area:
+		area.monitoring = active
+		area.monitorable = active
+	if not active:
+		_reset_clean()
+
+func _on_clean_floor_requested(count: int) -> void:
+	set_stain_active(true)
+
 func _process(delta: float) -> void:
+	if not visible:
+		return
 	if player_in_range and player_ref:
 		if Input.is_action_pressed("hold_interact"):
 			if player_ref.interaction_controller.current_object != null:

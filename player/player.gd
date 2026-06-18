@@ -144,6 +144,13 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func updatePLayerState() -> void:
+	if dialogic_active:
+		moving = false
+		player_state = PlayerState.IDLE_STAND
+		updatePlayerColShape(player_state)
+		updatePlayerSpeed(player_state)
+		return
+
 	moving = (input_dir != Vector2.ZERO)
 	if not is_on_floor():
 		player_state = PlayerState.AIR

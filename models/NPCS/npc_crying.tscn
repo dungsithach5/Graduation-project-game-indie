@@ -334,6 +334,7 @@ _data = {
 }
 
 [node name="npc_crying" type="Node3D"]
+script = ExtResource("2_nowap")
 
 [node name="Crying_female" type="Node3D" parent="."]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
@@ -580,7 +581,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_ufh2a")
 }
 autoplay = "mixamo_com"
-script = ExtResource("2_nowap")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_crying")
