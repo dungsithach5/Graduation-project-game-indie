@@ -78,8 +78,31 @@ func _handle_event(event) -> void:
 func _on_task_completed() -> void:
 	print("Director: Task Completed")
 	var current_night = nights[current_night_index]
+	
+	var completed_event = current_night.events[current_event_index]
+	var dialogue_to_play: String = ""
+	if completed_event != null:
+		if completed_event.type == 1: # RESTOCK_SHELVES
+			dialogue_to_play = "dialogic_after_restock"
+		elif completed_event.type == 3: # CLEAN_FLOOR
+			dialogue_to_play = "dialogic_off_work"
+	
 	current_event_index += 1
 	
+	if dialogue_to_play != "":
+		Dialogic.start(dialogue_to_play)
+		Dialogic.timeline_ended.connect(_on_dialogue_ended_after_task)
+		return
+		
+	_proceed_to_next_event()
+
+func _on_dialogue_ended_after_task() -> void:
+	if Dialogic.timeline_ended.is_connected(_on_dialogue_ended_after_task):
+		Dialogic.timeline_ended.disconnect(_on_dialogue_ended_after_task)
+	_proceed_to_next_event()
+
+func _proceed_to_next_event() -> void:
+	var current_night = nights[current_night_index]
 	if current_event_index >= current_night.events.size():
 		_end_shift()
 		return

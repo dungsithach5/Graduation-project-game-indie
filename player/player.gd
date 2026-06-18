@@ -58,8 +58,18 @@ var current_sensitivity: float = normal_sensitivity
 var sensitivity_restore_speed: float = 5.0 # tweak for smoothness
 var sensitivity_fading_in: bool = false
 
+var dialogic_active: bool = false
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Dialogic.timeline_started.connect(func():
+		dialogic_active = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	)
+	Dialogic.timeline_ended.connect(func():
+		dialogic_active = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	)
 	
 	# Initialize the retro shader parameters at runtime to match Fear to Fathom style
 	if get_parent():
@@ -94,7 +104,7 @@ func _ready() -> void:
 			mat.set_shader_parameter("shadow_lift", 0.02)
 
 func _input(event: InputEvent) -> void:
-	if get_tree().paused:
+	if get_tree().paused or dialogic_active:
 		return
 	if event is InputEventMouseMotion:
 		if not interaction_controller.isCameraLocked():
@@ -106,6 +116,17 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	updatePLayerState()
 	updateCamera(delta)
+	
+	if dialogic_active:
+		velocity.x = 0
+		velocity.z = 0
+		if not is_on_floor():
+			velocity += get_gravity() * delta
+		else:
+			velocity.y = -0.1
+		move_and_slide()
+		return
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

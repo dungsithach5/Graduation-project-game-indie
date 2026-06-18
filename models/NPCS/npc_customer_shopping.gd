@@ -19,6 +19,7 @@ var state: State = State.IDLE
 @export var table_waypoint_index: int = 1
 @export var item_to_spawn: PackedScene
 @export var table_spawn_point: Node3D
+@export var dialogic_timeline: String = "dialogic_customer_1"
 var current_waypoint_index: int = 0
 
 #TIMER
@@ -137,6 +138,10 @@ func spawn_item_on_table() -> void:
 			for child in item.get_children():
 				if child.has_method("setup_item"):
 					child.setup_item(self )
+		
+		# Start dialogic timeline if specified
+		if dialogic_timeline != "":
+			Dialogic.start(dialogic_timeline)
 
 func all_items_scanned() -> void:
 	state = State.IDLE

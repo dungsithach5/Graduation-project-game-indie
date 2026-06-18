@@ -25,9 +25,13 @@ TaskManager="*res://autoload/TaskManager.gd"
 
 directories/dch_directory={
 "npc_1": "res://dialogic_stuff/npc_1.dch",
+"npc_customer_1": "res://dialogic_stuff/npc_customer_1.dch",
 "player": "res://dialogic_stuff/player.dch"
 }
 directories/dtl_directory={
+"dialogic_after_restock": "res://dialogic_stuff/dialogic_after_restock.dtl",
+"dialogic_customer_1": "res://dialogic_stuff/dialogic_customer_1.dtl",
+"dialogic_off_work": "res://dialogic_stuff/dialogic_off_work.dtl",
 "timeline": "res://dialogic_stuff/timeline.dtl"
 }
 glossary/default_case_sensitive=true
@@ -67,6 +71,10 @@ audio/channel_defaults={
 "volume": 0.0
 }
 }
+layout/style_directory={
+"": "res://dialogic_stuff/Style_panel.tres",
+"Style_panel": "res://dialogic_stuff/style_panel.tres"
+}
 
 [display]
 
@@ -75,7 +83,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
 [filesystem]
 
