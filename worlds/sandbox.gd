@@ -16,9 +16,27 @@ func _ready() -> void:
 	Director.empty_shelves_requested.connect(get_shelf_children)
 	Director.customer_shopping_requested.connect(_on_customer_shopping_requested)
 	Director.clean_floor_requested.connect(_on_clean_floor_requested)
+	Director.turn_on_power_requested.connect(_on_turn_on_power_requested)
 	
 	# Bắt sự kiện khi hết đêm để chuyển cảnh
 	Director.shift_ended.connect(_on_shift_ended)
+	
+	# Setup interaction for fuse boxes in the scene
+	var root_node = get_node_or_null("NavigationRegion3D/weenmart/Sketchfab_model/6twelve_fbx/RootNode")
+	if root_node:
+		for name in ["Fuse_Boxes", "Fuse_Boxes_01", "Fuse_Boxes_02"]:
+			var box_node = root_node.get_node_or_null(name)
+			if box_node:
+				var static_body = _find_static_body(box_node)
+				if static_body:
+					var interaction_comp_scene = load("res://interaction/interaction_component.tscn")
+					if interaction_comp_scene:
+						var comp = interaction_comp_scene.instantiate()
+						comp.interaction_type = 7 # 7 là FUSE_BOX
+						comp.name = "InteractionComponent"
+						static_body.add_child(comp)
+						comp.object_ref = static_body
+						print("Sandbox: Attached InteractionComponent to fuse box " + name)
 	
 	Director.start_shift()
 
@@ -66,6 +84,9 @@ func _on_customer_exited() -> void:
 		if Director.current_event_index < current_night.events.size():
 			var current_event = current_night.events[Director.current_event_index]
 			if current_event != null and current_event.type == 2: # CUSTOMER_SHOPPING
+				TaskManager.update_task()
+				if Director.get_current_event_type() != 2:
+					return
 				current_customer_index += 1
 				call_deferred("_activate_next_customer")
 
@@ -114,3 +135,15 @@ func _on_shift_ended() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	# Tải scene panel_night_2
 	get_tree().change_scene_to_file("res://panel_night_2.tscn")
+
+func _on_turn_on_power_requested(limit: int) -> void:
+	print("Sandbox: Bắt đầu Task - Mở nguồn điện tại hộp điện")
+
+func _find_static_body(node: Node) -> StaticBody3D:
+	if node is StaticBody3D:
+		return node
+	for child in node.get_children():
+		var found = _find_static_body(child)
+		if found:
+			return found
+	return null

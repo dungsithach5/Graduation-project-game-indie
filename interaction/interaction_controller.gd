@@ -75,6 +75,18 @@ func _process(delta: float) -> void:
 						interact_label.visible = false
 					return
 
+				var is_extinguisher = "extinguisher" in obj_name or "extinguisher" in parent_name
+				if is_extinguisher and Director.get_current_event_type() != 6: # 6 là EXTINGUISH_FIRE
+					if interact_label:
+						interact_label.visible = false
+					return
+
+				var is_fuse_box = "fuse" in obj_name or "fuse" in parent_name or interaction_component.interaction_type == 7
+				if is_fuse_box and Director.get_current_event_type() != 7: # 7 là TURN_ON_POWER
+					if interact_label:
+						interact_label.visible = false
+					return
+
 				if interaction_component.interaction_type == 6: # 6 là GO_HOME
 					if Director.get_current_event_type() != 5: # 5 là GO_HOME
 						if interact_label:
@@ -86,7 +98,7 @@ func _process(delta: float) -> void:
 				last_potential_object = current_object
 
 				var pick_up = false
-				if interaction_component.interaction_type == interaction_component.InteractionType.DEFAULT or interaction_component.interaction_type == interaction_component.InteractionType.DOOR or interaction_component.interaction_type == 6:
+				if interaction_component.interaction_type == interaction_component.InteractionType.DEFAULT or interaction_component.interaction_type == interaction_component.InteractionType.DOOR or interaction_component.interaction_type == 6 or interaction_component.interaction_type == 7:
 					if Input.is_action_just_pressed("interact"):
 						pick_up = true
 				else:
@@ -108,6 +120,8 @@ func _process(delta: float) -> void:
 		else:
 			if interaction_component and interaction_component.interaction_type == 6: # 6 là GO_HOME
 				interact_label.text = "[E] Go Home"
+			elif interaction_component and interaction_component.interaction_type == 7: # 7 là FUSE_BOX
+				interact_label.text = "[E] Turn on Power"
 			else:
 				interact_label.text = "[E] interact"
 			interact_label.visible = show_label

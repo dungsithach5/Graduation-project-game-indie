@@ -29,6 +29,7 @@ directories/dch_directory={
 "player": "res://dialogic_stuff/player.dch"
 }
 directories/dtl_directory={
+"dialogic_after_fire": "res://dialogic_stuff/dialogic_after_fire.dtl",
 "dialogic_after_restock": "res://dialogic_stuff/dialogic_after_restock.dtl",
 "dialogic_customer_1": "res://dialogic_stuff/dialogic_customer_1.dtl",
 "dialogic_jumpscare": "res://dialogic_stuff/dialogic_jumpscare.dtl",

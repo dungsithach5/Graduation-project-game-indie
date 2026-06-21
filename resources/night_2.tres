@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ShiftData" load_steps=7 format=3 uid="uid://cjgig6x51pv0e"]
+[gd_resource type="Resource" script_class="ShiftData" load_steps=10 format=3 uid="uid://cjgig6x51pv0e"]
 
 [ext_resource type="Script" uid="uid://dw3asa20ormbb" path="res://resources/shiftEvent.gd" id="1_485ra"]
 [ext_resource type="Script" uid="uid://c6ammxfu1rmc0" path="res://resources/ShiftData.gd" id="2_lh74l"]
@@ -11,13 +11,25 @@ metadata/_custom_type_script = "uid://dw3asa20ormbb"
 
 [sub_resource type="Resource" id="Resource_s0ins"]
 script = ExtResource("1_485ra")
-task_count_required = 2
-description = "Restock 2 Shelves"
+task_count_required = 3
+description = "Restock Shelves"
 metadata/_custom_type_script = "uid://dw3asa20ormbb"
 
 [sub_resource type="Resource" id="Resource_mpu6l"]
 script = ExtResource("1_485ra")
 type = 2
+task_count_required = 3
+metadata/_custom_type_script = "uid://dw3asa20ormbb"
+
+[sub_resource type="Resource" id="Resource_power"]
+script = ExtResource("1_485ra")
+type = 7
+description = "Restore Mart Power"
+metadata/_custom_type_script = "uid://dw3asa20ormbb"
+
+[sub_resource type="Resource" id="Resource_fire"]
+script = ExtResource("1_485ra")
+type = 6
 metadata/_custom_type_script = "uid://dw3asa20ormbb"
 
 [sub_resource type="Resource" id="Resource_dk0wg"]
@@ -26,8 +38,13 @@ type = 3
 description = "Clean the Floor"
 metadata/_custom_type_script = "uid://dw3asa20ormbb"
 
+[sub_resource type="Resource" id="Resource_485ra"]
+script = ExtResource("1_485ra")
+type = 5
+metadata/_custom_type_script = "uid://dw3asa20ormbb"
+
 [resource]
 resource_name = "Night 2"
 script = ExtResource("2_lh74l")
 night_name = "Night 2"
-events = Array[ExtResource("1_485ra")]([SubResource("Resource_6wqxj"), SubResource("Resource_s0ins"), SubResource("Resource_mpu6l"), SubResource("Resource_dk0wg")])
+events = Array[ExtResource("1_485ra")]([SubResource("Resource_6wqxj"), SubResource("Resource_s0ins"), SubResource("Resource_mpu6l"), SubResource("Resource_power"), SubResource("Resource_fire"), SubResource("Resource_dk0wg"), SubResource("Resource_485ra")])

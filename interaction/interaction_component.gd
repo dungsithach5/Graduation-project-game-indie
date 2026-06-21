@@ -7,7 +7,8 @@ enum InteractionType {
 	WHEEL,
 	NPC,
 	BROOM,
-	GO_HOME
+	GO_HOME,
+	FUSE_BOX
 }
 
 @export var object_ref: Node3D
@@ -94,6 +95,18 @@ func preInteract(hand: Marker3D) -> void:
 					var current_event = current_night.events[Director.current_event_index]
 					if current_event.type == 5: # 5 là GO_HOME
 						TaskManager.update_task()
+		InteractionType.FUSE_BOX:
+			if Director.shift_active:
+				var current_night = Director.nights[Director.current_night_index]
+				if Director.current_event_index < current_night.events.size():
+					var current_event = current_night.events[Director.current_event_index]
+					if current_event.type == 7: # 7 là TURN_ON_POWER
+						var lighting_mart = get_tree().get_current_scene().find_child("LightingMart", true, false)
+						if lighting_mart:
+							for child in lighting_mart.get_children():
+								if child is Light3D:
+									child.visible = true
+						TaskManager.update_task()
 
 # run every frame, perform some logic on this object
 func interact() -> void:
@@ -128,7 +141,9 @@ func _input(event: InputEvent) -> void:
 func _default_interact() -> void:
 	var rigid_body_3d: RigidBody3D = object_ref as RigidBody3D
 	if rigid_body_3d:
+		var original_scale = rigid_body_3d.scale
 		rigid_body_3d.global_transform = player_hand.global_transform
+		rigid_body_3d.scale = original_scale
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

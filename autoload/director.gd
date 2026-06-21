@@ -10,6 +10,8 @@ signal customer_shopping_requested(count: int)
 signal clean_floor_requested(count: int)
 signal monster_interaction_requested(count: int)
 signal go_home_requested(count: int)
+signal extinguish_fire_requested(count: int)
+signal turn_on_power_requested(count: int)
 
 signal task_delay_started(delay: float)
 
@@ -74,6 +76,15 @@ func _handle_event(event) -> void:
 			emit_signal("monster_interaction_requested", event.task_count_required)
 		5: # GO_HOME
 			emit_signal("go_home_requested", event.task_count_required)
+		6: # EXTINGUISH_FIRE
+			emit_signal("extinguish_fire_requested", event.task_count_required)
+		7: # TURN_ON_POWER
+			var lighting_mart = get_tree().get_current_scene().find_child("LightingMart", true, false)
+			if lighting_mart:
+				for child in lighting_mart.get_children():
+					if child is Light3D:
+						child.visible = false
+			emit_signal("turn_on_power_requested", event.task_count_required)
 
 func _on_task_completed() -> void:
 	print("Director: Task Completed")
@@ -86,6 +97,8 @@ func _on_task_completed() -> void:
 			dialogue_to_play = "dialogic_after_restock"
 		elif completed_event.type == 3: # CLEAN_FLOOR
 			dialogue_to_play = "dialogic_off_work"
+		elif completed_event.type == 6: # EXTINGUISH_FIRE
+			dialogue_to_play = "dialogic_after_fire"
 	
 	current_event_index += 1
 	
@@ -99,6 +112,17 @@ func _on_task_completed() -> void:
 func _on_dialogue_ended_after_task() -> void:
 	if Dialogic.timeline_ended.is_connected(_on_dialogue_ended_after_task):
 		Dialogic.timeline_ended.disconnect(_on_dialogue_ended_after_task)
+		
+	# Dọn dẹp/ẩn gold bar sau khi đối thoại dập lửa kết thúc
+	var current_night = nights[current_night_index]
+	var completed_event_idx = current_event_index - 1
+	if completed_event_idx >= 0 and completed_event_idx < current_night.events.size():
+		var completed_event = current_night.events[completed_event_idx]
+		if completed_event != null and completed_event.type == 6: # EXTINGUISH_FIRE
+			var fire_effect = get_tree().get_current_scene().find_child("fireEffect", true, false)
+			if fire_effect:
+				fire_effect.queue_free()
+				
 	_proceed_to_next_event()
 
 func _proceed_to_next_event() -> void:

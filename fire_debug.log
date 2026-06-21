@@ -1,0 +1,114 @@
+12:21:22: Fire _ready() called. Node path: /root/sandbox/fireEffect
+12:21:23: Area3D found, monitoring set to true, mask: 4294967295
+12:21:23: Body entered fire Area3D: StaticBody3D (Group 'player': false)
+12:22:12: Body entered fire Area3D: Player (Group 'player': true)
+12:22:12: Player successfully set in range.
+12:22:13: Resetting extinguish progress.
+12:22:16: Fire extinguished completely!
+12:22:16: Finishing extinguish.
+12:22:16: Resetting extinguish progress.
+12:22:16: Body exited fire Area3D: StaticBody3D
+12:22:16: Body exited fire Area3D: Player
+12:22:16: Player exited range.
+15:26:26: Fire _ready() called. Node path: /root/sandbox/fireEffect
+15:26:26: Area3D found, monitoring set to true, mask: 4294967295
+15:26:27: Body entered fire Area3D: StaticBody3D (Group 'player': false)
+15:26:47: Body entered fire Area3D: Player (Group 'player': true)
+15:26:47: Player successfully set in range.
+15:26:50: Fire extinguished completely!
+15:26:50: Finishing extinguish.
+15:26:50: Resetting extinguish progress.
+15:26:50: Body exited fire Area3D: StaticBody3D
+15:26:50: Body exited fire Area3D: Player
+15:26:50: Player exited range.
+16:50:51: Fire _ready() called. Node path: /root/sandbox/fireEffect
+16:50:51: Area3D found, monitoring set to true, mask: 4294967295
+16:50:51: Body entered fire Area3D: StaticBody3D (Group 'player': false)
+16:55:02: Body entered fire Area3D: Player (Group 'player': true)
+16:55:02: Player successfully set in range.
+16:55:09: Body exited fire Area3D: Player
+16:55:09: Player exited range.
+16:56:42: Body exited fire Area3D: StaticBody3D
+17:20:23: Fire _ready() called. Node path: /root/sandbox/fireEffect
+17:20:23: Area3D found, monitoring set to false initially
+17:22:58: Fire _ready() called. Node path: /root/sandbox/fireEffect
+17:22:58: Area3D found, monitoring set to false initially
+17:27:04: Fire _ready() called. Node path: /root/sandbox/fireEffect
+17:27:04: Area3D found, monitoring set to false initially
+17:29:54: Fire _ready() called. Node path: /root/sandbox/fireEffect
+17:29:54: Area3D found, monitoring set to false initially
+17:34:17: Fire event requested. Activating fire.
+17:34:18: Body entered fire Area3D: StaticBody3D (Group 'player': false)
+17:34:42: Body entered fire Area3D: Player (Group 'player': true)
+17:34:42: Player successfully set in range.
+17:34:45: Fire extinguished completely!
+17:34:45: Finishing extinguish.
+17:34:45: Resetting extinguish progress.
+17:34:46: Body exited fire Area3D: StaticBody3D
+17:34:46: Body exited fire Area3D: Player
+17:34:46: Player exited range.
+17:47:05: Fire _ready() called. Node path: /root/sandbox/fireEffect
+17:47:05: Area3D found, monitoring set to false initially
+17:50:08: Fire _ready() called. Node path: /root/sandbox/fireEffect
+17:50:08: Area3D found, monitoring set to false initially
+17:55:00: Fire event requested. Activating fire.
+17:55:00: Body entered fire Area3D: StaticBody3D (Group 'player': false)
+17:55:12: Body exited fire Area3D: StaticBody3D
+18:03:09: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:03:09: Area3D found, monitoring set to false initially
+18:10:03: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:10:03: Area3D found, monitoring set to false initially
+18:17:02: Fire event requested. Activating fire.
+18:17:02: Body entered fire Area3D: StaticBody3D (Group 'player': false)
+18:17:56: Body entered fire Area3D: Player (Group 'player': true)
+18:17:57: Player successfully set in range.
+18:18:00: Fire extinguished completely!
+18:18:00: Finishing extinguish.
+18:18:00: Resetting extinguish progress.
+18:18:00: Body exited fire Area3D: StaticBody3D
+18:18:00: Body exited fire Area3D: Player
+18:18:00: Player exited range.
+18:18:57: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:18:57: Area3D found, monitoring set to false initially
+18:21:26: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:21:26: Area3D found, monitoring set to false initially
+18:30:51: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:30:51: Area3D found, monitoring set to false initially
+18:31:16: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:31:16: Area3D found, monitoring set to false initially
+18:37:17: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:37:17: Area3D found, monitoring set to false initially
+18:40:06: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:40:06: Area3D found, monitoring set to false initially
+18:44:18: Fire event requested. Activating fire.
+18:44:18: Body entered fire Area3D: StaticBody3D (Group 'player': false)
+18:44:55: Body entered fire Area3D: Player (Group 'player': true)
+18:44:55: Player successfully set in range.
+18:44:59: Fire extinguished completely!
+18:44:59: Finishing extinguish.
+18:44:59: Resetting extinguish progress.
+18:44:59: Body exited fire Area3D: StaticBody3D
+18:44:59: Body exited fire Area3D: Player
+18:44:59: Player exited range.
+18:46:25: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:46:25: Area3D found, monitoring set to false initially
+18:51:55: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:51:55: Area3D found, monitoring set to false initially
+18:56:00: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:56:00: Area3D found, monitoring set to false initially
+18:59:50: Fire _ready() called. Node path: /root/sandbox/fireEffect
+18:59:50: Area3D found, monitoring set to false initially
+19:05:28: Fire _ready() called. Node path: /root/sandbox/fireEffect
+19:05:28: Area3D found, monitoring set to false initially
+19:08:16: Fire _ready() called. Node path: /root/sandbox/fireEffect
+19:08:16: Area3D found, monitoring set to false initially
+19:11:35: Fire event requested. Activating fire.
+19:11:35: Body entered fire Area3D: StaticBody3D (Group 'player': false)
+19:11:57: Body entered fire Area3D: Player (Group 'player': true)
+19:11:57: Player successfully set in range.
+19:12:01: Fire extinguished completely!
+19:12:01: Finishing extinguish.
+19:12:01: Resetting extinguish progress.
+19:12:01: Body exited fire Area3D: StaticBody3D
+19:12:01: Body exited fire Area3D: Player
+19:12:01: Player exited range.
