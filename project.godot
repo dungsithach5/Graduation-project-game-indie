@@ -26,7 +26,8 @@ TaskManager="*res://autoload/TaskManager.gd"
 directories/dch_directory={
 "npc_1": "res://dialogic_stuff/npc_1.dch",
 "npc_customer_1": "res://dialogic_stuff/npc_customer_1.dch",
-"player": "res://dialogic_stuff/player.dch"
+"player": "res://dialogic_stuff/player.dch",
+"thaytu": "res://dialogic_stuff/thaytu.dch"
 }
 directories/dtl_directory={
 "dialogic_after_fire": "res://dialogic_stuff/dialogic_after_fire.dtl",
@@ -34,6 +35,7 @@ directories/dtl_directory={
 "dialogic_customer_1": "res://dialogic_stuff/dialogic_customer_1.dtl",
 "dialogic_jumpscare": "res://dialogic_stuff/dialogic_jumpscare.dtl",
 "dialogic_off_work": "res://dialogic_stuff/dialogic_off_work.dtl",
+"dialogic_thaytu": "res://dialogic_stuff/dialogic_thaytu.dtl",
 "timeline": "res://dialogic_stuff/timeline.dtl"
 }
 glossary/default_case_sensitive=true

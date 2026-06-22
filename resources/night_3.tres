@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="ShiftData" load_steps=7 format=3 uid="uid://bnwi1usy2aj2t"]
+
+[ext_resource type="Script" uid="uid://dw3asa20ormbb" path="res://resources/shiftEvent.gd" id="1_2w2bu"]
+[ext_resource type="Script" uid="uid://c6ammxfu1rmc0" path="res://resources/ShiftData.gd" id="2_80hrl"]
+
+[sub_resource type="Resource" id="Resource_80hrl"]
+script = ExtResource("1_2w2bu")
+description = "Restock Shelves"
+metadata/_custom_type_script = "uid://dw3asa20ormbb"
+
+[sub_resource type="Resource" id="Resource_rrdba"]
+script = ExtResource("1_2w2bu")
+type = 2
+task_count_required = 4
+metadata/_custom_type_script = "uid://dw3asa20ormbb"
+
+[sub_resource type="Resource" id="Resource_q5t71"]
+script = ExtResource("1_2w2bu")
+type = 3
+description = "Clean the Floor"
+metadata/_custom_type_script = "uid://dw3asa20ormbb"
+
+[sub_resource type="Resource" id="Resource_gohome"]
+script = ExtResource("1_2w2bu")
+type = 5
+description = "Go Home"
+metadata/_custom_type_script = "uid://dw3asa20ormbb"
+
+[resource]
+resource_name = "Night 3"
+script = ExtResource("2_80hrl")
+night_name = "Night 3"
+events = Array[ExtResource("1_2w2bu")]([SubResource("Resource_80hrl"), SubResource("Resource_rrdba"), SubResource("Resource_q5t71"), SubResource("Resource_gohome")])

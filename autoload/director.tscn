@@ -1,10 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://0ovsfk80h4jk"]
+[gd_scene load_steps=7 format=3 uid="uid://0ovsfk80h4jk"]
 
 [ext_resource type="Script" uid="uid://b4t4g57rvaxao" path="res://autoload/director.gd" id="1_kfubv"]
 [ext_resource type="Script" uid="uid://c6ammxfu1rmc0" path="res://resources/ShiftData.gd" id="2_u631l"]
 [ext_resource type="Resource" uid="uid://opmyst2or27b" path="res://resources/night_1.tres" id="3_ugpgb"]
 [ext_resource type="Resource" uid="uid://cjgig6x51pv0e" path="res://resources/night_2.tres" id="4_2k1hb"]
+[ext_resource type="Resource" uid="uid://bnwi1usy2aj2t" path="res://resources/night_3.tres" id="5_neyyt"]
+[ext_resource type="Resource" uid="uid://dnn60xke1hkhe" path="res://resources/night_4.tres" id="6_pipwu"]
 
 [node name="Director" type="Node3D"]
 script = ExtResource("1_kfubv")
-nights = Array[ExtResource("2_u631l")]([ExtResource("3_ugpgb"), ExtResource("4_2k1hb")])
+nights = Array[ExtResource("2_u631l")]([ExtResource("3_ugpgb"), ExtResource("4_2k1hb"), ExtResource("5_neyyt"), ExtResource("6_pipwu")])

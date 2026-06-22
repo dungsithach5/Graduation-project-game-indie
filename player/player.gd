@@ -64,7 +64,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Dialogic.timeline_started.connect(func():
 		dialogic_active = true
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	)
 	Dialogic.timeline_ended.connect(func():
 		dialogic_active = false

@@ -17,7 +17,7 @@ signal task_delay_started(delay: float)
 
 @export var nights: Array[ShiftData] = []
 
-var current_night_index: int = 0
+var current_night_index: int = 2 # Đặt bằng 2 để test nhanh Đêm 3 (thay vì Đêm 1 là 0)
 var current_event_index: int = 0
 var shift_active: bool = false
 var delay_timer: float = 0.0
@@ -26,6 +26,16 @@ var waiting_for_delay: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	TaskManager.task_completed.connect(_on_task_completed)
+	
+	# Tự động nạp Đêm 3 và Đêm 4 nếu chưa được kéo thả vào Inspector
+	if nights.size() < 3:
+		var night_3 = load("res://resources/night_3.tres")
+		if night_3:
+			nights.append(night_3)
+	if nights.size() < 4:
+		var night_4 = load("res://resources/night_4.tres")
+		if night_4:
+			nights.append(night_4)
 
 func start_shift() -> void:
 	if current_night_index >= nights.size():

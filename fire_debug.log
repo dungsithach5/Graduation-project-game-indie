@@ -112,3 +112,19 @@
 19:12:01: Body exited fire Area3D: StaticBody3D
 19:12:01: Body exited fire Area3D: Player
 19:12:01: Player exited range.
+06:33:55: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:33:55: Area3D found, monitoring set to false initially
+08:26:12: Fire _ready() called. Node path: /root/sandbox/fireEffect
+08:26:12: Area3D found, monitoring set to false initially
+08:31:04: Fire _ready() called. Node path: /root/sandbox/fireEffect
+08:31:04: Area3D found, monitoring set to false initially
+08:31:45: Fire _ready() called. Node path: /root/sandbox/fireEffect
+08:31:45: Area3D found, monitoring set to false initially
+08:39:20: Fire _ready() called. Node path: /root/sandbox/fireEffect
+08:39:20: Area3D found, monitoring set to false initially
+08:44:12: Fire _ready() called. Node path: /root/sandbox/fireEffect
+08:44:12: Area3D found, monitoring set to false initially
+08:53:43: Fire _ready() called. Node path: /root/sandbox/fireEffect
+08:53:43: Area3D found, monitoring set to false initially
+09:04:27: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:04:27: Area3D found, monitoring set to false initially

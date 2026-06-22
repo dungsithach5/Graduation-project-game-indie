@@ -10,6 +10,17 @@ var last_potential_object: Object
 var interaction_component: Node
 var interact_label: Label = null
 var forced_label_text: String = ""
+var dialogic_active: bool = false
+
+func _ready() -> void:
+	Dialogic.timeline_started.connect(func():
+		dialogic_active = true
+		if interact_label:
+			interact_label.visible = false
+	)
+	Dialogic.timeline_ended.connect(func():
+		dialogic_active = false
+	)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -17,6 +28,11 @@ func _process(delta: float) -> void:
 		interact_label = get_tree().get_first_node_in_group("interact_label")
 		if interact_label:
 			interact_label.hide()
+			
+	if dialogic_active:
+		if interact_label:
+			interact_label.visible = false
+		return
 			
 	var show_label = false
 
@@ -98,7 +114,11 @@ func _process(delta: float) -> void:
 				last_potential_object = current_object
 
 				var pick_up = false
-				if interaction_component.interaction_type == interaction_component.InteractionType.DEFAULT or interaction_component.interaction_type == interaction_component.InteractionType.DOOR or interaction_component.interaction_type == 6 or interaction_component.interaction_type == 7:
+				if (interaction_component.interaction_type == interaction_component.InteractionType.DEFAULT 
+					or interaction_component.interaction_type == interaction_component.InteractionType.DOOR 
+					or interaction_component.interaction_type == 6 
+					or interaction_component.interaction_type == 7
+					or interaction_component.interaction_type == interaction_component.InteractionType.NPC_THAYTU):
 					if Input.is_action_just_pressed("interact"):
 						pick_up = true
 				else:
@@ -122,6 +142,8 @@ func _process(delta: float) -> void:
 				interact_label.text = "[E] Go Home"
 			elif interaction_component and interaction_component.interaction_type == 7: # 7 là FUSE_BOX
 				interact_label.text = "[E] Turn on Power"
+			elif interaction_component and interaction_component.interaction_type == interaction_component.InteractionType.NPC_THAYTU:
+				interact_label.text = "[E] Talk to Thay Tu"
 			else:
 				interact_label.text = "[E] interact"
 			interact_label.visible = show_label

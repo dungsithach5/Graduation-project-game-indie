@@ -9,6 +9,18 @@ var current_customer_index: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Thiết lập thaytu chỉ xuất hiện ở đêm 3 (current_night_index = 2)
+	var thaytu_node = get_node_or_null("thaytu")
+	if thaytu_node:
+		if Director.current_night_index != 2:
+			thaytu_node.queue_free()
+
+	# Thiết lập NPC1 ẩn từ đêm 3 trở đi (current_night_index >= 2)
+	var npc1_node = get_node_or_null("NPC1")
+	if npc1_node:
+		if Director.current_night_index >= 2:
+			npc1_node.queue_free()
+
 	TaskManager.task_completed.connect(_on_all_tasks_completed)
 	
 	# Connect to Director's task signals

@@ -70,6 +70,7 @@
 [ext_resource type="Texture2D" uid="uid://cskomwwk65w30" path="res://models/world/weenmart/winmart_Concrete_baseColor.jpg" id="63_fmvfa"]
 [ext_resource type="PackedScene" uid="uid://bhfm2lpodxbij" path="res://models/objects/fire_effect.tscn" id="74_1jq5u"]
 [ext_resource type="PackedScene" uid="uid://dfmmijgbyfx5l" path="res://models/objects/extinguisher.tscn" id="74_kg08f"]
+[ext_resource type="PackedScene" uid="uid://c4h070oq7skfd" path="res://models/NPCS/thaytu.tscn" id="75_kg08f"]
 [ext_resource type="PackedScene" uid="uid://dujs1mw3g2s5q" path="res://interaction/interaction_component.tscn" id="78_yjx5a"]
 [ext_resource type="Shader" uid="uid://paswxq8c8fil" path="res://shaders/shader.gdshader" id="79_0q2rx"]
 [ext_resource type="PackedScene" uid="uid://vrbgt6w8prxy" path="res://models/NPCS/npc_crying.tscn" id="79_r83mk"]
@@ -5464,12 +5465,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ctj02")
 
-[sub_resource type="Environment" id="Environment_1jq5u"]
-background_mode = 1
-background_color = Color(0.086168535, 0.09662344, 0.17347234, 1)
-fog_enabled = true
-fog_light_color = Color(0.033146124, 0.07160496, 0.18355507, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_nd4wk"]
 size = Vector3(1, 4.3058777, 1)
 
@@ -7642,7 +7637,6 @@ mesh = SubResource("ArrayMesh_ej2xr")
 skeleton = NodePath("")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_1jq5u")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, -1, 42.365623, -0.100951195)
@@ -8006,6 +8000,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7308955, -0.59390026, 10.0
 
 [node name="EXTINGUISHER" parent="." instance=ExtResource("74_kg08f")]
 transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09, -10.614312, 0.51512516, -17.016016)
+
+[node name="thaytu" parent="." instance=ExtResource("75_kg08f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5403295, 0, -6.1768017)
 
 [connection signal="body_entered" from="stain/Area3D" to="stain" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="stain/Area3D" to="stain" method="_on_area_3d_body_exited"]

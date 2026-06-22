@@ -8,13 +8,15 @@ enum InteractionType {
 	NPC,
 	BROOM,
 	GO_HOME,
-	FUSE_BOX
+	FUSE_BOX,
+	NPC_THAYTU
 }
 
 @export var object_ref: Node3D
 @export var interaction_type: InteractionType = InteractionType.DEFAULT
 @export var maximum_rotation: float = 90
 @export var pivot_point: Node3D
+@export var dialogue_timeline: String = "timeline"
 
 var can_interact: bool = true
 var is_interacting: bool = false
@@ -70,7 +72,7 @@ func preInteract(hand: Marker3D) -> void:
 			door_tween.set_trans(Tween.TRANS_SINE)
 			door_tween.tween_property(pivot_point, "rotation:y", target_rotation, 0.5)
 		InteractionType.NPC:
-			Dialogic.start("timeline")
+			Dialogic.start(dialogue_timeline)
 			
 			# Kiểm tra xem Task hiện tại có phải là "Talk To Npc" không (Type = 0)
 			if Director.shift_active:
@@ -88,6 +90,17 @@ func preInteract(hand: Marker3D) -> void:
 									target = target.get_parent()
 								target.queue_free()
 						Dialogic.timeline_ended.connect(on_timeline_ended, CONNECT_ONE_SHOT)
+		InteractionType.NPC_THAYTU:
+			Dialogic.start(dialogue_timeline)
+			var on_timeline_ended = func():
+				var target = object_ref
+				if is_instance_valid(target):
+					if target.owner:
+						target = target.owner
+					elif target.get_parent() and target.get_parent() != get_tree().current_scene:
+						target = target.get_parent()
+					target.queue_free()
+			Dialogic.timeline_ended.connect(on_timeline_ended, CONNECT_ONE_SHOT)
 		InteractionType.GO_HOME:
 			if Director.shift_active:
 				var current_night = Director.nights[Director.current_night_index]
