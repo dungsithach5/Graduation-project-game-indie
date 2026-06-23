@@ -1,4 +1,4 @@
-[gd_scene load_steps=533 format=4 uid="uid://co8uqf1a5mvh8"]
+[gd_scene load_steps=536 format=4 uid="uid://co8uqf1a5mvh8"]
 
 [ext_resource type="Script" uid="uid://d2rvejf23trn2" path="res://worlds/sandbox.gd" id="1_7he1i"]
 [ext_resource type="PackedScene" uid="uid://550ipykvxg0" path="res://player/player.tscn" id="2_whpuv"]
@@ -71,6 +71,7 @@
 [ext_resource type="PackedScene" uid="uid://bhfm2lpodxbij" path="res://models/objects/fire_effect.tscn" id="74_1jq5u"]
 [ext_resource type="PackedScene" uid="uid://dfmmijgbyfx5l" path="res://models/objects/extinguisher.tscn" id="74_kg08f"]
 [ext_resource type="PackedScene" uid="uid://c4h070oq7skfd" path="res://models/NPCS/thaytu.tscn" id="75_kg08f"]
+[ext_resource type="PackedScene" uid="uid://cpoe5uac1b73b" path="res://enemy_ai/enemy_3d.tscn" id="76_kraiu"]
 [ext_resource type="PackedScene" uid="uid://dujs1mw3g2s5q" path="res://interaction/interaction_component.tscn" id="78_yjx5a"]
 [ext_resource type="Shader" uid="uid://paswxq8c8fil" path="res://shaders/shader.gdshader" id="79_0q2rx"]
 [ext_resource type="PackedScene" uid="uid://vrbgt6w8prxy" path="res://models/NPCS/npc_crying.tscn" id="79_r83mk"]
@@ -5482,6 +5483,12 @@ shader_parameter/flicker_strength = 0.005
 [sub_resource type="BoxShape3D" id="BoxShape3D_0q2rx"]
 size = Vector3(1, 0.51904297, 2.2214355)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_kg08f"]
+size = Vector3(0.14154053, 1, 0.54071045)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kraiu"]
+size = Vector3(0.81140137, 0.19732666, 1)
+
 [node name="sandbox" type="Node3D"]
 script = ExtResource("1_7he1i")
 
@@ -7817,6 +7824,18 @@ waypoints = [NodePath("../pointContainer/point1"), NodePath("../pointContainer/p
 item_to_spawn = ExtResource("12_okxhe")
 table_spawn_point = NodePath("../../Marker3D")
 
+[node name="npc_customer_shopping2" parent="NPC_movement3" node_paths=PackedStringArray("waypoints", "table_spawn_point") instance=ExtResource("12_4f8x3")]
+transform = Transform3D(-0.9971154, 0, -0.07590118, 0, 1, 0, 0.07590118, 0, -0.9971154, -19.549013, 0.39330423, -17.577477)
+waypoints = [NodePath("../pointContainer/point1"), NodePath("../pointContainer/point2"), NodePath("../pointContainer/point3"), NodePath("../pointContainer/point4")]
+item_to_spawn = ExtResource("12_okxhe")
+table_spawn_point = NodePath("../../Marker3D")
+
+[node name="npc_customer_shopping3" parent="NPC_movement3" node_paths=PackedStringArray("waypoints", "table_spawn_point") instance=ExtResource("12_4f8x3")]
+transform = Transform3D(-0.9971154, 0, -0.07590118, 0, 1, 0, 0.07590118, 0, -0.9971154, -19.549013, 0.39330423, -17.126642)
+waypoints = [NodePath("../pointContainer/point1"), NodePath("../pointContainer/point2"), NodePath("../pointContainer/point3"), NodePath("../pointContainer/point4")]
+item_to_spawn = ExtResource("12_okxhe")
+table_spawn_point = NodePath("../../Marker3D")
+
 [node name="pointContainer" type="Node3D" parent="NPC_movement3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8146973e-06, -12.248539)
 
@@ -8003,6 +8022,41 @@ transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09
 
 [node name="thaytu" parent="." instance=ExtResource("75_kg08f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5403295, 0, -6.1768017)
+
+[node name="Enemy3D" parent="." instance=ExtResource("76_kraiu")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.2092469, 1.0090951, -15.587013)
+
+[node name="Area_emulet" type="Node" parent="."]
+
+[node name="Area3D" type="Area3D" parent="Area_emulet"]
+
+[node name="emulet" type="CollisionShape3D" parent="Area_emulet/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1455073, 1.56848, -7.577474)
+shape = SubResource("BoxShape3D_kg08f")
+
+[node name="Area3D2" type="Area3D" parent="Area_emulet"]
+
+[node name="emulet2" type="CollisionShape3D" parent="Area_emulet/Area3D2"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.709935, 1.56848, -16.419231)
+shape = SubResource("BoxShape3D_kg08f")
+
+[node name="Area3D3" type="Area3D" parent="Area_emulet"]
+
+[node name="emulet3" type="CollisionShape3D" parent="Area_emulet/Area3D3"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -9.43695, 1.56848, -16.419231)
+shape = SubResource("BoxShape3D_kg08f")
+
+[node name="Area3D4" type="Area3D" parent="Area_emulet"]
+
+[node name="emulet4" type="CollisionShape3D" parent="Area_emulet/Area3D4"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.4920077, 1.6796805, -7.1519127)
+shape = SubResource("BoxShape3D_kg08f")
+
+[node name="TriggerGhost" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerGhost"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.132122, 0.13466829, -14.15706)
+shape = SubResource("BoxShape3D_kraiu")
 
 [connection signal="body_entered" from="stain/Area3D" to="stain" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="stain/Area3D" to="stain" method="_on_area_3d_body_exited"]

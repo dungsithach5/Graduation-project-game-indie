@@ -34,6 +34,7 @@ directories/dtl_directory={
 "dialogic_after_restock": "res://dialogic_stuff/dialogic_after_restock.dtl",
 "dialogic_customer_1": "res://dialogic_stuff/dialogic_customer_1.dtl",
 "dialogic_jumpscare": "res://dialogic_stuff/dialogic_jumpscare.dtl",
+"dialogic_night4": "res://dialogic_stuff/dialogic_night4.dtl",
 "dialogic_off_work": "res://dialogic_stuff/dialogic_off_work.dtl",
 "dialogic_thaytu": "res://dialogic_stuff/dialogic_thaytu.dtl",
 "timeline": "res://dialogic_stuff/timeline.dtl"
@@ -41,7 +42,9 @@ directories/dtl_directory={
 glossary/default_case_sensitive=true
 layout/style_list=["res://dialogic_stuff/style_panel.tres"]
 layout/default_style="res://dialogic_stuff/Style_panel.tres"
-variables={}
+variables={
+"accepted_talisman": "false"
+}
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true

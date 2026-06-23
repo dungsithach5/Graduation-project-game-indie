@@ -59,6 +59,7 @@ var sensitivity_restore_speed: float = 5.0 # tweak for smoothness
 var sensitivity_fading_in: bool = false
 
 var dialogic_active: bool = false
+var movement_locked: bool = false
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -104,7 +105,7 @@ func _ready() -> void:
 			mat.set_shader_parameter("shadow_lift", 0.02)
 
 func _input(event: InputEvent) -> void:
-	if get_tree().paused or dialogic_active:
+	if get_tree().paused or dialogic_active or movement_locked:
 		return
 	if event is InputEventMouseMotion:
 		if not interaction_controller.isCameraLocked():
@@ -117,7 +118,7 @@ func _physics_process(delta: float) -> void:
 	updatePLayerState()
 	updateCamera(delta)
 	
-	if dialogic_active:
+	if dialogic_active or movement_locked:
 		velocity.x = 0
 		velocity.z = 0
 		if not is_on_floor():
@@ -144,7 +145,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func updatePLayerState() -> void:
-	if dialogic_active:
+	if dialogic_active or movement_locked:
 		moving = false
 		player_state = PlayerState.IDLE_STAND
 		updatePlayerColShape(player_state)

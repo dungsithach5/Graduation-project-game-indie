@@ -27,16 +27,6 @@ var waiting_for_delay: bool = false
 func _ready() -> void:
 	TaskManager.task_completed.connect(_on_task_completed)
 	
-	# Tự động nạp Đêm 3 và Đêm 4 nếu chưa được kéo thả vào Inspector
-	if nights.size() < 3:
-		var night_3 = load("res://resources/night_3.tres")
-		if night_3:
-			nights.append(night_3)
-	if nights.size() < 4:
-		var night_4 = load("res://resources/night_4.tres")
-		if night_4:
-			nights.append(night_4)
-
 func start_shift() -> void:
 	if current_night_index >= nights.size():
 		print("Director: No more nights available!")
@@ -57,6 +47,8 @@ func _process(delta: float) -> void:
 		_send_current_event()
 
 func _send_current_event() -> void:
+	if current_night_index >= nights.size():
+		return
 	var current_night = nights[current_night_index]
 	if current_event_index >= current_night.events.size():
 		_end_shift()
@@ -98,6 +90,9 @@ func _handle_event(event) -> void:
 
 func _on_task_completed() -> void:
 	print("Director: Task Completed")
+	if current_night_index >= nights.size():
+		print("Director: All nights completed, ignoring task completed signal.")
+		return
 	var current_night = nights[current_night_index]
 	
 	var completed_event = current_night.events[current_event_index]
@@ -124,18 +119,21 @@ func _on_dialogue_ended_after_task() -> void:
 		Dialogic.timeline_ended.disconnect(_on_dialogue_ended_after_task)
 		
 	# Dọn dẹp/ẩn gold bar sau khi đối thoại dập lửa kết thúc
-	var current_night = nights[current_night_index]
-	var completed_event_idx = current_event_index - 1
-	if completed_event_idx >= 0 and completed_event_idx < current_night.events.size():
-		var completed_event = current_night.events[completed_event_idx]
-		if completed_event != null and completed_event.type == 6: # EXTINGUISH_FIRE
-			var fire_effect = get_tree().get_current_scene().find_child("fireEffect", true, false)
-			if fire_effect:
-				fire_effect.queue_free()
+	if current_night_index < nights.size():
+		var current_night = nights[current_night_index]
+		var completed_event_idx = current_event_index - 1
+		if completed_event_idx >= 0 and completed_event_idx < current_night.events.size():
+			var completed_event = current_night.events[completed_event_idx]
+			if completed_event != null and completed_event.type == 6: # EXTINGUISH_FIRE
+				var fire_effect = get_tree().get_current_scene().find_child("fireEffect", true, false)
+				if fire_effect:
+					fire_effect.queue_free()
 				
 	_proceed_to_next_event()
 
 func _proceed_to_next_event() -> void:
+	if current_night_index >= nights.size():
+		return
 	var current_night = nights[current_night_index]
 	if current_event_index >= current_night.events.size():
 		_end_shift()

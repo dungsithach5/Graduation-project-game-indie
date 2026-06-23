@@ -11,7 +11,11 @@ func _ready() -> void:
 	Director.task_delay_started.connect(_on_task_delay_started)
 
 func _on_event_triggered(event_type: String) -> void:
+	if Director.current_night_index >= Director.nights.size():
+		return
 	var current_night = Director.nights[Director.current_night_index]
+	if Director.current_event_index >= current_night.events.size():
+		return
 	var event = current_night.events[Director.current_event_index]
 	objective_body.text = event.description
 

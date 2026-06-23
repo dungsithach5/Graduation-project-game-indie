@@ -20,6 +20,27 @@ func _ready() -> void:
 	if npc1_node:
 		if Director.current_night_index >= 2:
 			npc1_node.queue_free()
+	
+	# Thiết lập Night 4 (current_night_index = 3)
+	var enemy3d_node = get_node_or_null("Enemy3D")
+	var area_emulet_node = get_node_or_null("Area_emulet")
+	var trigger_ghost_node = get_node_or_null("TriggerGhost")
+	
+	if Director.current_night_index == 3:
+		# Night 4: Thêm Night4EndingHandler để quản lý ending
+		var ending_handler = Node.new()
+		ending_handler.set_script(load("res://worlds/night4_ending.gd"))
+		ending_handler.name = "Night4EndingHandler"
+		call_deferred("add_child", ending_handler)
+		print("Sandbox: Night 4 - Ending handler added")
+	else:
+		# Không phải Night 4: Xóa các node không cần
+		if enemy3d_node:
+			enemy3d_node.queue_free()
+		if area_emulet_node:
+			area_emulet_node.queue_free()
+		if trigger_ghost_node:
+			trigger_ghost_node.queue_free()
 
 	TaskManager.task_completed.connect(_on_all_tasks_completed)
 	
@@ -91,7 +112,7 @@ func _activate_next_customer() -> void:
 		print("Sandbox: Không còn khách hàng nào trong danh sách để kích hoạt.")
 
 func _on_customer_exited() -> void:
-	if Director.shift_active:
+	if Director.shift_active and Director.current_night_index < Director.nights.size():
 		var current_night = Director.nights[Director.current_night_index]
 		if Director.current_event_index < current_night.events.size():
 			var current_event = current_night.events[Director.current_event_index]
@@ -142,6 +163,10 @@ func toggle_pause() -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _on_shift_ended() -> void:
+	# Night 4 ending được xử lý bởi Night4EndingHandler
+	if get_node_or_null("Night4EndingHandler"):
+		print("Sandbox: Night 4 shift ended - Night4EndingHandler sẽ xử lý")
+		return
 	print("Sandbox: Chuyển cảnh sang màn hình thông báo đêm mới...")
 	# Mở chuột lên để bấm nút (nếu có)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

@@ -9,7 +9,8 @@ enum EventType {
 	MONSTER_INTERACTION,
 	GO_HOME,
 	EXTINGUISH_FIRE,
-	TURN_ON_POWER
+	TURN_ON_POWER,
+	PLACE_TALISMAN
 }
 @export var type: EventType = EventType.RESTOCK_SHELVES
 @export var delay: float = 0.0

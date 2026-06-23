@@ -80,7 +80,7 @@ func _finish_restock() -> void:
 		player_ref.interaction_controller.current_object = null
 		restock()
 		_reset_restock()
-		if Director.shift_active:
+		if Director.shift_active and Director.current_night_index < Director.nights.size():
 			var current_night = Director.nights[Director.current_night_index]
 			if Director.current_event_index < current_night.events.size():
 				var current_event = current_night.events[Director.current_event_index]

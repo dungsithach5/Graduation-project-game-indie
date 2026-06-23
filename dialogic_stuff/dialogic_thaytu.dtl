@@ -1,8 +1,8 @@
-thaytu: blabla
-thaytu: blabla
+thaytu: Con ơi... hãy nghe ta nói.
+thaytu: Ta có một lá bùa phong ấn ma quỷ. Con có muốn nhận không?
 - nhan
-	player: blabla
-	set 
+	player: Vâng, con nhận ạ. Cảm ơn thầy!
+	set accepted_talisman = true
 - khong nhan
-	player: blabla
-	set
+	player: Không, con không cần đâu ạ.
+	set accepted_talisman = false

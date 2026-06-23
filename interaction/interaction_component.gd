@@ -75,7 +75,7 @@ func preInteract(hand: Marker3D) -> void:
 			Dialogic.start(dialogue_timeline)
 			
 			# Kiểm tra xem Task hiện tại có phải là "Talk To Npc" không (Type = 0)
-			if Director.shift_active:
+			if Director.shift_active and Director.current_night_index < Director.nights.size():
 				var current_night = Director.nights[Director.current_night_index]
 				if Director.current_event_index < current_night.events.size():
 					var current_event = current_night.events[Director.current_event_index]
@@ -102,14 +102,14 @@ func preInteract(hand: Marker3D) -> void:
 					target.queue_free()
 			Dialogic.timeline_ended.connect(on_timeline_ended, CONNECT_ONE_SHOT)
 		InteractionType.GO_HOME:
-			if Director.shift_active:
+			if Director.shift_active and Director.current_night_index < Director.nights.size():
 				var current_night = Director.nights[Director.current_night_index]
 				if Director.current_event_index < current_night.events.size():
 					var current_event = current_night.events[Director.current_event_index]
 					if current_event.type == 5: # 5 là GO_HOME
 						TaskManager.update_task()
 		InteractionType.FUSE_BOX:
-			if Director.shift_active:
+			if Director.shift_active and Director.current_night_index < Director.nights.size():
 				var current_night = Director.nights[Director.current_night_index]
 				if Director.current_event_index < current_night.events.size():
 					var current_event = current_night.events[Director.current_event_index]

@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=4 uid="uid://c7yee8almofla"]
+
+[ext_resource type="Texture2D" uid="uid://canwprp1pawy8" path="res://models/objects/talisman_0.png" id="1_pbw2i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psvxf"]
+resource_name = "material_0"
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("1_pbw2i")
+texture_filter = 0
+texture_repeat = false
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_oqd5n"]
+_surfaces = [{
+"aabb": AABB(0, 0, -0.25, 0.1875, 0.0625, 0.5),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAwAAAAIAAgABAAQABQAAAAMABQABAAAAAwACAAYABgAFAAMABgACAAQABwABAAUABwAFAAYAAQAHAAQABAAHAAYA"),
+"name": "material_0",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("////////AAD/////AAAAAP//AAD//wAAAAAAAP//AAD//wAAAAAAAAAA/////wAAAAAAAAAAAAAAAP//AAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_17x56"]
+resource_name = "Sketchfab_Scene_Object_0"
+_surfaces = [{
+"aabb": AABB(0, 0, -0.25, 0.1875, 0.0625, 0.5),
+"attribute_data": PackedByteArray("IQAvfMdCL3whAEFsx0JBbCFcL3zGni98IVxBbMaeQWzeW7N8CUOzfN5bvf8JQ73/9XS9/yFcvf/1dLN8IVyzfAmfL3zdty98CZ9BbN23QWwJQy983lsvfAlDQWzeW0Fs"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMABAAFAAYABgAFAAcACAAJAAoACgAJAAsADAANAA4ADgANAA8AEAARABIAEgARABMAFAAVABYAFgAVABcA"),
+"material": SubResource("StandardMaterial3D_psvxf"),
+"name": "material_0",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////////z//////AAD/P///AAD///8///8AAAAA/z8AAP//AAD/PwAA//////8/AAAAAAAA/z8AAAAA////PwAA//8AAAAA/////wAAAAAAAP////8AAP///////wAAAAAAAP///////wAA/////wAAAAAAAP////8AAAAA//8AAP/////+f/////////5/AAAAAP///n///wAA///+f/////8AAAAAAAD//wAAAAD//wAAAAAAAAAAAAAAAAAA/38AAP9/AAD/fwAA/38AAP9/////f////3////9/////f/+//3//v/9//7//f/+//3//P/9//z//f/8//3//P/9/////f////3////9/////f////3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_oqd5n")
+
+[node name="talisman" type="Node3D"]
+
+[node name="Sketchfab_Scene" type="Node3D" parent="."]
+
+[node name="Sketchfab_model" type="Node3D" parent="Sketchfab_Scene"]
+transform = Transform3D(1, 0, 0, 0, 2.220446e-16, 1, 0, -1, 2.220446e-16, 0, 0, 0)
+
+[node name="root" type="Node3D" parent="Sketchfab_Scene/Sketchfab_model"]
+
+[node name="GLTF_SceneRootNode" type="Node3D" parent="Sketchfab_Scene/Sketchfab_model/root"]
+transform = Transform3D(1, 0, 0, 0, 2.220446e-16, -1, 0, 1, 2.220446e-16, 0, 0, 0)
+
+[node name="_1" type="Node3D" parent="Sketchfab_Scene/Sketchfab_model/root/GLTF_SceneRootNode"]
+
+[node name="cube_0" type="Node3D" parent="Sketchfab_Scene/Sketchfab_model/root/GLTF_SceneRootNode/_1"]
+
+[node name="Object_5" type="MeshInstance3D" parent="Sketchfab_Scene/Sketchfab_model/root/GLTF_SceneRootNode/_1/cube_0"]
+mesh = SubResource("ArrayMesh_17x56")
+skeleton = NodePath("")
