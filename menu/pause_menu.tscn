@@ -39,9 +39,19 @@ text = "Game Paused"
 layout_mode = 2
 text = "Resume"
 
+[node name="New" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "New Game"
+
+[node name="Save" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Save Game"
+
 [node name="Quit" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/New" to="PauseMenu" method="_on_new_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/Save" to="PauseMenu" method="_on_save_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="PauseMenu" method="_on_quit_pressed"]

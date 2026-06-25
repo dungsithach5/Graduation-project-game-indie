@@ -17,3 +17,14 @@ func _on_resume_pressed() -> void:
 	get_tree().paused = false
 	visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _on_new_pressed() -> void:
+	print("PauseMenu: New game.")
+	Director.start_new_game()
+
+
+func _on_save_pressed() -> void:
+	if Director.save_game_by_night():
+		print("PauseMenu: Game saved.")
+	else:
+		print("PauseMenu: Save failed.")

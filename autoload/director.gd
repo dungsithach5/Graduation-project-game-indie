@@ -1,5 +1,7 @@
 extends Node3D
 
+const SAVE_FILE_PATH := "user://save_game_by_night.json"
+
 signal shift_started
 signal shift_ended
 signal event_triggered(event_type: String)
@@ -25,7 +27,76 @@ var waiting_for_delay: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("Director: Save file path = " + get_save_file_path())
+	_load_saved_progress()
 	TaskManager.task_completed.connect(_on_task_completed)
+
+func start_new_game() -> void:
+	current_night_index = 0
+	current_event_index = 0
+	shift_active = false
+	waiting_for_delay = false
+	delay_timer = 0.0
+	clear_saved_progress()
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://worlds/sandbox.tscn")
+
+
+func save_game_by_night() -> bool:
+	if nights.is_empty():
+		print("Director: No nights available to save.")
+		return false
+
+	var clamped_night_index: int = clampi(current_night_index, 0, nights.size() - 1)
+	var save_data := {
+		"current_night_index": clamped_night_index,
+		"night_name": nights[clamped_night_index].night_name,
+		"saved_at": Time.get_datetime_string_from_system(),
+	}
+
+	var file := FileAccess.open(SAVE_FILE_PATH, FileAccess.WRITE)
+	if file == null:
+		print("Director: Failed to open save file for writing at " + get_save_file_path())
+		return false
+
+	file.store_string(JSON.stringify(save_data))
+	print("Director: Saved progress for " + nights[clamped_night_index].night_name + " at " + get_save_file_path())
+	return true
+
+func get_save_file_path() -> String:
+	return ProjectSettings.globalize_path(SAVE_FILE_PATH)
+
+func clear_saved_progress() -> void:
+	if not FileAccess.file_exists(SAVE_FILE_PATH):
+		return
+
+	DirAccess.remove_absolute(get_save_file_path())
+
+func _load_saved_progress() -> void:
+	if not FileAccess.file_exists(SAVE_FILE_PATH):
+		print("Director: There is no save file at " + get_save_file_path())
+		return
+
+	var file := FileAccess.open(SAVE_FILE_PATH, FileAccess.READ)
+	if file == null:
+		print("Director: Failed to open save file for reading.")
+		return
+
+	var parsed = JSON.parse_string(file.get_as_text())
+	if typeof(parsed) != TYPE_DICTIONARY:
+		print("Director: Save file is invalid, ignoring it.")
+		return
+
+	if nights.is_empty():
+		return
+
+	var saved_night_index := int(parsed.get("current_night_index", 0))
+	current_night_index = clamp(saved_night_index, 0, nights.size() - 1)
+	current_event_index = 0
+	shift_active = false
+	waiting_for_delay = false
+	delay_timer = 0.0
+	print("Director: Loaded saved progress for " + nights[current_night_index].night_name + " from " + get_save_file_path())
 	
 func start_shift() -> void:
 	if current_night_index >= nights.size():
@@ -176,4 +247,5 @@ func _end_shift() -> void:
 	print("Director: Shift Ended")
 	shift_active = false
 	current_night_index += 1 # Advance to next night for next time
+	save_game_by_night()
 	emit_signal("shift_ended")
