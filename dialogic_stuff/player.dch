@@ -2,19 +2,19 @@
 "@path": "res://addons/dialogic/Resources/character.gd",
 "@subpath": NodePath(""),
 &"_translation_id": "",
-&"color": Color(1, 1, 1, 1),
+&"color": Color(1, 0.9843137, 0, 1),
 &"custom_info": {
 "prefix": "",
 "sound_mood_default": "",
 "sound_moods": {},
-"style": "",
+"style": "Style_panel",
 "suffix": ""
 },
 &"default_portrait": "",
 &"description": "",
-&"display_name": "player",
+&"display_name": "You",
 &"mirror": false,
-&"nicknames": ["player"],
+&"nicknames": ["You"],
 &"offset": Vector2(0, 0),
 &"portraits": {},
 &"scale": 1.0
