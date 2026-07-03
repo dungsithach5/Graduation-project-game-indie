@@ -133,15 +133,35 @@ func spawn_item_on_table() -> void:
 		
 		# Try to call setup_item on the item or its children
 		if item.has_method("setup_item"):
-			item.setup_item(self )
+			item.setup_item(self)
 		else:
 			for child in item.get_children():
 				if child.has_method("setup_item"):
-					child.setup_item(self )
+					child.setup_item(self)
 		
-		# Start dialogic timeline if specified
-		if dialogic_timeline != "":
-			Dialogic.start(dialogic_timeline)
+		# Set up the talk interaction instead of triggering the dialogic timeline automatically
+		_setup_talk_interaction()
+
+func _setup_talk_interaction() -> void:
+	var interaction_comp_scene = load("res://interaction/interaction_component.tscn")
+	if interaction_comp_scene:
+		var comp = interaction_comp_scene.instantiate()
+		comp.interaction_type = 4 # NPC
+		comp.dialogue_timeline = dialogic_timeline
+		comp.name = "InteractionComponent"
+		add_child(comp)
+		comp.object_ref = self
+		
+		# Lắng nghe sự kiện bắt đầu thoại để dọn dẹp
+		if not Dialogic.timeline_started.is_connected(_on_dialogue_started):
+			Dialogic.timeline_started.connect(_on_dialogue_started)
+
+func _on_dialogue_started() -> void:
+	var comp = get_node_or_null("InteractionComponent")
+	if comp and comp.is_interacting:
+		if Dialogic.timeline_started.is_connected(_on_dialogue_started):
+			Dialogic.timeline_started.disconnect(_on_dialogue_started)
+		comp.can_interact = false
 
 func all_items_scanned() -> void:
 	state = State.IDLE

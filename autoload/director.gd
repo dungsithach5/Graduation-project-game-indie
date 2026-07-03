@@ -14,12 +14,14 @@ signal monster_interaction_requested(count: int)
 signal go_home_requested(count: int)
 signal extinguish_fire_requested(count: int)
 signal turn_on_power_requested(count: int)
+signal return_broom_requested(count: int)
+signal return_extinguisher_requested(count: int)
 
 signal task_delay_started(delay: float)
 
 @export var nights: Array[ShiftData] = []
 
-var current_night_index: int = 2 # Đặt bằng 2 để test nhanh Đêm 3 (thay vì Đêm 1 là 0)
+var current_night_index: int = 0
 var current_event_index: int = 0
 var shift_active: bool = false
 var delay_timer: float = 0.0
@@ -158,6 +160,10 @@ func _handle_event(event) -> void:
 					if child is Light3D:
 						child.visible = false
 			emit_signal("turn_on_power_requested", event.task_count_required)
+		9: # RETURN_BROOM
+			emit_signal("return_broom_requested", event.task_count_required)
+		10: # RETURN_EXTINGUISHER
+			emit_signal("return_extinguisher_requested", event.task_count_required)
 
 func _on_task_completed() -> void:
 	print("Director: Task Completed")

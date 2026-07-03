@@ -1,4 +1,4 @@
-[gd_scene load_steps=538 format=4 uid="uid://co8uqf1a5mvh8"]
+[gd_scene load_steps=534 format=4 uid="uid://co8uqf1a5mvh8"]
 
 [ext_resource type="Script" uid="uid://d2rvejf23trn2" path="res://worlds/sandbox.gd" id="1_7he1i"]
 [ext_resource type="PackedScene" uid="uid://550ipykvxg0" path="res://player/player.tscn" id="2_whpuv"]
@@ -60,7 +60,6 @@
 [ext_resource type="Texture2D" uid="uid://yl0yjfvxrol6" path="res://models/world/weenmart/winmart_Metal_10_baseColor.jpg" id="52_eiydm"]
 [ext_resource type="Texture2D" uid="uid://dsgfk11hgmtd" path="res://models/world/weenmart/winmart_Fabric_baseColor.jpg" id="53_2kfyr"]
 [ext_resource type="Texture2D" uid="uid://cnih4kfkywrxn" path="res://models/world/weenmart/winmart_Fabric_01_baseColor.jpg" id="54_jkjyf"]
-[ext_resource type="Texture2D" uid="uid://dw4bo780c5wcm" path="res://assets/Textures/Texturelabs_Sky_163M.jpg" id="55_kraiu"]
 [ext_resource type="Texture2D" uid="uid://6qbb2mi45i83" path="res://models/world/weenmart/winmart_Metal_08_baseColor.jpg" id="55_owtcu"]
 [ext_resource type="Texture2D" uid="uid://c55gnht0j1h1f" path="res://models/world/weenmart/winmart_Sign_01_baseColor.png" id="56_bewrx"]
 [ext_resource type="Texture2D" uid="uid://okdpof2wqdn4" path="res://models/world/weenmart/winmart_Tiles.png" id="58_ix35s"]
@@ -5466,17 +5465,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ctj02")
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_kg08f"]
-panorama = ExtResource("55_kraiu")
-
-[sub_resource type="Sky" id="Sky_kg08f"]
-sky_material = SubResource("PanoramaSkyMaterial_kg08f")
-
-[sub_resource type="Environment" id="Environment_kg08f"]
-background_mode = 2
-background_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
-sky = SubResource("Sky_kg08f")
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_nd4wk"]
 size = Vector3(1, 4.3058777, 1)
 
@@ -7644,7 +7632,6 @@ mesh = SubResource("ArrayMesh_ej2xr")
 skeleton = NodePath("")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_kg08f")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, -1, 42.365623, -0.100951195)
@@ -7933,6 +7920,11 @@ spot_angle = 90.0
 
 [node name="SpotLight3DMart8" type="SpotLight3D" parent="LightingMart"]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, 1, -1, 4.371139e-08, -4.371139e-08, -6.238586, 3.2799, -11.042518)
+spot_angle = 90.0
+
+[node name="SpotLight3DMart15" type="SpotLight3D" parent="LightingMart"]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, 1, -1, 4.371139e-08, -4.371139e-08, -6.238586, 3.879562, -11.042518)
+light_energy = 2.0
 spot_angle = 90.0
 
 [node name="SpotLight3DMart9" type="SpotLight3D" parent="LightingMart"]

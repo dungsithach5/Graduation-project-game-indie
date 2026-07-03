@@ -10,7 +10,9 @@ enum EventType {
 	GO_HOME,
 	EXTINGUISH_FIRE,
 	TURN_ON_POWER,
-	PLACE_TALISMAN
+	PLACE_TALISMAN,
+	RETURN_BROOM,
+	RETURN_EXTINGUISHER
 }
 @export var type: EventType = EventType.RESTOCK_SHELVES
 @export var delay: float = 0.0

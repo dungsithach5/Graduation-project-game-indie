@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 Director="*res://autoload/director.tscn"
 TaskManager="*res://autoload/TaskManager.gd"
+AudioManager="*res://autoload/AudioManager.gd"
 
 [dialogic]
 

@@ -1,8 +1,8 @@
-thaytu: Con ơi... hãy nghe ta nói.
-thaytu: Ta có một lá bùa phong ấn ma quỷ. Con có muốn nhận không?
-- nhan
-	player: Vâng, con nhận ạ. Cảm ơn thầy!
+thaytu: Child... listen to me.
+thaytu: I have a talisman that seals evil spirits. Do you wish to accept it?
+- Accept
+	player: Yes, I will accept it. Thank you, master!
 	set accepted_talisman = true
-- khong nhan
-	player: Không, con không cần đâu ạ.
+- Decline
+	player: No, I don't think I need it.
 	set accepted_talisman = false

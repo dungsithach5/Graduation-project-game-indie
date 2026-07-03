@@ -7,8 +7,31 @@ extends Node3D
 var customers: Array[Node] = []
 var current_customer_index: int = 0
 
+var shop_aabb: AABB
+var shop_node: Node3D
+var player_node: CharacterBody3D
+var audio_manager: Node = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Khởi động âm thanh game bằng cách lấy node trực tiếp từ root
+	audio_manager = get_node_or_null("/root/AudioManager")
+	if is_instance_valid(audio_manager):
+		audio_manager.play_game_sounds()
+		
+	tree_exited.connect(func():
+		if is_instance_valid(audio_manager):
+			audio_manager.stop_game_sounds()
+	)
+
+	# Tìm kiếm node cửa hàng và tính toán biên giới AABB
+	shop_node = get_node_or_null("NavigationRegion3D/weenmart/Sketchfab_model/6twelve_fbx/RootNode/6twelve")
+	if shop_node:
+		_calculate_shop_aabb(shop_node)
+		print("Sandbox: Bounding box cửa hàng đã được tính toán: ", shop_aabb)
+	
+	player_node = get_node_or_null("Player")
+
 	# Thiết lập thaytu chỉ xuất hiện ở đêm 3 (current_night_index = 2)
 	var thaytu_node = get_node_or_null("thaytu")
 	if thaytu_node:
@@ -50,6 +73,8 @@ func _ready() -> void:
 	Director.customer_shopping_requested.connect(_on_customer_shopping_requested)
 	Director.clean_floor_requested.connect(_on_clean_floor_requested)
 	Director.turn_on_power_requested.connect(_on_turn_on_power_requested)
+	Director.return_broom_requested.connect(_on_return_broom_requested)
+	Director.return_extinguisher_requested.connect(_on_return_extinguisher_requested)
 	
 	# Bắt sự kiện khi hết đêm để chuyển cảnh
 	Director.shift_ended.connect(_on_shift_ended)
@@ -70,6 +95,12 @@ func _ready() -> void:
 						static_body.add_child(comp)
 						comp.object_ref = static_body
 						print("Sandbox: Attached InteractionComponent to fuse box " + name)
+	
+	# Setup BroomReturnZone tại vị trí ban đầu của chổi
+	_setup_broom_return_zone()
+	
+	# Setup ExtinguisherReturnZone tại vị trí ban đầu của bình chữa cháy
+	_setup_extinguisher_return_zone()
 	
 	Director.start_shift()
 
@@ -125,16 +156,52 @@ func _on_customer_exited() -> void:
 
 func _on_clean_floor_requested(limit: int) -> void:
 	print("Sandbox: Bắt đầu Task 4 - Lau dọn")
-	# Tương tự, nếu bạn đang giấu sẵn vết bẩn, thì bật nó lên
-	# Hoặc instantiate() vết bẩn ở đây.
-	
-	# Ví dụ tìm vết bẩn đã giấu trong scene:
-	# var stain = get_node_or_null("Stain")
-	# if stain:
-	# 	stain.visible = true
-	# 	stain.process_mode = Node.PROCESS_MODE_INHERIT
-	
 	pass
+
+func _on_return_broom_requested(limit: int) -> void:
+	print("Sandbox: Bắt đầu Task - Trả lại chổi")
+	# BroomReturnZone sẽ tự kích hoạt qua signal Director.return_broom_requested
+
+func _setup_broom_return_zone() -> void:
+	# Tìm vị trí ban đầu của broom trong scene
+	var broom_node = get_node_or_null("broom")
+	if broom_node == null:
+		print("Sandbox: Không tìm thấy broom node!")
+		return
+	
+	var broom_original_transform = broom_node.global_transform
+	var broom_original_position = broom_node.global_position
+	
+	# Tạo BroomReturnZone
+	var zone = Node3D.new()
+	zone.name = "BroomReturnZone"
+	zone.set_script(load("res://models/objects/broom_return_zone.gd"))
+	zone.global_transform = broom_original_transform
+	zone.broom_original_position = broom_original_position
+	zone.broom_original_transform = broom_original_transform
+	add_child(zone)
+
+func _on_return_extinguisher_requested(limit: int) -> void:
+	print("Sandbox: Bắt đầu Task - Trả lại bình chữa cháy")
+
+func _setup_extinguisher_return_zone() -> void:
+	# Tìm vị trí ban đầu của bình chữa cháy trong scene
+	var ext_node = get_node_or_null("EXTINGUISHER")
+	if ext_node == null:
+		print("Sandbox: Không tìm thấy EXTINGUISHER node!")
+		return
+	
+	var ext_original_transform = ext_node.global_transform
+	var ext_original_position = ext_node.global_position
+	
+	# Tạo ExtinguisherReturnZone
+	var zone = Node3D.new()
+	zone.name = "ExtinguisherReturnZone"
+	zone.set_script(load("res://models/objects/extinguisher_return_zone.gd"))
+	zone.global_transform = ext_original_transform
+	zone.ext_original_position = ext_original_position
+	zone.ext_original_transform = ext_original_transform
+	add_child(zone)
 
 func get_shelf_children(limit: int) -> void:
 	if not shelf_container:
@@ -152,6 +219,29 @@ func get_shelf_children(limit: int) -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("esc"):
 		toggle_pause()
+
+	# Cập nhật vị trí âm thanh dựa trên tọa độ X, Z của người chơi trong AABB cửa hàng
+	if is_instance_valid(player_node) and shop_node and shop_aabb.size != Vector3.ZERO:
+		var player_pos = player_node.global_position
+		var is_inside = player_pos.x >= shop_aabb.position.x and player_pos.x <= shop_aabb.end.x and \
+						player_pos.z >= shop_aabb.position.z and player_pos.z <= shop_aabb.end.z
+		if is_instance_valid(audio_manager):
+			audio_manager.set_location(is_inside)
+
+func _calculate_shop_aabb(node: Node) -> void:
+	var first = true
+	var stack = [node]
+	while stack.size() > 0:
+		var current = stack.pop_back()
+		if current is MeshInstance3D:
+			var global_aabb = current.global_transform * current.get_aabb()
+			if first:
+				shop_aabb = global_aabb
+				first = false
+			else:
+				shop_aabb = shop_aabb.merge(global_aabb)
+		for child in current.get_children():
+			stack.push_back(child)
 
 func toggle_pause() -> void:
 	get_tree().paused = !get_tree().paused

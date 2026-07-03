@@ -86,13 +86,13 @@ func _process(delta: float) -> void:
 						interact_label.visible = false
 					return
 					
-				if is_broom and Director.get_current_event_type() != 3: # 3 là CLEAN_FLOOR
+				if is_broom and Director.get_current_event_type() != 3 and Director.get_current_event_type() != 9: # 3 là CLEAN_FLOOR, 9 là RETURN_BROOM
 					if interact_label:
 						interact_label.visible = false
 					return
 
 				var is_extinguisher = "extinguisher" in obj_name or "extinguisher" in parent_name
-				if is_extinguisher and Director.get_current_event_type() != 6: # 6 là EXTINGUISH_FIRE
+				if is_extinguisher and Director.get_current_event_type() != 6 and Director.get_current_event_type() != 10: # 6 là EXTINGUISH_FIRE, 10 là RETURN_EXTINGUISHER
 					if interact_label:
 						interact_label.visible = false
 					return
@@ -142,8 +142,9 @@ func _process(delta: float) -> void:
 				interact_label.text = "[E] Go Home"
 			elif interaction_component and interaction_component.interaction_type == 7: # 7 là FUSE_BOX
 				interact_label.text = "[E] Turn on Power"
-			elif interaction_component and interaction_component.interaction_type == interaction_component.InteractionType.NPC_THAYTU:
-				interact_label.text = "[E] Talk to Thay Tu"
+			elif interaction_component and (interaction_component.interaction_type == interaction_component.InteractionType.NPC 
+				or interaction_component.interaction_type == interaction_component.InteractionType.NPC_THAYTU):
+				interact_label.text = "[E] Talk"
 			else:
 				interact_label.text = "[E] interact"
 			interact_label.visible = show_label
