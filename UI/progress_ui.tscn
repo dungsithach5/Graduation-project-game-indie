@@ -41,14 +41,15 @@ layout_mode = 2
 text = "Objective"
 
 [node name="ObjectiveBody" type="RichTextLabel" parent="TaskPanel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/normal_font_size = 26
 text = "Description"
 scroll_active = false
 
 [node name="ObjectiveCounter" type="RichTextLabel" parent="TaskPanel/VBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
 text = "0/2"
+scroll_active = false

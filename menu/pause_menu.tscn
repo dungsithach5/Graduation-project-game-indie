@@ -33,22 +33,27 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 26
 text = "Game Paused"
 
 [node name="Resume" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 26
 text = "Resume"
 
 [node name="New" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 26
 text = "New Game"
 
 [node name="Save" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 26
 text = "Save Game"
 
 [node name="Quit" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 26
 text = "Quit"
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Resume" to="PauseMenu" method="_on_resume_pressed"]

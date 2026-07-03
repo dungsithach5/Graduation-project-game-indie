@@ -5478,8 +5478,8 @@ background_mode = 2
 background_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
 sky = SubResource("Sky_kg08f")
 ambient_light_source = 2
-ambient_light_color = Color(0.19434929, 0.19434926, 0.19434926, 1)
-ambient_light_energy = 1.5
+ambient_light_color = Color(0.21950102, 0.21950102, 0.21950093, 1)
+ambient_light_energy = 2.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nd4wk"]
 size = Vector3(1, 4.3058777, 1)
@@ -5496,7 +5496,7 @@ size = Vector3(0.81140137, 0.19732666, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_avbfq"]
 render_priority = 0
 shader = ExtResource("77_avbfq")
-shader_parameter/color_depth = 7
+shader_parameter/color_depth = 6
 shader_parameter/dithering = true
 shader_parameter/resolution_scale = 2
 
@@ -8030,7 +8030,7 @@ transform = Transform3D(0.1, 0, 0, 0, -4.371139e-09, 0.1, 0, -0.1, -4.371139e-09
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5403295, 0, -6.1768017)
 
 [node name="Enemy3D" parent="." instance=ExtResource("76_kraiu")]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 2.2092469, 1.0090951, -15.587013)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.3163643, 0.009095073, -15.587013)
 
 [node name="Area_emulet" type="Node" parent="."]
 

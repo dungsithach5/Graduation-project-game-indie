@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=4 uid="uid://bc28i64em6c3j"]
+[gd_scene load_steps=19 format=4 uid="uid://bc28i64em6c3j"]
 
 [ext_resource type="Script" uid="uid://b16ot3fn41u14" path="res://models/NPCS/npc_customer_shopping.gd" id="1_qme3b"]
 [ext_resource type="Texture2D" uid="uid://b5j5keiaccsvr" path="res://assets/Characters_psx/Textures/Character_01.png" id="2_qme3b"]
+[ext_resource type="Shader" uid="uid://b0atfw2272v34" path="res://shaders/psx.gdshader" id="3_dki6s"]
 [ext_resource type="AnimationLibrary" uid="uid://bigjdksjq5ku2" path="res://models/animations/AnimaIdle.res" id="3_u8w7r"]
 [ext_resource type="AnimationLibrary" uid="uid://b2n6m2d3oha1y" path="res://models/animations/AnimaWalking.res" id="4_72kt5"]
 
@@ -123,6 +124,15 @@ bind/26/pose = Transform3D(0.23746382, 0.012884459, 0.9713109, 0.9713946, -0.005
 bind/27/name = &"mixamorig_LeftHandIndex3"
 bind/27/bone = -1
 bind/27/pose = Transform3D(0.97850657, 0.20454933, -0.026163073, 0.19490895, -0.95881516, -0.20660096, -0.06734564, 0.19706097, -0.97807544, -0.7233298, 1.7250587, -1.1376861)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l4p87"]
+render_priority = 0
+shader = ExtResource("3_dki6s")
+shader_parameter/affine_mapping = false
+shader_parameter/albedo = ExtResource("2_qme3b")
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.50000002375
+shader_parameter/resolution = Vector2i(320, 240)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_72kt5"]
 animation = &"AnimaPack2/Idle"
@@ -404,6 +414,7 @@ bones/32/scale = Vector3(1, 1, 1)
 [node name="Character_01" type="MeshInstance3D" parent="Walking/Skeleton3D"]
 mesh = SubResource("ArrayMesh_8r0sq")
 skin = SubResource("Skin_mg83a")
+surface_material_override/0 = SubResource("ShaderMaterial_l4p87")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Walking"]
 libraries = {

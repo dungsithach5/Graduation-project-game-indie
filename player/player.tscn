@@ -36,7 +36,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.747081, 0)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, -1.4901161e-08, 0, 1, 0, 0, 0, 1, 0.003, -0.111, 0.014)
 current = true
-fov = 90.0
+fov = 55.0
 
 [node name="InteractionRaycast" type="RayCast3D" parent="Head/Eyes/Camera3D"]
 unique_name_in_owner = true
