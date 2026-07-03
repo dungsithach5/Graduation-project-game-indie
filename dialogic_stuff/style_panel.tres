@@ -33,7 +33,7 @@ script = ExtResource("2_koy1d")
 scene = ExtResource("6_odmgm")
 overrides = {
 "box_size": "Vector2(800, 150)",
-"text_size": "20.0"
+"text_size": "28.0"
 }
 
 [sub_resource type="Resource" id="Resource_a6apr"]

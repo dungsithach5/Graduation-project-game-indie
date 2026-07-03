@@ -97,6 +97,11 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
 import/blender/enabled=false
 
+[gui]
+
+theme/custom_font="res://fonts/pixel_operator/PixelOperator-Bold.ttf"
+theme/custom_font_size=32
+
 [input]
 
 forward={
