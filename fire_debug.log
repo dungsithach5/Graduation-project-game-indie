@@ -308,3 +308,66 @@
 16:15:01: Area3D found, monitoring set to false initially
 16:23:55: Fire _ready() called. Node path: /root/sandbox/fireEffect
 16:23:55: Area3D found, monitoring set to false initially
+08:16:48: Fire _ready() called. Node path: /root/sandbox/fireEffect
+08:16:48: Area3D found, monitoring set to false initially
+08:30:10: Fire _ready() called. Node path: /root/sandbox/fireEffect
+08:30:10: Area3D found, monitoring set to false initially
+08:31:29: Fire _ready() called. Node path: /root/sandbox/fireEffect
+08:31:29: Area3D found, monitoring set to false initially
+08:31:50: Fire _ready() called. Node path: /root/sandbox/fireEffect
+08:31:50: Area3D found, monitoring set to false initially
+08:44:54: Fire _ready() called. Node path: /root/sandbox/fireEffect
+08:44:54: Area3D found, monitoring set to false initially
+10:30:39: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:30:39: Area3D found, monitoring set to false initially
+10:35:48: Fire event requested. Activating fire.
+10:35:48: Body entered fire Area3D: StaticBody3D (Group 'player': false)
+10:38:58: Body entered fire Area3D: Player (Group 'player': true)
+10:38:58: Player successfully set in range.
+10:39:47: Resetting extinguish progress.
+10:39:49: Resetting extinguish progress.
+10:39:51: Resetting extinguish progress.
+10:39:53: Resetting extinguish progress.
+10:39:55: Resetting extinguish progress.
+10:40:02: Resetting extinguish progress.
+10:40:04: Resetting extinguish progress.
+10:40:05: Resetting extinguish progress.
+10:40:08: Resetting extinguish progress.
+10:41:09: Resetting extinguish progress.
+10:41:24: Resetting extinguish progress.
+10:41:26: Resetting extinguish progress.
+10:41:28: Resetting extinguish progress.
+10:41:30: Resetting extinguish progress.
+10:41:32: Resetting extinguish progress.
+10:41:32: Resetting extinguish progress.
+10:42:20: Resetting extinguish progress.
+10:42:22: Resetting extinguish progress.
+10:42:24: Resetting extinguish progress.
+10:42:38: Fire extinguished completely!
+10:42:38: Finishing extinguish.
+10:42:38: Resetting extinguish progress.
+10:42:39: Body exited fire Area3D: StaticBody3D
+10:42:39: Body exited fire Area3D: Player
+10:42:39: Player exited range.
+14:11:54: Fire _ready() called. Node path: /root/sandbox/fireEffect
+14:11:54: Area3D found, monitoring set to false initially
+09:40:20: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:40:20: Area3D found, monitoring set to false initially
+09:47:53: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:47:53: Area3D found, monitoring set to false initially
+09:49:42: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:49:42: Area3D found, monitoring set to false initially
+09:51:17: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:51:17: Area3D found, monitoring set to false initially
+10:03:30: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:03:30: Area3D found, monitoring set to false initially
+11:38:28: Fire _ready() called. Node path: /root/sandbox/fireEffect
+11:38:28: Area3D found, monitoring set to false initially
+11:40:17: Fire _ready() called. Node path: /root/sandbox/fireEffect
+11:40:17: Area3D found, monitoring set to false initially
+12:52:04: Fire _ready() called. Node path: /root/sandbox/fireEffect
+12:52:04: Area3D found, monitoring set to false initially
+12:55:03: Fire _ready() called. Node path: /root/sandbox/fireEffect
+12:55:03: Area3D found, monitoring set to false initially
+12:55:36: Fire _ready() called. Node path: /root/sandbox/fireEffect
+12:55:36: Area3D found, monitoring set to false initially
