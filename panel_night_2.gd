@@ -12,6 +12,6 @@ func _ready() -> void:
 	else:
 		print("Không tìm thấy Label ở đường dẫn Panel/Label!")
 	
-	# Chờ 3 giây rồi tự động quay lại tiệm tạp hóa
-	await get_tree().create_timer(3.0).timeout
+	# Chờ 1.5 giây rồi tự động quay lại tiệm tạp hóa
+	await get_tree().create_timer(1.5).timeout
 	get_tree().change_scene_to_file("res://worlds/sandbox.tscn")

@@ -24,6 +24,8 @@ var direction: Vector3 = Vector3.ZERO
 var lerp_speed: float = 10.0
 var mouse_input: Vector2
 var is_in_air: bool = false
+var footstep_player: AudioStreamPlayer
+var step_played: bool = false
 
 # State Machine
 enum PlayerState {
@@ -71,6 +73,12 @@ func _ready() -> void:
 		dialogic_active = false
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	)
+	
+	# Initialize footstep audio player
+	footstep_player = AudioStreamPlayer.new()
+	footstep_player.stream = preload("res://sounds/footstep.mp3")
+	footstep_player.bus = &"SFX"
+	add_child(footstep_player)
 
 func _input(event: InputEvent) -> void:
 	if get_tree().paused or dialogic_active or movement_locked:
@@ -194,5 +202,44 @@ func updateCamera(delta: float) -> void:
 		eyes.position.y = lerp(eyes.position.y, 0.0, delta * lerp_speed)
 		eyes.position.x = lerp(eyes.position.x, 0.0, delta * lerp_speed)
 
+	# Footstep sound trigger based on head bobbing cycle
+	if moving and is_on_floor() and not (dialogic_active or movement_locked):
+		if sin(head_bobbing_index) < 0:
+			if not step_played:
+				play_footstep()
+				step_played = true
+		else:
+			step_played = false
+	else:
+		step_played = false
+		if footstep_player and footstep_player.playing:
+			footstep_player.stop()
+
 func _process(delta) -> void:
 	get_tree().call_group("enemy", "target_position", global_transform.origin)
+
+func play_footstep() -> void:
+	if not footstep_player:
+		return
+	
+	var base_db: float = -4.0
+	var pitch_min: float = 0.85
+	var pitch_max: float = 1.15
+	
+	match player_state:
+		PlayerState.SPRINTING:
+			base_db = 0.0
+			pitch_min = 0.95
+			pitch_max = 1.25
+		PlayerState.CROUCHING:
+			base_db = -15.0
+			pitch_min = 0.75
+			pitch_max = 0.95
+		PlayerState.WALKING:
+			base_db = -4.0
+			pitch_min = 0.85
+			pitch_max = 1.15
+			
+	footstep_player.pitch_scale = randf_range(pitch_min, pitch_max)
+	footstep_player.volume_db = base_db + randf_range(-1.5, 1.5)
+	footstep_player.play()

@@ -31,7 +31,7 @@ func play_game_sounds() -> void:
 	if not outdoor_player.stream:
 		outdoor_player.stream = load("res://sounds/crickets.mp3")
 	if not indoor_player.stream:
-		indoor_player.stream = load("res://sounds/jazz-background-music-loop.mp3")
+		indoor_player.stream = load("res://sounds/audio_room.mp3")
 
 	# Initial volumes: outdoor starts full, indoor is muted
 	outdoor_player.volume_db = 0.0

@@ -21,7 +21,7 @@ signal task_delay_started(delay: float)
 
 @export var nights: Array[ShiftData] = []
 
-var current_night_index: int = 0
+var current_night_index: int = 2
 var current_event_index: int = 0
 var shift_active: bool = false
 var delay_timer: float = 0.0
@@ -159,6 +159,15 @@ func _handle_event(event) -> void:
 				for child in lighting_mart.get_children():
 					if child is Light3D:
 						child.visible = false
+			
+			# Play power cut sound
+			var power_cut_audio = AudioStreamPlayer.new()
+			power_cut_audio.stream = load("res://sounds/power-cut.mp3")
+			power_cut_audio.volume_db = 10.0 # Make it louder
+			power_cut_audio.bus = &"SFX"
+			get_tree().get_current_scene().add_child(power_cut_audio)
+			power_cut_audio.play()
+			
 			emit_signal("turn_on_power_requested", event.task_count_required)
 		9: # RETURN_BROOM
 			emit_signal("return_broom_requested", event.task_count_required)

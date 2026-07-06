@@ -26,6 +26,8 @@ var is_placing: bool = false
 
 var progress_bar: ProgressBar
 var talisman_hand_instance: Node3D = null
+var ghost_talismans: Dictionary = {}
+var chase_audio_player: AudioStreamPlayer = null
 
 # Track which spots have been used
 var used_spots: Array = []
@@ -104,6 +106,14 @@ func _on_night4_shift_ended() -> void:
 	blackout_triggered = true
 	print("Night4Ending: Shift ended - triggering blackout!")
 	
+	# Play power cut sound
+	var power_cut_audio = AudioStreamPlayer.new()
+	power_cut_audio.stream = load("res://sounds/power-cut.mp3")
+	power_cut_audio.volume_db = 10.0 # Make it louder
+	power_cut_audio.bus = &"SFX"
+	add_child(power_cut_audio)
+	power_cut_audio.play()
+	
 	# Turn off ALL LightingMart lights permanently
 	if lighting_mart:
 		for child in lighting_mart.get_children():
@@ -165,6 +175,23 @@ func _on_ending_a_dialogue_ended() -> void:
 	# Activate enemy to chase
 	_activate_enemy_chase()
 	
+	# Stop general ambient game sounds to focus on chase music
+	var audio_manager = get_node_or_null("/root/AudioManager")
+	if is_instance_valid(audio_manager):
+		audio_manager.stop_game_sounds()
+		
+	# Play chase music
+	chase_audio_player = AudioStreamPlayer.new()
+	chase_audio_player.stream = load("res://sounds/fears-to-fathom-jumpscare.mp3")
+	chase_audio_player.bus = &"Music"
+	chase_audio_player.finished.connect(func():
+		if is_instance_valid(chase_audio_player):
+			chase_audio_player.play()
+	)
+	add_child(chase_audio_player)
+	chase_audio_player.play()
+	print("Night4Ending: Chase music started.")
+	
 	# Start talisman placement task
 	talisman_task_active = true
 	talismans_placed = 0
@@ -175,7 +202,10 @@ func _on_ending_a_dialogue_ended() -> void:
 	if task_panel:
 		var objective_body = task_panel.get_node_or_null("VBoxContainer/ObjectiveBody")
 		if objective_body:
-			objective_body.text = "Dán bùa phong ấn"
+			objective_body.text = "Place sealing talismans"
+	
+	# Create ghost talismans for the player to see placement locations
+	_create_ghost_talismans()
 	
 	# Enable emulet areas for interaction
 	if area_emulet:
@@ -242,8 +272,16 @@ func _trigger_jumpscare_ending_b() -> void:
 	if enemy_body:
 		enemy_body.set_process(false)
 	
-	# Brief pause for scare effect
-	await get_tree().create_timer(1.0).timeout
+	# Play jumpscare audio
+	var jumpscare_audio = AudioStreamPlayer.new()
+	jumpscare_audio.stream = load("res://sounds/white_noise1.mp3")
+	jumpscare_audio.volume_db = 15.0 # Very loud
+	jumpscare_audio.bus = &"SFX"
+	add_child(jumpscare_audio)
+	jumpscare_audio.play()
+	
+	# Brief pause for scare effect (extended to 2.5s)
+	await get_tree().create_timer(2.5).timeout
 	
 	# Show Ending B screen
 	_show_ending_screen("Ending B", false)
@@ -315,10 +353,18 @@ func _place_talisman() -> void:
 		var talisman_scene = load("res://models/objects/talisman.tscn")
 		if talisman_scene:
 			var talisman = talisman_scene.instantiate()
-			talisman.scale = Vector3(5, 5, 5)
+			talisman.scale = Vector3(3.5, 3.5, 3.5)
 			get_parent().add_child(talisman)
 			talisman.global_position = col_shape.global_position
 			talisman.global_rotation = col_shape.global_rotation
+			talisman.rotate_y(deg_to_rad(90))
+	
+	# Remove ghost talisman for this spot
+	if ghost_talismans.has(current_emulet_area.name):
+		var ghost = ghost_talismans[current_emulet_area.name]
+		if is_instance_valid(ghost):
+			ghost.queue_free()
+		ghost_talismans.erase(current_emulet_area.name)
 	
 	# Disable this area so it can't be used again
 	current_emulet_area.monitoring = false
@@ -346,6 +392,20 @@ func _on_all_talismans_placed() -> void:
 	print("Night4Ending: All 4 talismans placed! Enemy burning!")
 	talisman_task_active = false
 	enemy_active = false
+	
+	# Play demonic scream sound
+	var scream_audio = AudioStreamPlayer.new()
+	scream_audio.stream = load("res://sounds/demonic-woman-scream.mp3")
+	scream_audio.volume_db = 10.0 # Loud
+	scream_audio.bus = &"SFX"
+	add_child(scream_audio)
+	scream_audio.play()
+	
+	# Stop chase music
+	if is_instance_valid(chase_audio_player):
+		chase_audio_player.stop()
+		chase_audio_player.queue_free()
+		chase_audio_player = null
 	
 	# Stop enemy movement
 	if enemy_body:
@@ -403,6 +463,12 @@ func _on_player_caught() -> void:
 	talisman_task_active = false
 	enemy_active = false
 	
+	# Stop chase music
+	if is_instance_valid(chase_audio_player):
+		chase_audio_player.stop()
+		chase_audio_player.queue_free()
+		chase_audio_player = null
+	
 	# Stop enemy
 	if enemy_body:
 		enemy_body.set_process(false)
@@ -420,11 +486,19 @@ func _on_player_caught() -> void:
 	if player and player.interaction_controller:
 		player.interaction_controller.forced_label_text = ""
 	
+	# Play jumpscare audio
+	var jumpscare_audio = AudioStreamPlayer.new()
+	jumpscare_audio.stream = load("res://sounds/white_noise1.mp3")
+	jumpscare_audio.volume_db = 15.0 # Very loud
+	jumpscare_audio.bus = &"SFX"
+	add_child(jumpscare_audio)
+	jumpscare_audio.play()
+	
 	# Jumpscare - snap camera to enemy face
 	_snap_camera_to_enemy()
 	
-	# Wait for jumpscare impact
-	await get_tree().create_timer(1.5).timeout
+	# Wait for jumpscare impact (extended to 2.5s)
+	await get_tree().create_timer(2.5).timeout
 	
 	# Show death screen with Try Again
 	_show_ending_screen("You are dead", true)
@@ -485,7 +559,7 @@ func _on_emulet_area_entered(body: Node3D, area: Area3D) -> void:
 	
 	# Show interaction hint
 	if player and player.interaction_controller:
-		player.interaction_controller.forced_label_text = "[F] Dán Bùa"
+		player.interaction_controller.forced_label_text = "[F] Place Talisman"
 
 func _on_emulet_area_exited(body: Node3D, area: Area3D) -> void:
 	if not (body.is_in_group("player") or body is Player):
@@ -497,3 +571,62 @@ func _on_emulet_area_exited(body: Node3D, area: Area3D) -> void:
 		# Clear interaction hint
 		if player and player.interaction_controller:
 			player.interaction_controller.forced_label_text = ""
+
+func _create_ghost_talismans() -> void:
+	if not area_emulet:
+		return
+	
+	var talisman_scene = load("res://models/objects/talisman.tscn")
+	if not talisman_scene:
+		print("Night4Ending: Cannot load talisman scene for ghosts!")
+		return
+		
+	# Create yellow transparent material
+	var ghost_material = StandardMaterial3D.new()
+	ghost_material.albedo_color = Color(1.0, 0.85, 0.0, 0.4) # Yellow, 40% alpha
+	ghost_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	ghost_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	
+	for child in area_emulet.get_children():
+		if child is Area3D:
+			# Find collision shape for transform
+			var col_shape: CollisionShape3D = null
+			for sub_child in child.get_children():
+				if sub_child is CollisionShape3D:
+					col_shape = sub_child
+					break
+			
+			if col_shape:
+				var ghost = talisman_scene.instantiate()
+				ghost.scale = Vector3(3.5, 3.5, 3.5)
+				get_parent().add_child(ghost)
+				ghost.global_position = col_shape.global_position
+				ghost.global_rotation = col_shape.global_rotation
+				ghost.rotate_y(deg_to_rad(90))
+				
+				# Apply ghost material recursively
+				_apply_ghost_material_recursive(ghost, ghost_material)
+				# Disable physics/collision recursively
+				_disable_physics_recursive(ghost)
+				
+				ghost_talismans[child.name] = ghost
+				print("Night4Ending: Ghost talisman created for ", child.name)
+
+func _apply_ghost_material_recursive(node: Node, material: Material) -> void:
+	if node is MeshInstance3D:
+		var mesh_instance: MeshInstance3D = node
+		for i in range(mesh_instance.get_surface_override_material_count()):
+			mesh_instance.set_surface_override_material(i, material)
+	for child in node.get_children():
+		_apply_ghost_material_recursive(child, material)
+
+func _disable_physics_recursive(node: Node) -> void:
+	if node is CollisionShape3D:
+		node.disabled = true
+	if node is CollisionObject3D:
+		if node is RigidBody3D:
+			node.freeze = true
+		node.collision_layer = 0
+		node.collision_mask = 0
+	for child in node.get_children():
+		_disable_physics_recursive(child)

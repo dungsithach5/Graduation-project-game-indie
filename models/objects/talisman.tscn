@@ -46,20 +46,9 @@ shadow_mesh = SubResource("ArrayMesh_oqd5n")
 
 [node name="talisman" type="Node3D"]
 
-[node name="Sketchfab_Scene" type="Node3D" parent="."]
+[node name="cube_0" type="Node3D" parent="."]
 
-[node name="Sketchfab_model" type="Node3D" parent="Sketchfab_Scene"]
-transform = Transform3D(1, 0, 0, 0, 2.220446e-16, 1, 0, -1, 2.220446e-16, 0, 0, 0)
-
-[node name="root" type="Node3D" parent="Sketchfab_Scene/Sketchfab_model"]
-
-[node name="GLTF_SceneRootNode" type="Node3D" parent="Sketchfab_Scene/Sketchfab_model/root"]
-transform = Transform3D(1, 0, 0, 0, 2.220446e-16, -1, 0, 1, 2.220446e-16, 0, 0, 0)
-
-[node name="_1" type="Node3D" parent="Sketchfab_Scene/Sketchfab_model/root/GLTF_SceneRootNode"]
-
-[node name="cube_0" type="Node3D" parent="Sketchfab_Scene/Sketchfab_model/root/GLTF_SceneRootNode/_1"]
-
-[node name="Object_5" type="MeshInstance3D" parent="Sketchfab_Scene/Sketchfab_model/root/GLTF_SceneRootNode/_1/cube_0"]
+[node name="Object_5" type="MeshInstance3D" parent="cube_0"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 0, 0, 0)
 mesh = SubResource("ArrayMesh_17x56")
 skeleton = NodePath("")
