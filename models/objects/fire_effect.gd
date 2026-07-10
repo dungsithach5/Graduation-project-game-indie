@@ -6,6 +6,7 @@ var player_in_range: bool = false
 var player_ref: Player = null
 var extinguish_progress: float = 0.0
 var is_extinguishing: bool = false
+var fire_audio: AudioStreamPlayer3D = null
 
 @onready var progress_ui := get_tree().get_root().find_child("ProgressUI", true, false)
 @onready var progress_bar := progress_ui.get_node("ProgressBar") if progress_ui else null
@@ -50,6 +51,18 @@ func _ready() -> void:
 	if not Director.extinguish_fire_requested.is_connected(_on_extinguish_fire_requested):
 		Director.extinguish_fire_requested.connect(_on_extinguish_fire_requested)
 		
+	# Initialize fire AudioStreamPlayer3D
+	fire_audio = AudioStreamPlayer3D.new()
+	fire_audio.stream = preload("res://sounds/fire-sounds.mp3")
+	fire_audio.bus = &"SFX"
+	fire_audio.unit_size = 5.0
+	fire_audio.max_db = 3.0
+	fire_audio.finished.connect(func():
+		if is_instance_valid(fire_audio):
+			fire_audio.play()
+	)
+	add_child(fire_audio)
+		
 	# If current event is already extinguish_fire (e.g. reload or ready during event), activate it
 	if Director.get_current_event_type() == 6: # EXTINGUISH_FIRE
 		_on_extinguish_fire_requested(1)
@@ -71,6 +84,10 @@ func _on_extinguish_fire_requested(count: int) -> void:
 	if area:
 		area.monitoring = true
 		area.monitorable = true
+		
+	# Play fire sound
+	if fire_audio and not fire_audio.playing:
+		fire_audio.play()
 		
 	# Ensure process is active
 	set_process(true)
@@ -133,6 +150,10 @@ func _reset_extinguish() -> void:
 func _finish_extinguish() -> void:
 	log_to_file("Finishing extinguish.")
 	_reset_extinguish()
+	
+	# Stop fire sound
+	if fire_audio and fire_audio.playing:
+		fire_audio.stop()
 	
 	# Stop spraying foam
 	if player_ref and player_ref.interaction_controller and player_ref.interaction_controller.current_object:

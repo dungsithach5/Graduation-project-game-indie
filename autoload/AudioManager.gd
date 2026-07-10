@@ -2,6 +2,7 @@ extends Node
 
 var outdoor_player: AudioStreamPlayer
 var indoor_player: AudioStreamPlayer
+var menu_player: AudioStreamPlayer
 
 var is_inside_shop: bool = false
 var fade_duration: float = 1.5
@@ -21,11 +22,20 @@ func _ready() -> void:
 	indoor_player.bus = &"Music"
 	add_child(indoor_player)
 
+	# Create menu player for main menu music (Music bus)
+	menu_player = AudioStreamPlayer.new()
+	menu_player.bus = &"Music"
+	add_child(menu_player)
+
 func play_game_sounds() -> void:
 	if is_active:
 		return
 	is_active = true
 	is_inside_shop = false
+
+	# Stop menu music if playing
+	if is_instance_valid(menu_player) and menu_player.playing:
+		menu_player.stop()
 
 	# Load streams dynamically (looping is handled directly by .import settings)
 	if not outdoor_player.stream:
@@ -34,7 +44,7 @@ func play_game_sounds() -> void:
 		indoor_player.stream = load("res://sounds/audio_room.mp3")
 
 	# Initial volumes: outdoor starts full, indoor is muted
-	outdoor_player.volume_db = 0.0
+	outdoor_player.volume_db = -6.0
 	indoor_player.volume_db = -80.0
 
 	outdoor_player.play()
@@ -59,6 +69,26 @@ func stop_game_sounds() -> void:
 		print("AudioManager: Game sounds stopped.")
 
 
+func play_menu_music() -> void:
+	if not is_instance_valid(menu_player):
+		return
+	
+	# Stop game sounds
+	stop_game_sounds()
+	
+	if not menu_player.stream:
+		var stream = load("res://sounds/sound-backgroud-main-menu.mp3")
+		if stream:
+			if "loop" in stream:
+				stream.loop = true
+			menu_player.stream = stream
+			
+	if not menu_player.playing:
+		menu_player.volume_db = 0.0
+		menu_player.play()
+		print("AudioManager: Menu music started playing.")
+
+
 func set_location(inside: bool) -> void:
 	if not is_active:
 		return
@@ -72,14 +102,14 @@ func set_location(inside: bool) -> void:
 
 func fade_to_indoors(duration: float) -> void:
 	var tween = create_tween().set_parallel(true)
-	tween.tween_property(indoor_player, "volume_db", 0.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	# Keeping outdoor ambience slightly audible (-25dB) for immersive atmosphere inside the store
-	tween.tween_property(outdoor_player, "volume_db", -25.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween.tween_property(indoor_player, "volume_db", -6.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	# Keeping outdoor ambience slightly audible (-30dB) for immersive atmosphere inside the store
+	tween.tween_property(outdoor_player, "volume_db", -30.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	print("AudioManager: Transitioning to indoor music.")
 
 func fade_to_outdoors(duration: float) -> void:
 	var tween = create_tween().set_parallel(true)
-	tween.tween_property(outdoor_player, "volume_db", 0.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(outdoor_player, "volume_db", -6.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.tween_property(indoor_player, "volume_db", -80.0, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	print("AudioManager: Transitioning to outdoor ambience.")
 

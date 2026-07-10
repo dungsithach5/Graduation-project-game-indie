@@ -449,3 +449,156 @@
 09:26:38: Area3D found, monitoring set to false initially
 09:29:39: Fire _ready() called. Node path: /root/sandbox/fireEffect
 09:29:39: Area3D found, monitoring set to false initially
+10:30:35: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:30:35: Area3D found, monitoring set to false initially
+10:31:44: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:31:44: Area3D found, monitoring set to false initially
+10:41:06: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:41:06: Area3D found, monitoring set to false initially
+10:45:10: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:45:10: Area3D found, monitoring set to false initially
+10:46:43: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:46:43: Area3D found, monitoring set to false initially
+10:47:37: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:47:37: Area3D found, monitoring set to false initially
+10:52:45: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:52:45: Area3D found, monitoring set to false initially
+10:57:38: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:57:38: Area3D found, monitoring set to false initially
+10:58:50: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:58:50: Area3D found, monitoring set to false initially
+11:05:00: Fire _ready() called. Node path: /root/sandbox/fireEffect
+11:05:00: Area3D found, monitoring set to false initially
+11:07:55: Fire event requested. Activating fire.
+11:07:55: Body entered fire Area3D: Door (Group 'player': false)
+11:07:55: Body entered fire Area3D: StaticBody3D (Group 'player': false)
+11:08:05: Body exited fire Area3D: Door
+11:08:05: Body exited fire Area3D: StaticBody3D
+11:22:37: Fire _ready() called. Node path: /root/sandbox/fireEffect
+11:22:37: Area3D found, monitoring set to false initially
+11:39:55: Fire _ready() called. Node path: /root/sandbox/fireEffect
+11:39:55: Area3D found, monitoring set to false initially
+12:18:12: Fire _ready() called. Node path: /root/sandbox/fireEffect
+12:18:12: Area3D found, monitoring set to false initially
+12:22:38: Fire _ready() called. Node path: /root/sandbox/fireEffect
+12:22:38: Area3D found, monitoring set to false initially
+12:25:37: Fire event requested. Activating fire.
+12:25:37: Body entered fire Area3D: StaticBody3D (Group 'player': false)
+12:25:37: Body entered fire Area3D: Door (Group 'player': false)
+12:25:58: Body entered fire Area3D: Player (Group 'player': true)
+12:25:58: Player successfully set in range.
+12:26:06: Fire extinguished completely!
+12:26:07: Finishing extinguish.
+12:26:07: Resetting extinguish progress.
+12:26:07: Body exited fire Area3D: StaticBody3D
+12:26:07: Body exited fire Area3D: Door
+12:26:07: Body exited fire Area3D: Player
+12:26:07: Player exited range.
+12:27:45: Fire _ready() called. Node path: /root/sandbox/fireEffect
+12:27:45: Area3D found, monitoring set to false initially
+12:30:51: Fire _ready() called. Node path: /root/sandbox/fireEffect
+12:30:51: Area3D found, monitoring set to false initially
+09:15:26: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:15:26: Area3D found, monitoring set to false initially
+09:17:53: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:17:53: Area3D found, monitoring set to false initially
+09:24:55: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:24:55: Area3D found, monitoring set to false initially
+09:40:33: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:40:33: Area3D found, monitoring set to false initially
+09:44:39: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:44:39: Area3D found, monitoring set to false initially
+09:47:57: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:47:57: Area3D found, monitoring set to false initially
+09:48:40: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:48:40: Area3D found, monitoring set to false initially
+09:49:47: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:49:47: Area3D found, monitoring set to false initially
+09:51:35: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:51:35: Area3D found, monitoring set to false initially
+09:52:37: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:52:37: Area3D found, monitoring set to false initially
+09:56:02: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:56:02: Area3D found, monitoring set to false initially
+16:19:41: Fire _ready() called. Node path: /root/sandbox/fireEffect
+16:19:41: Area3D found, monitoring set to false initially
+16:35:16: Fire _ready() called. Node path: /root/sandbox/fireEffect
+16:35:16: Area3D found, monitoring set to false initially
+16:38:37: Fire _ready() called. Node path: /root/sandbox/fireEffect
+16:38:37: Area3D found, monitoring set to false initially
+16:41:16: Fire _ready() called. Node path: /root/sandbox/fireEffect
+16:41:16: Area3D found, monitoring set to false initially
+05:30:32: Fire _ready() called. Node path: /root/sandbox/fireEffect
+05:30:32: Area3D found, monitoring set to false initially
+05:32:50: Fire _ready() called. Node path: /root/sandbox/fireEffect
+05:32:50: Area3D found, monitoring set to false initially
+05:36:53: Fire _ready() called. Node path: /root/sandbox/fireEffect
+05:36:53: Area3D found, monitoring set to false initially
+05:38:32: Fire _ready() called. Node path: /root/sandbox/fireEffect
+05:38:32: Area3D found, monitoring set to false initially
+05:39:49: Fire _ready() called. Node path: /root/sandbox/fireEffect
+05:39:49: Area3D found, monitoring set to false initially
+05:42:55: Fire _ready() called. Node path: /root/sandbox/fireEffect
+05:42:55: Area3D found, monitoring set to false initially
+05:44:31: Fire _ready() called. Node path: /root/sandbox/fireEffect
+05:44:31: Area3D found, monitoring set to false initially
+05:47:15: Fire _ready() called. Node path: /root/sandbox/fireEffect
+05:47:15: Area3D found, monitoring set to false initially
+05:55:48: Fire _ready() called. Node path: /root/sandbox/fireEffect
+05:55:48: Area3D found, monitoring set to false initially
+06:01:40: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:01:40: Area3D found, monitoring set to false initially
+06:07:11: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:07:11: Area3D found, monitoring set to false initially
+06:13:19: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:13:20: Area3D found, monitoring set to false initially
+06:14:33: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:14:33: Area3D found, monitoring set to false initially
+06:15:33: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:15:33: Area3D found, monitoring set to false initially
+06:17:45: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:17:45: Area3D found, monitoring set to false initially
+06:22:04: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:22:04: Area3D found, monitoring set to false initially
+06:33:11: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:33:11: Area3D found, monitoring set to false initially
+06:38:19: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:38:22: Area3D found, monitoring set to false initially
+06:40:29: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:40:29: Area3D found, monitoring set to false initially
+06:41:39: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:41:39: Area3D found, monitoring set to false initially
+06:42:38: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:42:38: Area3D found, monitoring set to false initially
+06:52:42: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:52:42: Area3D found, monitoring set to false initially
+06:56:54: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:56:54: Area3D found, monitoring set to false initially
+06:58:43: Fire _ready() called. Node path: /root/sandbox/fireEffect
+06:58:43: Area3D found, monitoring set to false initially
+07:04:15: Fire _ready() called. Node path: /root/sandbox/fireEffect
+07:04:15: Area3D found, monitoring set to false initially
+07:09:04: Fire _ready() called. Node path: /root/sandbox/fireEffect
+07:09:04: Area3D found, monitoring set to false initially
+07:11:06: Fire _ready() called. Node path: /root/sandbox/fireEffect
+07:11:06: Area3D found, monitoring set to false initially
+07:13:02: Fire _ready() called. Node path: /root/sandbox/fireEffect
+07:13:02: Area3D found, monitoring set to false initially
+07:15:50: Fire _ready() called. Node path: /root/sandbox/fireEffect
+07:15:50: Area3D found, monitoring set to false initially
+07:34:50: Fire _ready() called. Node path: /root/sandbox/fireEffect
+07:34:50: Area3D found, monitoring set to false initially
+07:51:11: Fire _ready() called. Node path: /root/sandbox/fireEffect
+07:51:11: Area3D found, monitoring set to false initially
+09:34:06: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:34:06: Area3D found, monitoring set to false initially
+09:53:55: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:53:55: Area3D found, monitoring set to false initially
+09:57:58: Fire _ready() called. Node path: /root/sandbox/fireEffect
+09:57:58: Area3D found, monitoring set to false initially
+10:16:45: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:16:45: Area3D found, monitoring set to false initially
+10:21:22: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:21:22: Area3D found, monitoring set to false initially
+10:48:27: Fire _ready() called. Node path: /root/sandbox/fireEffect
+10:48:27: Area3D found, monitoring set to false initially

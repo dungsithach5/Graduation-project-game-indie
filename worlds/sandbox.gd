@@ -38,6 +38,14 @@ func _ready() -> void:
 		if Director.current_night_index != 2:
 			thaytu_node.queue_free()
 
+	# Thiết lập Night 3 (current_night_index = 2) - Spooky handler
+	if Director.current_night_index == 2:
+		var night3_handler = Node.new()
+		night3_handler.set_script(load("res://worlds/night3_spooky.gd"))
+		night3_handler.name = "Night3SpookyHandler"
+		call_deferred("add_child", night3_handler)
+		print("Sandbox: Night 3 - Spooky handler added")
+
 	# Thiết lập NPC1 ẩn từ đêm 3 trở đi (current_night_index >= 2)
 	var npc1_node = get_node_or_null("NPC1")
 	if npc1_node:

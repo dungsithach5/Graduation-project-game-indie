@@ -40,6 +40,9 @@ func _on_back_pressed() -> void:
 	_update_back_button()
 
 func _ready() -> void:
+	if has_node("/root/AudioManager"):
+		get_node("/root/AudioManager").play_menu_music()
+
 	current_panel = menu
 	_show_panel(menu)
 	_update_back_button()

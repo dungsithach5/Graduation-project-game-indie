@@ -72,6 +72,14 @@ func _trigger_jumpscare(player: Player) -> void:
 	triggered = true
 	waiting_for_turn_around = false
 	
+	# Play jumpscare scare sound
+	var jumpscare_audio = AudioStreamPlayer.new()
+	jumpscare_audio.stream = load("res://sounds/cringe-scare.mp3")
+	jumpscare_audio.volume_db = 8.0 # Make it scary loud
+	jumpscare_audio.bus = &"SFX"
+	add_child(jumpscare_audio)
+	jumpscare_audio.play()
+	
 	# 3. Snap player's camera to focus directly on NPC2
 	var dir_to_npc = (npc2.global_position - player.global_position)
 	var flat_dist = Vector2(dir_to_npc.x, dir_to_npc.z).length()

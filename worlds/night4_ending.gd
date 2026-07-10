@@ -35,6 +35,14 @@ var used_spots: Array = []
 var ending_screen_shown: bool = false
 var blackout_triggered: bool = false
 
+# Screen static noise for jumpscare
+var noise_layer: CanvasLayer = null
+var noise_rect: TextureRect = null
+var noise_textures: Array[ImageTexture] = []
+var noise_active: bool = false
+var noise_frame: int = 0
+var noise_timer: float = 0.0
+
 func _ready() -> void:
 	# Find all needed nodes from the sandbox root
 	var root = get_parent()
@@ -249,10 +257,9 @@ func _start_ending_b() -> void:
 	if player:
 		player.movement_locked = true
 	
-	# Make enemy rush toward player at high speed
+	# Make enemy rush toward player at high speed (manually processed in _process)
 	if enemy_body:
-		enemy_body.speed = 8.0  # Very fast rush
-		enemy_body.set_process(true)
+		enemy_body.set_process(false)
 		enemy_active = true
 	if enemy_node:
 		enemy_node.process_mode = Node.PROCESS_MODE_INHERIT
@@ -264,6 +271,12 @@ func _start_ending_b() -> void:
 func _trigger_jumpscare_ending_b() -> void:
 	print("Night4Ending: Ending B - Jumpscare!")
 	enemy_active = false
+	
+	# Stop enemy animation during jumpscare
+	_stop_enemy_animations()
+	
+	# Start screen static noise overlay
+	_start_jumpscare_noise(2.5)
 	
 	# Snap camera to face the enemy
 	_snap_camera_to_enemy()
@@ -291,6 +304,29 @@ func _trigger_jumpscare_ending_b() -> void:
 # ============================================================
 
 func _process(delta: float) -> void:
+	# Update screen static noise frame if active
+	if noise_active and noise_rect and not noise_textures.is_empty():
+		noise_timer += delta
+		if noise_timer >= 0.04: # ~25 frames per second
+			noise_timer = 0.0
+			noise_frame = (noise_frame + 1) % noise_textures.size()
+			noise_rect.texture = noise_textures[noise_frame]
+
+	# Manually move enemy towards player during Ending B rush
+	if ending_active and ending_type == "B" and enemy_active and enemy_body and player:
+		var target_pos = player.global_position
+		var dir = (target_pos - enemy_body.global_position)
+		dir.y = 0
+		var dist = dir.length()
+		if dist > 0.5:
+			dir = dir.normalized()
+			enemy_body.global_position += dir * 14.0 * delta # Fast scary straight rush
+			if enemy_body.global_position.distance_to(target_pos) > 0.1:
+				var look_target = target_pos
+				look_target.y = enemy_body.global_position.y
+				enemy_body.look_at(look_target, Vector3.UP)
+				enemy_body.rotate_y(PI)
+
 	if not ending_active or ending_screen_shown:
 		return
 	
@@ -494,6 +530,12 @@ func _on_player_caught() -> void:
 	add_child(jumpscare_audio)
 	jumpscare_audio.play()
 	
+	# Stop enemy animation during jumpscare
+	_stop_enemy_animations()
+	
+	# Start screen static noise overlay
+	_start_jumpscare_noise(2.5)
+	
 	# Jumpscare - snap camera to enemy face
 	_snap_camera_to_enemy()
 	
@@ -630,3 +672,66 @@ func _disable_physics_recursive(node: Node) -> void:
 		node.collision_mask = 0
 	for child in node.get_children():
 		_disable_physics_recursive(child)
+
+func _init_noise_textures() -> void:
+	if not noise_textures.is_empty():
+		return
+	for i in range(8):
+		var img = Image.create(128, 128, false, Image.FORMAT_L8)
+		for y in range(128):
+			for x in range(128):
+				var grey = randf()
+				img.set_pixel(x, y, Color(grey, grey, grey, 1.0))
+		var tex = ImageTexture.create_from_image(img)
+		noise_textures.append(tex)
+
+func _start_jumpscare_noise(duration: float) -> void:
+	_init_noise_textures()
+	
+	if noise_layer:
+		noise_layer.queue_free()
+		
+	noise_layer = CanvasLayer.new()
+	noise_layer.layer = 150
+	
+	noise_rect = TextureRect.new()
+	noise_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	noise_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	noise_rect.stretch_mode = TextureRect.STRETCH_SCALE
+	noise_rect.texture_filter = Control.TEXTURE_FILTER_NEAREST
+	noise_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	noise_rect.modulate = Color(1, 1, 1, 0.08) # 8% opacity noise (very light)
+	
+	noise_layer.add_child(noise_rect)
+	add_child(noise_layer)
+	
+	noise_active = true
+	noise_frame = 0
+	noise_timer = 0.0
+	
+	# Animate the noise overlay fading in and then disappearing
+	var tween = create_tween()
+	tween.tween_property(noise_rect, "modulate:a", 0.12, 0.1)
+	tween.tween_property(noise_rect, "modulate:a", 0.06, 0.6)
+	tween.tween_property(noise_rect, "modulate:a", 0.1, 0.6)
+	tween.tween_interval(duration - 1.5)
+	tween.tween_property(noise_rect, "modulate:a", 0.0, 0.2)
+	tween.tween_callback(func():
+		noise_active = false
+		if is_instance_valid(noise_layer):
+			noise_layer.queue_free()
+			noise_layer = null
+	)
+
+func _stop_enemy_animations() -> void:
+	if not enemy_node:
+		return
+	_stop_animations_recursive(enemy_node)
+
+func _stop_animations_recursive(node: Node) -> void:
+	if node is AnimationPlayer:
+		node.stop()
+	elif node is AnimationTree:
+		node.active = false
+	for child in node.get_children():
+		_stop_animations_recursive(child)
