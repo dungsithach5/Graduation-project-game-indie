@@ -109,6 +109,29 @@ func _ready() -> void:
 		item_to_spawn = load("res://models/objects/item.tscn")
 		print("NPC Customer (Self-Healing): Loaded default item_to_spawn")
 
+	_sync_table_waypoint_index()
+
+
+func _sync_table_waypoint_index() -> void:
+	if waypoints.is_empty() or not is_instance_valid(table_spawn_point):
+		return
+
+	var closest_index := 0
+	var closest_distance := INF
+	var table_position := table_spawn_point.global_transform.origin
+
+	for index in waypoints.size():
+		var waypoint := waypoints[index]
+		if not is_instance_valid(waypoint):
+			continue
+
+		var distance := waypoint.global_transform.origin.distance_squared_to(table_position)
+		if distance < closest_distance:
+			closest_distance = distance
+			closest_index = index
+
+	table_waypoint_index = closest_index
+
 
 func _process(delta: float) -> void:
 	_update_head_look_at(delta)
