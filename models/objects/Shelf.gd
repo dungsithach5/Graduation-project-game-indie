@@ -24,6 +24,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	_update_restock_prompt()
+
 	if !is_full and player_in_range and player_ref:
 		if Input.is_action_pressed("hold_interact") and player_ref.interaction_controller.current_object != null:
 			is_restocking = true
@@ -74,6 +76,43 @@ func _reset_restock() -> void:
 		progress_bar.visible = false
 		progress_bar.value = 0
 
+func _update_restock_prompt() -> void:
+	if not player_ref or not player_ref.interaction_controller:
+		return
+
+	if is_full or not player_in_range:
+		_clear_restock_prompt()
+		return
+
+	if _is_holding_stock(player_ref):
+		_show_restock_prompt()
+	else:
+		_clear_restock_prompt()
+
+func _show_restock_prompt() -> void:
+	if player_ref and player_ref.interaction_controller:
+		player_ref.interaction_controller.forced_label_text = "Hold [F] to restock"
+
+func _clear_restock_prompt() -> void:
+	if player_ref and player_ref.interaction_controller:
+		if player_ref.interaction_controller.forced_label_text == "Hold [F] to restock":
+			player_ref.interaction_controller.forced_label_text = ""
+
+func _is_holding_stock(player: Node) -> bool:
+	if not player or not player.interaction_controller:
+		return false
+
+	var held_object = player.interaction_controller.current_object
+	if held_object == null:
+		return false
+
+	var obj_name = held_object.name.to_lower()
+	var parent_name = ""
+	if held_object.get_parent():
+		parent_name = held_object.get_parent().name.to_lower()
+
+	return "stock" in obj_name or "stock" in parent_name
+
 func _finish_restock() -> void:
 	if player_ref and player_ref.interaction_controller.current_object:
 		player_ref.interaction_controller.current_object.queue_free()
@@ -91,9 +130,11 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		player_in_range = true
 		player_ref = body
+		_update_restock_prompt()
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.is_in_group("player"):
+		_clear_restock_prompt()
 		player_in_range = false
 		player_ref = null
 		_reset_restock()

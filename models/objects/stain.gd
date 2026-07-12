@@ -34,6 +34,8 @@ func _on_clean_floor_requested(count: int) -> void:
 	set_stain_active(true)
 
 func _process(delta: float) -> void:
+	_update_clean_prompt()
+
 	if not visible:
 		return
 	if player_in_range and player_ref:
@@ -74,6 +76,44 @@ func _reset_clean() -> void:
 	if progress_bar:
 		progress_bar.visible = false
 		progress_bar.value = 0
+	_clear_clean_prompt()
+
+func _update_clean_prompt() -> void:
+	if not player_ref or not player_ref.interaction_controller:
+		return
+
+	if not visible or not player_in_range:
+		_clear_clean_prompt()
+		return
+
+	if _is_holding_broom(player_ref):
+		_show_clean_prompt()
+	else:
+		_clear_clean_prompt()
+
+func _show_clean_prompt() -> void:
+	if player_ref and player_ref.interaction_controller:
+		player_ref.interaction_controller.forced_label_text = "Hold [F] to clean"
+
+func _clear_clean_prompt() -> void:
+	if player_ref and player_ref.interaction_controller:
+		if player_ref.interaction_controller.forced_label_text == "Hold [F] to clean":
+			player_ref.interaction_controller.forced_label_text = ""
+
+func _is_holding_broom(player: Node) -> bool:
+	if not player or not player.interaction_controller:
+		return false
+
+	var held_object = player.interaction_controller.current_object
+	if held_object == null:
+		return false
+
+	var obj_name = held_object.name.to_lower()
+	var parent_name = ""
+	if held_object.get_parent():
+		parent_name = held_object.get_parent().name.to_lower()
+
+	return "broom" in obj_name or "broom" in parent_name
 
 func _finish_clean() -> void:
 	_reset_clean()
@@ -90,9 +130,11 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		player_in_range = true
 		player_ref = body
+		_update_clean_prompt()
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.is_in_group("player"):
+		_clear_clean_prompt()
 		player_in_range = false
 		player_ref = null
 		_reset_clean()
