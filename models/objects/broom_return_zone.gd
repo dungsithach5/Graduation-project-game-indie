@@ -81,7 +81,7 @@ func _process(_delta: float) -> void:
 	
 	# Tính khoảng cách đến player
 	var distance = global_position.distance_to(player_ref.global_position)
-	if distance > 2.0:
+	if distance > 0.8:
 		# Ngoài khoảng cách -> reset trạng thái và xóa label gợi ý
 		_was_holding_broom = false
 		_last_held_broom_obj = null
