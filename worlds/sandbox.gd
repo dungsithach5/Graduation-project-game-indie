@@ -119,8 +119,18 @@ func _ready() -> void:
 	Director.start_shift()
 
 
-	customers = find_children("npc_customer*", "", true, false)
-	customers.sort_custom(func(a, b): return a.name < b.name)
+	customers = []
+	# Tìm tất cả NPC khách hàng bằng cách kiểm tra hàm duy nhất của họ (spawn_item_on_table)
+	var all_nodes = find_children("*", "", true, false)
+	for n in all_nodes:
+		if n.has_method("spawn_item_on_table"):
+			customers.append(n)
+			
+	# Trộn ngẫu nhiên danh sách khách hàng để họ xuất hiện (spawn) ngẫu nhiên
+	customers.shuffle()
+	
+	print("Sandbox: Đã tìm thấy ", customers.size(), " NPC khách hàng: ", customers.map(func(c): return c.name))
+
 	for c in customers:
 		c.visible = false
 		c.process_mode = Node.PROCESS_MODE_DISABLED

@@ -34,6 +34,9 @@ directories/dtl_directory={
 "dialogic_after_fire": "res://dialogic_stuff/dialogic_after_fire.dtl",
 "dialogic_after_restock": "res://dialogic_stuff/dialogic_after_restock.dtl",
 "dialogic_customer_1": "res://dialogic_stuff/dialogic_customer_1.dtl",
+"dialogic_customer_random1": "res://dialogic_stuff/dialogic_customer_random1.dtl",
+"dialogic_customer_random2": "res://dialogic_stuff/dialogic_customer_random2.dtl",
+"dialogic_customer_random3": "res://dialogic_stuff/dialogic_customer_random3.dtl",
 "dialogic_jumpscare": "res://dialogic_stuff/dialogic_jumpscare.dtl",
 "dialogic_night4": "res://dialogic_stuff/dialogic_night4.dtl",
 "dialogic_off_work": "res://dialogic_stuff/dialogic_off_work.dtl",
@@ -44,7 +47,8 @@ glossary/default_case_sensitive=true
 layout/style_list=["res://dialogic_stuff/style_panel.tres"]
 layout/default_style="res://dialogic_stuff/Style_panel.tres"
 variables={
-"accepted_talisman": "false"
+"accepted_talisman": "false",
+"customer_name": "\"\""
 }
 extensions_folder="res://addons/dialogic_additions"
 text/letter_speed=0.01

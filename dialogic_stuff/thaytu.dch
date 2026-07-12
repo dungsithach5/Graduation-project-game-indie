@@ -12,9 +12,9 @@
 },
 &"default_portrait": "",
 &"description": "",
-&"display_name": "Thaytu",
+&"display_name": "Priest",
 &"mirror": false,
-&"nicknames": ["Thaytu"],
+&"nicknames": ["Priest"],
 &"offset": Vector2(0, 0),
 &"portraits": {},
 &"scale": 1.0

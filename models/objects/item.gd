@@ -21,6 +21,14 @@ func _scan_item() -> void:
 	is_scanned = true
 	print("Item scanned!")
 	
+	# Play scanner beep sound
+	var beep_player = AudioStreamPlayer.new()
+	beep_player.stream = load("res://sounds/scanner-beep.mp3")
+	beep_player.volume_db = 15.0 # Make it louder!
+	get_tree().current_scene.add_child(beep_player)
+	beep_player.play()
+	beep_player.finished.connect(beep_player.queue_free)
+	
 	if owner_npc and owner_npc.has_method("all_items_scanned"):
 		owner_npc.all_items_scanned()
 		

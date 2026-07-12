@@ -11,7 +11,7 @@ radius = 0.45
 height = 1.0
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_rkbax"]
-length = 0.21511509
+length = 0.22672777
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(0.9806659, 0, -0.19568941, 0, 1, 0, 0.19568941, 0, 0.9806659, 0, 0, 0)
@@ -36,7 +36,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.747081, 0)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, -1.4901161e-08, 0, 1, 0, 0, 0, 1, 0.003, -0.111, 0.014)
 current = true
-fov = 55.0
+fov = 90.0
 
 [node name="InteractionRaycast" type="RayCast3D" parent="Head/Eyes/Camera3D"]
 unique_name_in_owner = true
@@ -53,5 +53,5 @@ target_position = Vector3(0, 2, 0)
 unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.9640301, 0.1953286, -0.18025716, -0.19532858, 0.06070011, -0.97885764, -0.18025722, 0.97885764, 0.09666999, -0.1258977, 0.22015458, -0.63091606)
+transform = Transform3D(0.9640301, 0.1953286, -0.18025716, -0.19532858, 0.06070011, -0.97885764, -0.18025722, 0.97885764, 0.09666999, -0.1258977, 0.20167136, -0.63091606)
 shape = SubResource("SeparationRayShape3D_rkbax")

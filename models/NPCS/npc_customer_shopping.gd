@@ -21,6 +21,7 @@ var state: State = State.IDLE
 @export var table_spawn_point: Node3D
 @export var dialogic_timeline: String = "dialogic_customer_1"
 var current_waypoint_index: int = 0
+var npc_name: String = ""
 
 #TIMER
 var idle_wait_time: float = 1.5 # wait time
@@ -42,12 +43,38 @@ func _ready() -> void:
 		animation_tree.active = true
 	_randomize_appearance()
 	
+	# Randomize dialogue timeline with fun ghost-month themed options
+	var timelines = [
+		"dialogic_customer_1",
+		"dialogic_customer_random1",
+		"dialogic_customer_random2",
+		"dialogic_customer_random3"
+	]
+	dialogic_timeline = timelines[randi() % timelines.size()]
+	
+	# Randomize customer name (English names only)
+	var random_names = [
+		"Alex", "John", "Sarah", "David", "Emma", "Tom", "Jerry", "Kevin", "Bob", "Alice",
+		"James", "Mary", "Michael", "Patricia", "Robert", "Jennifer", "William", "Linda",
+		"Elizabeth", "Barbara", "Susan", "Jessica", "Karen", "Nancy", "Lisa", "Betty"
+	]
+	npc_name = random_names[randi() % random_names.size()]
+	
+	print("NPC Customer ", name, " (", npc_name, "): Assigned random dialogue timeline: ", dialogic_timeline)
+	
 	skeleton = get_node_or_null("Walking/Skeleton3D")
 	if skeleton:
 		head_bone_idx = skeleton.find_bone("mixamorig_Head")
 		neck_bone_idx = skeleton.find_bone("mixamorig_Neck")
 
 	# --- Self-healing fallback for waypoints ---
+	# Filter out any null waypoints that might have been broken during editor restructuring
+	var valid_waypoints: Array[Node3D] = []
+	for wp in waypoints:
+		if is_instance_valid(wp):
+			valid_waypoints.append(wp)
+	waypoints = valid_waypoints
+
 	if waypoints.is_empty():
 		var parent = get_parent()
 		if parent:
@@ -68,10 +95,14 @@ func _ready() -> void:
 					table_waypoint_index = 1
 
 	# --- Self-healing fallback for table_spawn_point ---
-	if not table_spawn_point:
-		table_spawn_point = get_node_or_null("../../Marker3D")
+	if not is_instance_valid(table_spawn_point):
+		# Search the root scene for Marker3D
+		if is_inside_tree():
+			table_spawn_point = get_tree().current_scene.find_child("Marker3D", true, false)
 		if table_spawn_point:
-			print("NPC Customer (Self-Healing): Resolved table_spawn_point to '../../Marker3D'")
+			print("NPC Customer (Self-Healing): Resolved table_spawn_point to Marker3D at ", table_spawn_point.get_path())
+		else:
+			table_spawn_point = get_node_or_null("../../Marker3D")
 
 	# --- Self-healing fallback for item_to_spawn ---
 	if not item_to_spawn:
@@ -190,6 +221,10 @@ func spawn_item_on_table() -> void:
 		_setup_talk_interaction()
 
 func _setup_talk_interaction() -> void:
+	# Set the dynamic customer name variable in Dialogic
+	if "VAR" in Dialogic:
+		Dialogic.VAR.set_variable("customer_name", npc_name)
+		
 	var interaction_comp_scene = load("res://interaction/interaction_component.tscn")
 	if interaction_comp_scene:
 		var comp = interaction_comp_scene.instantiate()
@@ -206,6 +241,9 @@ func _setup_talk_interaction() -> void:
 func _on_dialogue_started() -> void:
 	var comp = get_node_or_null("InteractionComponent")
 	if comp and comp.is_interacting:
+		# Double-safe override of the Dialogic variable when conversation starts
+		if "VAR" in Dialogic:
+			Dialogic.VAR.set_variable("customer_name", npc_name)
 		if Dialogic.timeline_started.is_connected(_on_dialogue_started):
 			Dialogic.timeline_started.disconnect(_on_dialogue_started)
 		comp.can_interact = false

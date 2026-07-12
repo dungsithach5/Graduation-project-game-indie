@@ -1,3 +1,4 @@
 npc_1: Ah, you're here. I'm handing over tonight's shift to you.
-player: Hello, boss. Anything special I should know about tonight?
-npc_1: Just restock the shelves and keep the floor clean. Also... there have been some weird rumors about this place at night... Just ignore them and focus on your work. I'm heading out now.
+player: Hello, boss. What are my tasks for tonight?
+npc_1: There are some stocks left in the backroom. Bring them out and put them on the shelves, then make sure to keep the floor clean. I'm heading out now, goodbye!
+player: Understood. Have a safe trip home, boss!

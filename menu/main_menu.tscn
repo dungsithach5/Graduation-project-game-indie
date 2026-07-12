@@ -5387,7 +5387,7 @@ flip_faces = true
 size = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_74ndv"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0, 0, 0, 0.46666667)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4pkut"]
 resource_name = "Material.011"

@@ -25,7 +25,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if interact_label == null:
-		interact_label = get_tree().get_first_node_in_group("interact_label")
+		var nodes = get_tree().get_nodes_in_group("interact_label")
+		for node in nodes:
+			if node is Label:
+				interact_label = node
+				break
 		if interact_label:
 			interact_label.hide()
 			
@@ -67,6 +71,13 @@ func _process(delta: float) -> void:
 		
 		if potential_object and potential_object is Node:
 			interaction_component = potential_object.get_node_or_null("InteractionComponent")
+			if not interaction_component:
+				var parent = potential_object.get_parent()
+				while parent and parent != get_tree().current_scene:
+					interaction_component = parent.get_node_or_null("InteractionComponent")
+					if interaction_component:
+						break
+					parent = parent.get_parent()
 			if interaction_component:
 				if interaction_component.can_interact == false:
 					if interact_label:
@@ -114,9 +125,9 @@ func _process(delta: float) -> void:
 				last_potential_object = current_object
 
 				var pick_up = false
-				if (interaction_component.interaction_type == interaction_component.InteractionType.DEFAULT 
-					or interaction_component.interaction_type == interaction_component.InteractionType.DOOR 
-					or interaction_component.interaction_type == 6 
+				if (interaction_component.interaction_type == interaction_component.InteractionType.DEFAULT
+					or interaction_component.interaction_type == interaction_component.InteractionType.DOOR
+					or interaction_component.interaction_type == 6
 					or interaction_component.interaction_type == 7
 					or interaction_component.interaction_type == interaction_component.InteractionType.NPC_THAYTU):
 					if Input.is_action_just_pressed("interact"):
@@ -142,7 +153,7 @@ func _process(delta: float) -> void:
 				interact_label.text = "[E] Go Home"
 			elif interaction_component and interaction_component.interaction_type == 7: # 7 là FUSE_BOX
 				interact_label.text = "[E] Turn on Power"
-			elif interaction_component and (interaction_component.interaction_type == interaction_component.InteractionType.NPC 
+			elif interaction_component and (interaction_component.interaction_type == interaction_component.InteractionType.NPC
 				or interaction_component.interaction_type == interaction_component.InteractionType.NPC_THAYTU):
 				interact_label.text = "[E] Talk"
 			else:

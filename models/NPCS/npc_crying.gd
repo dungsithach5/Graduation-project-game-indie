@@ -43,8 +43,10 @@ func set_npc_active(active: bool) -> void:
 	if active:
 		if anim:
 			anim.play("mixamo_com")
-		if audio and not audio.playing:
-			audio.play()
+		if audio:
+			audio.volume_db = 22.0
+			if not audio.playing:
+				audio.play()
 	else:
 		if anim:
 			anim.stop()

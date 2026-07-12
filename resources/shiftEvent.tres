@@ -1,20 +1,9 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b8ti3joucvcuf"]
+[gd_resource type="Resource" script_class="shiftEvent" load_steps=2 format=3 uid="uid://j5ccp8we441l"]
 
-[sub_resource type="GDScript" id="GDScript_6jwqt"]
-script/source = "extends Resource
-#class_name shiftEvent
-
-enum EventType {
-	RESTOCK_SHELVES,
-	CUSTOMER_SHOPPING,
-	MONSTER_INTERACTION
-}
-@export var type: EventType = EventType.RESTOCK_SHELVES
-@export var delay: float = 0.0
-@export var task_count_required: int = 1
-@export var description: String = \"\"
-"
+[ext_resource type="Script" uid="uid://dw3asa20ormbb" path="res://resources/shiftEvent.gd" id="1_eh5vb"]
 
 [resource]
-script = SubResource("GDScript_6jwqt")
-description = "Restock shelves"
+script = ExtResource("1_eh5vb")
+type = 5
+description = "Go Home"
+metadata/_custom_type_script = "uid://dw3asa20ormbb"

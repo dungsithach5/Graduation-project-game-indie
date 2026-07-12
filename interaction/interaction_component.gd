@@ -25,6 +25,7 @@ var starting_rotation: float
 var is_front: bool
 var is_open: bool = false
 var door_tween: Tween
+var distance_check_timer: float = 0.0
 
 var player_hand: Marker3D
 var camera: Camera3D
@@ -35,7 +36,8 @@ func _ready():
 		
 	match interaction_type:
 		InteractionType.DOOR:
-			starting_rotation = pivot_point.rotation.y
+			if pivot_point:
+				starting_rotation = pivot_point.rotation.y
 		InteractionType.SWITCH:
 			starting_rotation = object_ref.rotation.z
 			maximum_rotation = deg_to_rad(rad_to_deg(starting_rotation) + maximum_rotation)
@@ -43,6 +45,127 @@ func _ready():
 			starting_rotation = object_ref.rotation.z
 			maximum_rotation = deg_to_rad(rad_to_deg(starting_rotation) + maximum_rotation)
 			camera = get_tree().get_current_scene().find_child("Camera3D", true, false)
+
+func _check_npcs_distance(delta: float) -> void:
+	distance_check_timer += delta
+	if distance_check_timer < 0.1:
+		return
+	distance_check_timer = 0.0
+	
+	if not pivot_point:
+		return
+		
+	var door_pos = pivot_point.global_transform.origin
+	var npc_detected = false
+	
+	# Check distance for player
+	var player = get_tree().get_first_node_in_group("player")
+	if not player:
+		var root = get_tree().current_scene
+		if root:
+			player = root.find_child("player", true, false)
+			
+	if player and is_instance_valid(player) and player is Node3D:
+		var dist = door_pos.distance_to(player.global_transform.origin)
+		if dist < 3.0:
+			npc_detected = true
+			
+	# If player not detected close, check for NPCs
+	if not npc_detected:
+		var all_npcs = []
+		all_npcs.append_array(get_tree().get_nodes_in_group("npc_customer_shopping"))
+		for n in get_tree().get_nodes_in_group("npc"):
+			if not n in all_npcs:
+				all_npcs.append(n)
+				
+		if all_npcs.is_empty():
+			var root = get_tree().current_scene
+			if root:
+				all_npcs = _find_all_npcs_recursive(root)
+				
+		for npc in all_npcs:
+			if is_instance_valid(npc) and npc is Node3D:
+				var dist = door_pos.distance_to(npc.global_transform.origin)
+				if dist < 3.0:
+					npc_detected = true
+					break
+				
+	if npc_detected:
+		if not is_open:
+			set_door_open(true)
+	else:
+		if is_open and not is_interacting:
+			set_door_open(false)
+
+func _find_all_npcs_recursive(node: Node) -> Array:
+	var result = []
+	if is_instance_valid(node):
+		if "npc" in node.name.to_lower() and node is Node3D and node != self and node != get_parent():
+			result.append(node)
+		for child in node.get_children():
+			result.append_array(_find_all_npcs_recursive(child))
+	return result
+
+func _is_main_door() -> bool:
+	if name.to_lower() == "door":
+		return true
+	if get_parent():
+		if get_parent().name.to_lower() == "door":
+			return true
+		if get_parent().get_parent() and get_parent().get_parent().name.to_lower() == "door":
+			return true
+	return false
+
+func _play_bell_sound() -> void:
+	if _is_main_door():
+		var bell_player = AudioStreamPlayer.new()
+		bell_player.stream = load("res://sounds/conveniencestore-bell.mp3")
+		bell_player.volume_db = 15.0 # Make it louder!
+		get_tree().current_scene.add_child(bell_player)
+		bell_player.play()
+		bell_player.finished.connect(bell_player.queue_free)
+
+func _is_door_locked() -> bool:
+	var current_scene = get_tree().current_scene
+	if current_scene:
+		var ending_handler = current_scene.get_node_or_null("Night4EndingHandler")
+		if ending_handler and ending_handler.get("blackout_triggered"):
+			return true
+	return false
+
+func set_door_open(open: bool) -> void:
+	if _is_door_locked() and _is_main_door():
+		if is_open:
+			is_open = false
+			if door_tween and door_tween.is_running():
+				door_tween.kill()
+			door_tween = create_tween()
+			door_tween.set_ease(Tween.EASE_OUT)
+			door_tween.set_trans(Tween.TRANS_SINE)
+			door_tween.tween_property(pivot_point, "rotation:y", starting_rotation, 0.5)
+		return
+
+	var was_open = is_open
+	is_open = open
+	if door_tween and door_tween.is_running():
+		door_tween.kill()
+	door_tween = create_tween()
+	door_tween.set_ease(Tween.EASE_OUT)
+	door_tween.set_trans(Tween.TRANS_SINE)
+	
+	var target_rotation = starting_rotation
+	if is_open:
+		if is_front:
+			target_rotation = starting_rotation - deg_to_rad(maximum_rotation)
+		else:
+			target_rotation = starting_rotation + deg_to_rad(maximum_rotation)
+			
+		# Play bell sound when opening
+		if not was_open:
+			_play_bell_sound()
+	
+	door_tween.tween_property(pivot_point, "rotation:y", target_rotation, 0.5)
+
 # run once, when the player FISRT clicks on an object is interact with
 func preInteract(hand: Marker3D) -> void:
 	is_interacting = true
@@ -56,21 +179,7 @@ func preInteract(hand: Marker3D) -> void:
 					if child is CollisionShape3D:
 						child.disabled = true
 		InteractionType.DOOR:
-			is_open = !is_open
-			if door_tween and door_tween.is_running():
-				door_tween.kill()
-			door_tween = create_tween()
-			
-			var target_rotation = starting_rotation
-			if is_open:
-				if is_front:
-					target_rotation = starting_rotation - deg_to_rad(maximum_rotation)
-				else:
-					target_rotation = starting_rotation + deg_to_rad(maximum_rotation)
-			
-			door_tween.set_ease(Tween.EASE_OUT)
-			door_tween.set_trans(Tween.TRANS_SINE)
-			door_tween.tween_property(pivot_point, "rotation:y", target_rotation, 0.5)
+			set_door_open(!is_open)
 		InteractionType.NPC:
 			Dialogic.start(dialogue_timeline)
 			
@@ -160,7 +269,10 @@ func _default_interact() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if interaction_type == InteractionType.DOOR and pivot_point:
+		if _is_door_locked() and _is_main_door():
+			can_interact = false
+		_check_npcs_distance(delta)
 
 func _default_throw() -> void:
 	var rigid_body_3d: RigidBody3D = object_ref as RigidBody3D
@@ -177,4 +289,5 @@ func set_direction(_normal: Vector3) -> void:
 	if _normal.z == 0:
 		is_front = true
 	else:
+		is_front = false
 		is_front = false

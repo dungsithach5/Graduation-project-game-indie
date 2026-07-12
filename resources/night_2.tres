@@ -18,6 +18,7 @@ metadata/_custom_type_script = "uid://dw3asa20ormbb"
 [sub_resource type="Resource" id="Resource_mpu6l"]
 script = ExtResource("1_485ra")
 type = 2
+task_count_required = 3
 description = "Wait for customers at the cashier"
 metadata/_custom_type_script = "uid://dw3asa20ormbb"
 

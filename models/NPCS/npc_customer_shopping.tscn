@@ -7,7 +7,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://b2n6m2d3oha1y" path="res://models/animations/AnimaWalking.res" id="4_72kt5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qme3b"]
-size = Vector3(0.6352539, 1.7650146, 0.3445282)
+size = Vector3(0.6352539, 1.8591614, 0.4740219)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oi354"]
 resource_name = "Character_01"
@@ -131,7 +131,7 @@ shader = ExtResource("3_dki6s")
 shader_parameter/affine_mapping = false
 shader_parameter/albedo = ExtResource("2_qme3b")
 shader_parameter/alpha_scissor = 0.5
-shader_parameter/jitter = 0.50000002375
+shader_parameter/jitter = 0.6000000285
 shader_parameter/resolution = Vector2i(320, 240)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_72kt5"]
@@ -169,11 +169,13 @@ length = 0.21511509
 [node name="npc_customer_shopping" type="CharacterBody3D"]
 script = ExtResource("1_qme3b")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025757402, 0.93139434, -0.006841302)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025757402, 0.97846776, 0.057905555)
 shape = SubResource("BoxShape3D_qme3b")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="Walking" type="Node3D" parent="."]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)

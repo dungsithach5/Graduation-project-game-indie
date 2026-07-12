@@ -1,8 +1,29 @@
-thaytu: Child... listen to me.
-thaytu: I have a talisman that seals evil spirits. Do you wish to accept it?
+thaytu: Wait a moment. There is something unusual inside this store.
+player: What are you talking about?
+thaytu: The air here feels heavy… and unnaturally cold.
+player: The air conditioner barely works. Maybe you are overthinking it.
+thaytu: Ordinary cold does not cling to a person’s shadow.
+player: Are you saying there is a ghost in the store?
+thaytu: Something has entered this place. It has not revealed itself yet, but it is already watching you.
+player: I do not believe in ghosts.
+thaytu: You do not have to believe. But if it calls your name, do not answer.
+thaytu: Take this talisman and keep it with you until sunrise.
 - Accept
-	player: Yes, I will accept it. Thank you, master!
-	set accepted_talisman = true
+	player: Fine. If taking it will put your mind at ease, I will keep it.
+	thaytu: There are four talismans inside this pouch. Keep them safe.
+	player: What am I supposed to do with them?
+	thaytu: If the spirit appears, place one talisman on each of the four corners of the room.
+	player: And that is supposed to stop it?
+	thaytu: Once all four talismans are in position, they will form a barrier and drive the evil spirit away.
+	player: That does not sound very convincing.
+	thaytu: Once you see it, you will no longer doubt my words.
+	thaytu: Remember, every corner must be sealed. If even one talisman falls, the barrier will break.
+	player: Remember, every corner must be sealed. If even one talisman falls, the barrier will break.
+	thaytu: If the writing on the talismans turns black, it means the spirit is close. Complete the barrier before it is too late.
+	set {accepted_talisman} = false
 - Decline
-	player: No, I don't think I need it.
-	set accepted_talisman = false
+	player: No, thanks. I do not believe in charms or ghosts.
+	thaytu: Belief will not protect you
+	player: I can take care of myself.
+	thaytu: Then remember this\: if something calls your name, do not answer.
+	set {accepted_talisman} = false
