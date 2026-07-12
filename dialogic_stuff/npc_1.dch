@@ -12,7 +12,7 @@
 },
 &"default_portrait": "",
 &"description": "",
-&"display_name": "npc_1",
+&"display_name": "Manager",
 &"mirror": false,
 &"nicknames": ["npc_1"],
 &"offset": Vector2(0, 0),
