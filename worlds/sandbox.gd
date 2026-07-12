@@ -38,6 +38,12 @@ func _ready() -> void:
 		if Director.current_night_index != 2:
 			thaytu_node.queue_free()
 
+	# Thiết lập npc_knocking chỉ xuất hiện ở đêm 3 (current_night_index = 2)
+	var npc_knocking_node = get_node_or_null("npc_knocking")
+	if npc_knocking_node:
+		if Director.current_night_index != 2:
+			npc_knocking_node.queue_free()
+
 	# Thiết lập Night 3 (current_night_index = 2) - Spooky handler
 	if Director.current_night_index == 2:
 		var night3_handler = Node.new()

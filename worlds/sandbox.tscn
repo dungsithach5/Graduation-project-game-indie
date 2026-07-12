@@ -11358,7 +11358,7 @@ shadow_enabled = true
 layer = 100
 
 [node name="Player" parent="." instance=ExtResource("2_whpuv")]
-transform = Transform3D(0.9993975, 0, -0.034707583, 0, 1, 0, 0.034707583, 0, 0.9993975, -2.8241024, -0.12591133, -8.982068)
+transform = Transform3D(0.9993975, 0, -0.034707583, 0, 1, 0, 0.034707583, 0, 0.9993975, 12.227459, -0.12591133, 44.310863)
 
 [node name="Crosshair" parent="Player" instance=ExtResource("8_jpsdj")]
 
