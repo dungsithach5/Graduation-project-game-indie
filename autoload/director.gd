@@ -21,7 +21,7 @@ signal task_delay_started(delay: float)
 
 @export var nights: Array[ShiftData] = []
 
-var current_night_index: int = 2
+var current_night_index: int = 0
 var current_event_index: int = 0
 var shift_active: bool = false
 var delay_timer: float = 0.0
