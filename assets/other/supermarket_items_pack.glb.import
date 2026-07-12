@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cupk48aageqmr"
-path="res://.godot/imported/banhmi_cart.glb-ed4eca1a4be723406e52a9f44cd4d316.scn"
+uid="uid://darsp37jbjy7d"
+path="res://.godot/imported/supermarket_items_pack.glb-5133eeebef0fdd49b055caadaa05d03b.scn"
 
 [deps]
 
-source_file="res://assets/other/banhmi_cart.glb"
-dest_files=["res://.godot/imported/banhmi_cart.glb-ed4eca1a4be723406e52a9f44cd4d316.scn"]
+source_file="res://assets/other/supermarket_items_pack.glb"
+dest_files=["res://.godot/imported/supermarket_items_pack.glb-5133eeebef0fdd49b055caadaa05d03b.scn"]
 
 [params]
 

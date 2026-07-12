@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl5r0eg6r1uwb"
-path.s3tc="res://.godot/imported/banhmi_cart_0.png-ebfdff39a0070ccde8ee3cb82c30508e.s3tc.ctex"
+uid="uid://bhjgjycrtc2he"
+path.s3tc="res://.godot/imported/supermarket_items_pack_0.png-c7533dfa1e6704169f2da75bee5d0af0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "b8e02a6413c1177ba113d94a9f41989e"
+"md5": "50f92e8df7a16a29c06362634787f901"
 }
 
 [deps]
 
-source_file="res://assets/other/banhmi_cart_0.png"
-dest_files=["res://.godot/imported/banhmi_cart_0.png-ebfdff39a0070ccde8ee3cb82c30508e.s3tc.ctex"]
+source_file="res://assets/other/supermarket_items_pack_0.png"
+dest_files=["res://.godot/imported/supermarket_items_pack_0.png-c7533dfa1e6704169f2da75bee5d0af0.s3tc.ctex"]
 
 [params]
 
