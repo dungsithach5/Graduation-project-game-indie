@@ -25,7 +25,9 @@ func _ready() -> void:
 	)
 
 	# Tìm kiếm node cửa hàng và tính toán biên giới AABB
-	shop_node = get_node_or_null("NavigationRegion3D/weenmart/Sketchfab_model/6twelve_fbx/RootNode/6twelve")
+	shop_node = _get_weenmart_root()
+	if shop_node and shop_node.name != "6twelve":
+		shop_node = shop_node.find_child("6twelve", true, false)
 	if shop_node:
 		_calculate_shop_aabb(shop_node)
 		print("Sandbox: Bounding box cửa hàng đã được tính toán: ", shop_aabb)
@@ -94,7 +96,7 @@ func _ready() -> void:
 	Director.shift_ended.connect(_on_shift_ended)
 	
 	# Setup interaction for fuse boxes in the scene
-	var root_node = get_node_or_null("NavigationRegion3D/weenmart/Sketchfab_model/6twelve_fbx/RootNode")
+	var root_node = _get_weenmart_root()
 	if root_node:
 		for name in ["Fuse_Boxes", "Fuse_Boxes_01", "Fuse_Boxes_02"]:
 			var box_node = root_node.get_node_or_null(name)
@@ -298,3 +300,9 @@ func _find_static_body(node: Node) -> StaticBody3D:
 		if found:
 			return found
 	return null
+
+func _get_weenmart_root() -> Node3D:
+	var scene_root = get_node_or_null("NavigationRegion3D/weenmart/RootNode")
+	if scene_root:
+		return scene_root
+	return get_node_or_null("NavigationRegion3D/weenmart/Sketchfab_model/6twelve_fbx/RootNode")
