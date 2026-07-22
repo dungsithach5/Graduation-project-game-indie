@@ -1,0 +1,18 @@
+{
+  "audio": {
+    "master_volume": 1.0,
+    "music_volume": 0.8,
+    "sfx_volume": 0.9
+  },
+  "controls": {
+    "mouse_sensitivity": 0.005,
+    "invert_y": false
+  },
+  "graphics": {
+    "fullscreen": true,
+    "vsync": true
+  },
+  "localization": {
+    "language": "vi"
+  }
+}

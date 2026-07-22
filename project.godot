@@ -21,6 +21,7 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 Director="*res://autoload/director.tscn"
 TaskManager="*res://autoload/TaskManager.gd"
 AudioManager="*res://autoload/AudioManager.gd"
+DatabaseManager="*res://autoload/database_manager.gd"
 
 [dialogic]
 
@@ -31,7 +32,10 @@ directories/dch_directory={
 "thaytu": "res://dialogic_stuff/thaytu.dch"
 }
 directories/dtl_directory={
+"dialogic_after_broom": "res://dialogic_stuff/dialogic_after_broom.dtl",
+"dialogic_after_extinguisher": "res://dialogic_stuff/dialogic_after_extinguisher.dtl",
 "dialogic_after_fire": "res://dialogic_stuff/dialogic_after_fire.dtl",
+"dialogic_after_power": "res://dialogic_stuff/dialogic_after_power.dtl",
 "dialogic_after_restock": "res://dialogic_stuff/dialogic_after_restock.dtl",
 "dialogic_customer_1": "res://dialogic_stuff/dialogic_customer_1.dtl",
 "dialogic_customer_random1": "res://dialogic_stuff/dialogic_customer_random1.dtl",

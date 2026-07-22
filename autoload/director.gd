@@ -190,6 +190,12 @@ func _on_task_completed() -> void:
 			dialogue_to_play = "dialogic_off_work"
 		elif completed_event.type == 6: # EXTINGUISH_FIRE
 			dialogue_to_play = "dialogic_after_fire"
+		elif completed_event.type == 7: # TURN_ON_POWER
+			dialogue_to_play = "dialogic_after_power"
+		elif completed_event.type == 9: # RETURN_BROOM
+			dialogue_to_play = "dialogic_after_broom"
+		elif completed_event.type == 10: # RETURN_EXTINGUISHER
+			dialogue_to_play = "dialogic_after_extinguisher"
 	
 	current_event_index += 1
 	

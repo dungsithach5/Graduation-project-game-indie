@@ -18,12 +18,11 @@ thaytu: Take this talisman and keep it with you until sunrise.
 	player: That does not sound very convincing.
 	thaytu: Once you see it, you will no longer doubt my words.
 	thaytu: Remember, every corner must be sealed. If even one talisman falls, the barrier will break.
-	player: Remember, every corner must be sealed. If even one talisman falls, the barrier will break.
 	thaytu: If the writing on the talismans turns black, it means the spirit is close. Complete the barrier before it is too late.
-	set {accepted_talisman} = false
+	set {accepted_talisman} = true
 - Decline
 	player: No, thanks. I do not believe in charms or ghosts.
-	thaytu: Belief will not protect you
+	thaytu: Belief will not protect you.
 	player: I can take care of myself.
 	thaytu: Then remember this\: if something calls your name, do not answer.
 	set {accepted_talisman} = false
